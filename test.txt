@@ -1,2 +1,2 @@
-This is also an edit
-what even
+First line of a test
+Second line added
