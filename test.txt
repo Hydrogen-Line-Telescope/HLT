@@ -1,1 +1,2 @@
 First line of a test
+Here is a different second line of text
