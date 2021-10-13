@@ -1,35 +1,11 @@
-import pandas as pd
+import numpy as np
+import seaborn as sns
+from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
 from matplotlib import colors
+from scipy.stats import gaussian_kde
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-
-def two_dim_sel(freqdf, magdf):
-    # find max and min frequencies for red-blue shift bounds
-    freq_max = freqdf.to_numpy().max()
-    freq_min = freqdf.to_numpy().min()
-
-    cmap = colors.ListedColormap(['blue', 'red'])
-    bounds = [freq_min, 1420.405751, freq_max]
-    norm = colors.BoundaryNorm(bounds, cmap.N)
-
-    fig, ax = plt.subplots()
-
-    im = ax.imshow(freqdf, cmap=cmap, alpha=magdf, norm=norm, interpolation='catrom')
-    plt.axis('off')
-    plt.savefig('2-DSel.png', bbox_inches='tight', pad_inches=0)
-
-
-#def two_dim_sweep(freqdf, magdf):
-
-
-def one_dim_sweep(freqdf, magdf, num_scans):
-    x = 2
-
-
-freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data.csv')
-magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data.csv')
-
-two_dim_sel(freqdf, magdf)
 
 '''
 array = pd.DataFrame(freqdf).to_numpy()
