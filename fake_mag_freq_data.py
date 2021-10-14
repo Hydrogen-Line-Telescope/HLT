@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import random
 
 
 def two_dim_sel_data(height, width):
@@ -28,15 +29,10 @@ def one_dim_sweep_data(num_scans):
     freq_list = []
 
     for i in range(num_scans):
-        rng_mag = np.random.default_rng(seed=70)
-        mag = rng_mag.random((1, 1))
-        rng_freq = np.random.default_rng(seed=420)
-        freq = rng_freq.random((1, 1)) * 20 + 1410
-        mag_list.append(mag[0])
-        freq_list.append(freq[0])
-
-    print(mag_list)
-    print(freq_list)
+        mag = random.random()
+        freq =random.uniform(1410, 1430)
+        mag_list.append(mag)
+        freq_list.append(freq)
 
     magdf = pd.DataFrame(mag_list)
     freqdf = pd.DataFrame(freq_list)
@@ -45,6 +41,5 @@ def one_dim_sweep_data(num_scans):
     freqdf.to_csv('freq_data.csv', index=False)
 
 
-#one_dim_sweep_data(5)
-two_dim_sel_data(6, 10)
-
+one_dim_sweep_data(5)
+#two_dim_sel_data(6, 10)
