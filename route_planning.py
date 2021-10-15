@@ -18,5 +18,3 @@ def earth_rotation():
     #   - scan every 2/3 hour or 40 min
 
     y = 3
-
-
