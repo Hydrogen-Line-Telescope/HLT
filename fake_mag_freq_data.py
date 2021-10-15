@@ -18,11 +18,31 @@ def two_dim_sel_data(height, width):
     freqdf.to_csv('freq_data.csv', index=False)
 
 
-def two_dim_sweep_data():
-    x = 2
+def two_dim_sweep_data(num_scans):
+    # line (column) of pixels
+    # multiple scans
+    line_length = 15
+
+    magdf = pd.DataFrame()
+    freqdf = pd.DataFrame()
+
+    for i in range(num_scans):
+        mag_list = []
+        freq_list = []
+        for j in range(line_length):
+            mag = random.random()
+            freq = random.uniform(1410, 1430)
+            mag_list.append(mag)
+            freq_list.append(freq)
+
+        magdf.insert(i, i, mag_list)
+        freqdf.insert(i, i, freq_list)
+
+    magdf.to_csv('mag_data.csv', index=False)
+    freqdf.to_csv('freq_data.csv', index=False)
 
 
-def one_dim_sweep_data(num_scans):
+def one_dim_sweep_rpa_data(num_scans):
     # one pixel
     # multiple scans
     mag_list = []
@@ -41,5 +61,6 @@ def one_dim_sweep_data(num_scans):
     freqdf.to_csv('freq_data.csv', index=False)
 
 
-one_dim_sweep_data(5)
+#one_dim_sweep_rpa_data(10)
 #two_dim_sel_data(6, 10)
+two_dim_sweep_data(5)
