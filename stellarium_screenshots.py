@@ -9,6 +9,8 @@ def change_settings(url_main):
     full_screen = requests.post(url_main + 'stelaction/do', data={'id': 'actionSet_Full_Screen_Global'})
     print("Fullscreen: ", full_screen)
 
+    # set projection style
+
     # remove atmosphere view
     atmosphere = requests.post(url_main + 'stelaction/do', data={'id': 'actionShow_Atmosphere'})
     print("Atmosphere: ", atmosphere)
@@ -64,4 +66,18 @@ time.sleep(10)
 change_settings(url)
 time.sleep(3)
 take_screenshot(url)
+
+'''# Get a list of available action IDs:
+url_actions = "stelaction/list"
+actions = requests.get(url + url_actions)
+print(actions.status_code)
+if actions.status_code == 200:
+    print(actions.json())'''
+
+url_properties = "stelproperty/list"
+properties = requests.get(url + url_properties)
+print(properties.status_code)
+if properties.status_code == 200:
+    print(properties.json())
+
 proc_stellarium.kill()
