@@ -51,3 +51,19 @@ mn = magdf.to_numpy().min()
 fig, ax = plt.subplots()
 im = ax.imshow([[1]])
 plt.show()'''
+
+
+'''if response.status_code == 200:
+    print("Time: ", response.json().get('time'))
+    print("Location: ", response.json().get('location'))
+    print("View: ", response.json().get('view'))
+
+# Get a list of available action IDs:
+url_actions = "stelaction/list"
+actions = requests.get(url_main + url_actions)
+print(actions.status_code)
+if actions.status_code == 200:
+    print(actions.json())'''
+
+    '''response = requests.get(url_main + "main/status")
+print("Status: ", response.status_code)'''
