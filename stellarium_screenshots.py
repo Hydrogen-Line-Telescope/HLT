@@ -3,13 +3,25 @@ import subprocess
 import pandas as pd
 import time
 
+# user will need to download Stellarium and set the default projection mode to 'equal area'
+# user will also need to set th screenshot location in Stellarium to the folder within the HLT project
+
 
 def change_settings(url_main):
     # take stellarium out of full screen mode
     full_screen = requests.post(url_main + 'stelaction/do', data={'id': 'actionSet_Full_Screen_Global'})
     print("Fullscreen: ", full_screen)
 
-    # set projection style
+    '''# set projection style
+    # StelCore.setcurrentProjectionNameI18n('Perspective')
+    projection = requests.post(url_main + 'stelproperty/do', data={'id': 'StelCore.currentProjectionTypeKey',
+                                                                   'value': 'ProjectionPerspective'})
+    # ,'value': 'Perspective'})
+    print("Projection: ", projection)'''
+
+    # show azimuthal grid
+    azimuth_grid = requests.post(url_main + 'stelaction/do', data={'id': 'actionShow_Azimuthal_Grid'})
+    print("Azimuth: ", azimuth_grid)
 
     # remove atmosphere view
     atmosphere = requests.post(url_main + 'stelaction/do', data={'id': 'actionShow_Atmosphere'})
@@ -32,52 +44,51 @@ def change_settings(url_main):
 
     # set the sky view direction
     # [south, east, altitude]
-    set_view = {'altAz': '[0.001, 0, 1]'}
+    set_view = {'altAz': '[0.0001, 0, 1]'}
     view = requests.post(url_main + "main/view", data=set_view)
     print("View: ", view)
 
     # set the sky view zoom level
-    set_fov = {'fov': '190'}
+    set_fov = {'fov': '200'}
     fov = requests.post(url_main + "main/fov", data=set_fov)
     print("FOC: ", fov)
 
-    '''requests.Response.close(fov)
-    requests.Response.close(view)
-    requests.Response.close(atmosphere)
-    requests.Response.close(location)
-    requests.Response.close(time)
-    requests.Response.close(full_screen)'''
-
 
 def take_screenshot(url_main):
-
     # create a screenshot of the current view
     screenshot = requests.post(url_main + 'stelaction/do', data={'id': 'actionSave_Screenshot_Global'})
     print("Screenshot: ", screenshot)
 
 
-# enable remote control plugin for Stellarium
-# open Stellarium before running this program
-url = "http://localhost:8090/api/"
+def crop_selection_image():
+    image_path = 'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\GUI Stellarium Photos'
 
-path = 'C:\\Program Files\\Stellarium\\stellarium.exe'
-proc_stellarium = subprocess.Popen(path)
-time.sleep(10)
-change_settings(url)
-time.sleep(3)
-take_screenshot(url)
 
-'''# Get a list of available action IDs:
-url_actions = "stelaction/list"
-actions = requests.get(url + url_actions)
-print(actions.status_code)
-if actions.status_code == 200:
-    print(actions.json())'''
 
-url_properties = "stelproperty/list"
-properties = requests.get(url + url_properties)
-print(properties.status_code)
-if properties.status_code == 200:
-    print(properties.json())
+def open_close_stellarium():
+    # enable remote control plugin for Stellarium
+    # open Stellarium before running this program
+    url = "http://localhost:8090/api/"
 
-proc_stellarium.kill()
+    path = 'C:\\Program Files\\Stellarium\\stellarium.exe'
+    proc_stellarium = subprocess.Popen(path)
+    time.sleep(10)
+    change_settings(url)
+    time.sleep(3)
+    take_screenshot(url)
+
+    # Get a list of available action IDs:
+    '''url_actions = "stelaction/list"
+    actions = requests.get(url + url_actions)
+    print(actions.status_code)
+    if actions.status_code == 200:
+        print(actions.json())
+    
+    url_properties = "stelproperty/list"
+    properties = requests.get(url + url_properties)
+    print(properties.status_code)
+    if properties.status_code == 200:
+        print(properties.json())'''
+
+    proc_stellarium.kill()
+

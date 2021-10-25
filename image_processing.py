@@ -38,7 +38,7 @@ def two_dim_sweep(freqdf, magdf, num_scans):
         magdf_scan = pd.DataFrame(mag_list)
         freqdf_scan = pd.DataFrame(freq_list)
         fig, ax = plt.subplots()
-        im = ax.imshow(freqdf_scan, cmap=cmap, norm=norm, alpha=magdf_scan)
+        im = ax.imshow(freqdf_scan, cmap=cmap, norm=norm, alpha=magdf_scan, interpolation='catrom')
         plt.axis('off')
         plt.savefig('TestFolder\\2-DTS_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
 
@@ -70,49 +70,5 @@ freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\fre
 magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data.csv')
 
 #two_dim_sel(freqdf, magdf)
-#one_dim_sweep_rpa(freqdf, magdf, 10)
-two_dim_sweep(freqdf, magdf, 5)
-'''
-array = pd.DataFrame(freqdf).to_numpy()
-
-mx = freqdf.to_numpy().max()
-mn = freqdf.to_numpy().min()
-
-cmap = colors.ListedColormap(['blue', 'red'])
-bounds = [mn, 1420.405751, mx]
-norm = colors.BoundaryNorm(bounds, cmap.N)
-#cax = divider.append_axes('right', size='5%', pad=0.05)
-
-fig, ax = plt.subplots()
-canvas = fig.canvas
-
-im = ax.imshow(freqdf, cmap=cmap, alpha=magdf)#, alpha=magdf, norm=norm)
-#plt.colorbar(im)
-plt.show()
-'''
-
-
-
-
-
-'''
-fig1, ax1 = plt.subplots()
-canvas1 = fig.canvas
-
-im1 = ax1.imshow(freqdf, cmap=cmap, alpha=magdf, norm=norm, interpolation='catrom')
-plt.show()
-
-fig0, ax0 = plt.subplots()
-canvas0 = fig.canvas
-
-im0 = ax0.imshow(freqdf, cmap=cmap, alpha=magdf, norm=norm, interpolation='mitchell')
-plt.show()
-'''
-'''
-mx = magdf.to_numpy().max()
-mn = magdf.to_numpy().min()
-
-#print(mx, mn)
-fig, ax = plt.subplots()
-im = ax.imshow([[1.5]])
-plt.show()'''
+one_dim_sweep_rpa(freqdf, magdf, 10)
+#two_dim_sweep(freqdf, magdf, 10)

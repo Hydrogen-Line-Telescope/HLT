@@ -61,6 +61,6 @@ def one_dim_sweep_rpa_data(num_scans):
     freqdf.to_csv('freq_data.csv', index=False)
 
 
-#one_dim_sweep_rpa_data(10)
-#two_dim_sel_data(6, 10)
-two_dim_sweep_data(5)
+one_dim_sweep_rpa_data(10)
+#two_dim_sel_data(10, 16)
+#two_dim_sweep_data(10)
