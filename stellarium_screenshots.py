@@ -9,8 +9,8 @@ import time
 
 def change_settings(url_main):
     # take stellarium out of full screen mode
-    full_screen = requests.post(url_main + 'stelaction/do', data={'id': 'actionSet_Full_Screen_Global'})
-    print("Fullscreen: ", full_screen)
+    '''full_screen = requests.post(url_main + 'stelaction/do', data={'id': 'actionSet_Full_Screen_Global'})
+    print("Fullscreen: ", full_screen)'''
 
     '''# set projection style
     # StelCore.setcurrentProjectionNameI18n('Perspective')
@@ -49,7 +49,7 @@ def change_settings(url_main):
     print("View: ", view)
 
     # set the sky view zoom level
-    set_fov = {'fov': '200'}
+    set_fov = {'fov': '190'}
     fov = requests.post(url_main + "main/fov", data=set_fov)
     print("FOC: ", fov)
 
@@ -62,7 +62,6 @@ def take_screenshot(url_main):
 
 def crop_selection_image():
     image_path = 'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\GUI Stellarium Photos'
-
 
 
 def open_close_stellarium():
@@ -92,3 +91,5 @@ def open_close_stellarium():
 
     proc_stellarium.kill()
 
+
+open_close_stellarium()
