@@ -4,15 +4,18 @@ import numpy as np
 
 def calculate_coordinates(x, y):
 
-    max_radius = 150
+    max_radius = 300
     r = np.sqrt(x**2 + y**2)/max_radius
     theta = np.arctan(y/x) * (180/np.pi)
-    phi = (2*np.arcsin((np.sqrt(2)/2)*r)) * (180/np.pi)
+    phi = 90 - (2*np.arcsin((np.sqrt(2)/2)*r)) * (180/np.pi)
+
+    print(r)
+    print(theta, phi)
 
     return theta, phi
 
 
-def read_from_gui(mode, guidf):
+def read_from_gui(mode, xydf):
     # mode - which mode the user selected, int
     #   -> 1, 2-DSel
     #   -> 2, 2-DTS
@@ -22,26 +25,27 @@ def read_from_gui(mode, guidf):
     # pixel_s - pixel coordinate(s) from the sky map photo, list
 
     if mode == 1:
-        guidf.loc[3] = [guidf.iloc[0, 0], guidf.iloc[1, 1]]
-        guidf.loc[4] = [guidf.iloc[1, 0], guidf.iloc[0, 1]]
-        cornerdf = pd.DataFrame()
+        xydf.loc[3] = [xydf.iloc[0, 0], xydf.iloc[1, 1]]
+        xydf.loc[4] = [xydf.iloc[1, 0], xydf.iloc[0, 1]]
+        sphericaldf = pd.DataFrame()
 
-        calculate_coordinates(guidf.iloc[0, 0], guidf.iloc[0, 1])
+        for i in range(4):
+            theta, phi = calculate_coordinates(xydf.iloc[i, 0], xydf.iloc[i, 1])
+            tempdf = pd.DataFrame([[theta, phi]])
+            sphericaldf = pd.concat([sphericaldf, tempdf])
 
-
-
-        print(guidf.loc[3])
-        print(guidf)
+        sphericaldf.rename(columns={0: 'theta', 1: 'phi'})
+        print(xydf)
+        print(sphericaldf)
     elif mode == 2:
         # hard code in starting line end points
         endpoints = [[150, 300], [150, 0]]
-        guidf = pd.DataFrame(endpoints)
-        print(guidf)
+        xydf = pd.DataFrame(endpoints)
+        print(xydf)
     elif mode == 3:
-        print(guidf)
+        print(xydf)
     elif mode == 4:
-
-        print(guidf)
+        print(xydf)
 
 
 def earth_rotation():
@@ -58,7 +62,7 @@ def earth_rotation():
 
 #calculate_coordinates(50, 150)
 
-gui_list = [[50, 100], [275, 150]]
+gui_list = [[100, 200], [-200, -100]]
 guidf = pd.DataFrame(gui_list)
 
 read_from_gui(1, guidf)
