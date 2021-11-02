@@ -1,4 +1,15 @@
 import pandas as pd
+import numpy as np
+
+
+def calculate_coordinates(x, y):
+
+    max_radius = 150
+    r = np.sqrt(x**2 + y**2)/max_radius
+    theta = np.arctan(y/x) * (180/np.pi)
+    phi = (2*np.arcsin((np.sqrt(2)/2)*r)) * (180/np.pi)
+
+    return theta, phi
 
 
 def read_from_gui(mode, guidf):
@@ -13,6 +24,13 @@ def read_from_gui(mode, guidf):
     if mode == 1:
         guidf.loc[3] = [guidf.iloc[0, 0], guidf.iloc[1, 1]]
         guidf.loc[4] = [guidf.iloc[1, 0], guidf.iloc[0, 1]]
+        cornerdf = pd.DataFrame()
+
+        calculate_coordinates(guidf.iloc[0, 0], guidf.iloc[0, 1])
+
+
+
+        print(guidf.loc[3])
         print(guidf)
     elif mode == 2:
         # hard code in starting line end points
@@ -37,6 +55,8 @@ def earth_rotation():
 
     y = 3
 
+
+#calculate_coordinates(50, 150)
 
 gui_list = [[50, 100], [275, 150]]
 guidf = pd.DataFrame(gui_list)

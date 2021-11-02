@@ -31,8 +31,10 @@ def pull_data():
     changed this line to include a command line argument args = parser.parse_args(command_line)
     """
 
-    command_line = ['-f', '1.2G', '-O', 'idk.csv', '-a']
+    # set a gain value to keep data consistent
+    command_line = ['-q', '-f', '1.2G', '-O', 'idk.csv', '-g', '37.5', '-r', '6000000', '-k', '33.33']
     __main__.main(command_line)
+    # if can't fix weird noise, take more samples and cut off the weird noise parts
 
 
 pull_data()
