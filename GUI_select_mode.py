@@ -1,12 +1,10 @@
 from pathlib import Path
-
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-
+from tkinter import Tk, Canvas, Button, PhotoImage
 import ctypes
 
 # get button image files
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+ASSETS_PATH = OUTPUT_PATH / Path("./select_mode_buttons")
 
 
 def relative_to_assets(path: str) -> Path:

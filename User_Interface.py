@@ -37,7 +37,7 @@ im = Image.open('result.png')
 width, height = im.size   # Get dimensions
 print(width, height)
 
-new_im = im.resize((600, 600), Image.ANTIALIAS)
+new_im = im.resize((500, 500), Image.ANTIALIAS)
 width, height = im.size   # Get dimensions
 print(width, height)
 new_im.save('result.png', 'PNG', quality=100)
@@ -45,7 +45,7 @@ new_im.save('result.png', 'PNG', quality=100)
 #This creates the main window of an application
 window = tk.Tk()
 window.title("Join")
-window.geometry("800x600")
+window.geometry("900x600")
 window.configure(background='grey')
 
 path = "result.png"
