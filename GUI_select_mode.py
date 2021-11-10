@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import ctypes
+import GUI_two_dim_area
 
 # get button image files
 OUTPUT_PATH = Path(__file__).parent
@@ -192,7 +193,7 @@ button_4 = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
+    command=GUI_two_dim_area.main,
     relief="flat"
 )
 button_4.place(

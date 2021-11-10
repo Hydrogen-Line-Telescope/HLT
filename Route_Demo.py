@@ -18,8 +18,14 @@ def inv_projection(max_r, c_cart):
     c_cart = normalize(max_r, c_cart)
 
     c_pol[0] = np.sqrt(c_cart[0] ** 2 + c_cart[1] ** 2)
-    if c_cart[0] >= 0:
+    if c_cart[0] > 0:
         c_pol[1] = np.arctan(c_cart[1] / c_cart[0]) * 180 / np.pi
+    elif c_cart[0] == 0 and c_cart[1] > 0:
+        c_pol[1] = 90
+    elif c_cart[0] == 0 and c_cart[1] < 0:
+        c_pol[1] = 270
+    elif c_cart[0] == 0 and c_cart[1] == 0:
+        c_pol[1] = 0
     else:
         c_pol[1] = (np.arctan(c_cart[1] / c_cart[0]) * 180 / np.pi) + 180
 
@@ -110,7 +116,7 @@ def one_terra(max_r, c):
     return c_s
 
 
-test_max_r = 500
+'''test_max_r = 500
 test_c_ll = [-150, -75]
 test_c_ur = [220, 450]
 test_c = [-150, -75]
@@ -129,4 +135,4 @@ print("2-D Terrestrial Sweep")
 print(test_points_2)
 print()
 print("1-D Terrestrial Sweep & Repeated Point Analysis")
-print(test_point_3)
+print(test_point_3)'''
