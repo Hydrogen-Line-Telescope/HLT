@@ -3,6 +3,7 @@ from tkinter import Tk, Canvas, Button, PhotoImage
 import ctypes
 import GUI_two_dim_area
 import GUI_two_dim_sweep
+import GUI_one_dim_sweep
 
 # get button image files
 OUTPUT_PATH = Path(__file__).parent
@@ -108,7 +109,7 @@ button_2 = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=lambda: GUI_one_dim_sweep.main(window),
     relief="flat"
 )
 button_2.place(
@@ -122,7 +123,7 @@ canvas.create_text(
     90.0,
     250.0,
     anchor="nw",
-    text="User selects a point on the skymap. ",
+    text="User selects a point on the skymap.",
     fill="#000000",
     font=("Courier New", 16 * -1)
 )
@@ -165,7 +166,7 @@ canvas.create_text(
     90.0,
     113.0,
     anchor="nw",
-    text="User selects diagonal rectangle ",
+    text="User selects rectangle corners.",
     fill="#000000",
     font=("Courier New", 16 * -1)
 )
@@ -174,7 +175,7 @@ canvas.create_text(
     90.0,
     129.79998779296875,
     anchor="nw",
-    text="corners. Antenna scans the",
+    text="Antenna scans the rectangular",
     fill="#000000",
     font=("Courier New", 16 * -1)
 )
@@ -183,7 +184,7 @@ canvas.create_text(
     90.0,
     146.99998474121094,
     anchor="nw",
-    text="rectangular area.",
+    text="area.",
     fill="#000000",
     font=("Courier New", 16 * -1)
 )
