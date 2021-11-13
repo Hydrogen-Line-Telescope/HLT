@@ -8,8 +8,7 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Button, PhotoImage, Label
-import ctypes
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -19,8 +18,6 @@ ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
-ctypes.windll.shcore.SetProcessDpiAwareness(3)
 
 window = Tk()
 
@@ -50,7 +47,7 @@ button_1 = Button(
 )
 button_1.place(
     x=585.0,
-    y=430.0,
+    y=460.0,
     width=258.0,
     height=61.0
 )
@@ -66,16 +63,16 @@ button_2 = Button(
 )
 button_2.place(
     x=585.0,
-    y=489.0,
+    y=519.0,
     width=258.0,
     height=61.0
 )
 
 canvas.create_text(
-    606.0,
-    49.0,
+    588.0,
+    46.0,
     anchor="nw",
-    text="2-D Area Selection",
+    text="2-D Terrestrial Sweep",
     fill="#000000",
     font=("Courier New", 20 * -1)
 )
@@ -93,7 +90,7 @@ canvas.create_text(
     560.0,
     108.0,
     anchor="nw",
-    text="will scan a rectangular area",
+    text="will scan a vertical line",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
@@ -102,23 +99,23 @@ canvas.create_text(
     560.0,
     128.0,
     anchor="nw",
-    text="of the skymap.",
+    text="as the earth rotates.",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    160.0,
+    163.0,
     anchor="nw",
-    text="Click the ‘Select Corners’",
+    text="Click the ‘Select Point’",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    180.0,
+    183.0,
     anchor="nw",
     text="button. Selecting this",
     fill="#000000",
@@ -127,7 +124,7 @@ canvas.create_text(
 
 canvas.create_text(
     560.0,
-    200.0,
+    203.0,
     anchor="nw",
     text="button will prompt the",
     fill="#000000",
@@ -136,7 +133,7 @@ canvas.create_text(
 
 canvas.create_text(
     560.0,
-    220.0,
+    223.0,
     anchor="nw",
     text="program to record the",
     fill="#000000",
@@ -145,25 +142,25 @@ canvas.create_text(
 
 canvas.create_text(
     560.0,
-    240.0,
+    243.0,
     anchor="nw",
-    text="coordinates of the next two",
+    text="coordinates of the next",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    260.0,
+    263.0,
     anchor="nw",
-    text="mouse clicks within the",
+    text="mouse click within the",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    280.0,
+    283.0,
     anchor="nw",
     text="image.",
     fill="#000000",
@@ -172,55 +169,66 @@ canvas.create_text(
 
 canvas.create_text(
     560.0,
-    312.0,
+    319.0,
     anchor="nw",
-    text="Select a lower left corner",
+    text="The antenna will scan the",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    332.0,
+    339.0,
     anchor="nw",
-    text="first and then an upper",
+    text="maximum vertical distance at",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    352.0,
+    359.0,
     anchor="nw",
-    text="right corner.",
+    text="that point for the duration",
     fill="#000000",
     font=("Courier New", 18 * -1)
 )
 
 canvas.create_text(
     560.0,
-    383.0,
+    379.0,
     anchor="nw",
-    text="Then, select ‘Initiate",
+    text="specified.",
     fill="#000000",
     font=("Courier New", 18 * -1)
+)
+
+entry_image_1 = PhotoImage(
+    file=relative_to_assets("entry_1.png"))
+entry_bg_1 = canvas.create_image(
+    714.0,
+    431.0,
+    image=entry_image_1
+)
+entry_1 = Entry(
+    bd=0,
+    bg="#9E83AB",
+    highlightthickness=0,
+)
+entry_1.place(
+    x=602.0,
+    y=408.0+18,
+    width=224.0,
+    height=28.0
 )
 
 canvas.create_text(
-    560.0,
-    403.0,
+    597.0,
+    409.0,
     anchor="nw",
-    text="Scan’.",
-    fill="#000000",
+    text="Duration (1-5hr)",
+    fill="#FFFFFF",
     font=("Courier New", 18 * -1)
 )
-
-canvas.create_rectangle(
-    29.0,
-    50.0,
-    529.0,
-    550.0,
-    fill="#000000",
-    outline="")
 window.resizable(False, False)
 window.mainloop()

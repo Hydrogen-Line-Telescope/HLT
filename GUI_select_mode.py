@@ -2,6 +2,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import ctypes
 import GUI_two_dim_area
+import GUI_two_dim_sweep
 
 # get button image files
 OUTPUT_PATH = Path(__file__).parent
@@ -150,7 +151,7 @@ button_3 = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=lambda: GUI_two_dim_sweep.main(window),
     relief="flat"
 )
 button_3.place(
@@ -193,7 +194,7 @@ button_4 = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=GUI_two_dim_area.main,
+    command=lambda: GUI_two_dim_area.main(window),
     relief="flat"
 )
 button_4.place(
