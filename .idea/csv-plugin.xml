@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\freq_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\idk.csv">
           <value>
             <Attribute>
@@ -39,6 +46,13 @@
           </value>
         </entry>
         <entry key="\raw_signal_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\raw_signal_data_set.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
