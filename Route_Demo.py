@@ -116,7 +116,7 @@ def one_terra(max_r, c):
     return c_s
 
 
-test_max_r = 500
+'''test_max_r = 500
 test_c_ll = [-150, -75]
 test_c_ur = [220, 450]
 test_c = [0, 0]
@@ -136,3 +136,4 @@ print(test_points_2)
 print()
 print("1-D Terrestrial Sweep & Repeated Point Analysis")
 print(test_point_3)
+'''

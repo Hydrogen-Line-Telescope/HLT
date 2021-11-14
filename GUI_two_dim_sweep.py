@@ -248,7 +248,7 @@ def main(og_window):
         bg="#9E83AB",
         highlightthickness=0,
     )
-    entry_1.insert(END, 'Value between 1 & 5 hrs')
+    entry_1.insert(END, '1')
     entry_1.place(
         x=602.0,
         y=408.0+18,
@@ -260,7 +260,7 @@ def main(og_window):
         597.0,
         409.0,
         anchor="nw",
-        text="Duration (hr)",
+        text="Duration (1-5hr)",
         fill="#FFFFFF",
         font=("Courier New", 18 * -1)
     )

@@ -39,7 +39,7 @@ def unbind_mouse(one_sweep_window, entry_1):
     route_list = Route_Demo.one_terra(250, coordinates_list[0])
     routedf = pd.DataFrame(route_list)
     routedf = routedf.transpose()
-    routedf.to_csv('1-D Terrestrial Route.csv', index=False)
+    routedf.to_csv('RPA Route.csv', index=False)
     one_sweep_window.destroy()
 
 
@@ -55,7 +55,6 @@ def main(og_window):
     one_sweep_window = Tk()
     one_sweep_window.geometry("900x600")
     one_sweep_window.configure(bg = "#A5A5A5")
-
 
     canvas = Canvas(
         one_sweep_window,
@@ -103,10 +102,10 @@ def main(og_window):
     )
 
     canvas.create_text(
-        588.0,
+        560.0,
         46.0,
         anchor="nw",
-        text="1-D Terrestrial Sweep",
+        text="Repeated Point Analysis",
         fill="#000000",
         font=("Courier New", 20 * -1)
     )
@@ -124,7 +123,7 @@ def main(og_window):
         560.0,
         108.0,
         anchor="nw",
-        text="will scan a point as the",
+        text="will rotate to scan a point",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
@@ -133,7 +132,7 @@ def main(og_window):
         560.0,
         128.0,
         anchor="nw",
-        text="earth rotates.",
+        text="over time.",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
@@ -214,7 +213,7 @@ def main(og_window):
         560.0,
         339.0,
         anchor="nw",
-        text="the selected point and scan",
+        text="scan the selected point",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
@@ -223,19 +222,19 @@ def main(og_window):
         560.0,
         359.0,
         anchor="nw",
-        text="that area for the duration",
+        text="for the duration specified.",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
 
-    canvas.create_text(
+    '''canvas.create_text(
         560.0,
         379.0,
         anchor="nw",
         text="specified.",
         fill="#000000",
         font=("Courier New", 18 * -1)
-    )
+    )'''
 
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))

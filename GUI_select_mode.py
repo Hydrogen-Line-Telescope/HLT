@@ -4,6 +4,7 @@ import ctypes
 import GUI_two_dim_area
 import GUI_two_dim_sweep
 import GUI_one_dim_sweep
+import GUI_repeated_point_analysis
 
 # get button image files
 OUTPUT_PATH = Path(__file__).parent
@@ -66,7 +67,7 @@ button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: GUI_repeated_point_analysis.main(window),
     relief="flat"
 )
 button_1.place(

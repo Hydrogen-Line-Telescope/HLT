@@ -1,22 +1,19 @@
 from soapypower import __main__
-from argparse import Namespace
 import numpy as np
 from matplotlib import pyplot as plt
+import pandas as pd
 
 
 def graph_data():
-    with open('idk.csv', 'r') as csvfile:
-        data_str = csvfile.read()  # Read the data
-    data = data_str.split(',')  # Use comma as the delimiter
+    datadf = pd.read_csv('raw_signal_data.csv', header=None)
+    f0 = datadf.iloc[0, 2]
+    f1 = datadf.iloc[-1, 3]
+    df = datadf.iloc[0, 4]
 
-    timestamp = data[0] + data[1]  # Timestamp as YYYY-MM-DD hhh:mmm:ss
-    f0 = float(data[2])  # Start Frequency
-    f1 = float(data[3])  # Stop Frequency
-    df = float(data[4])  # Frequency Spacing
-    sig = np.array(data[6:], dtype=float)  # Signal data
-    freq = np.arange(f0, f1, df) / 1e9  # Frequency Array
+    sig = np.array(datadf.iloc[:, 6:])
+    sig = sig.flatten()
+    freq = np.arange(f0, f1, df) / 1e6
 
-    # Plot the data
     plt.plot(freq, sig)
     plt.xlim([freq[0], freq[-1]])
     plt.ylabel('PSD (dB)')
@@ -32,7 +29,7 @@ def pull_data():
     """
 
     # set a gain value to keep data consistent
-    command_line = ['-q', '-f', '1.2G', '-O', 'idk.csv', '-g', '37.5', '-r', '6000000', '-k', '33.33']
+    command_line = ['-q', '-f', '1.2G', '-O', 'raw_signal_data.csv', '-g', '37.5', '-r', '6000000', '-k', '33.33']
     __main__.main(command_line)
     # if can't fix weird noise, take more samples and cut off the weird noise parts
 
