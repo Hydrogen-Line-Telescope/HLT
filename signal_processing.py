@@ -46,12 +46,16 @@ def get_freq_mag():
     peak_mag = np.amax(sig)
     peak_mag = np.exp(peak_mag/20)
     max_mag_index = np.where(sig == np.amax(sig))
-    print(peak_mag)
+    print("Peak Magnitude: ", peak_mag)
 
     # in GHz
     peak_freq = freq[int(max_mag_index[0])]
-    print(peak_freq)
+    print("Peak Frequency (GHz): ", peak_freq)
 
+    freqdf = pd.DataFrame([peak_freq])
+    magdf = pd.DataFrame([peak_mag])
+    freqdf.to_csv('Peak Frequency.csv', index=False)
+    magdf.to_csv('Peak Magnitude.csv', index=False)
 
 
 def pull_data():
