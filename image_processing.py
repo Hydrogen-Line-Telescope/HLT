@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import colors
-import numpy as np
+import fake_mag_freq_data as foo
 
 
 def two_dim_sel(freqdf, magdf):
@@ -16,7 +16,7 @@ def two_dim_sel(freqdf, magdf):
     fig, ax = plt.subplots()
     im = ax.imshow(freqdf, cmap=cmap, alpha=magdf, norm=norm, interpolation='catrom')
     plt.axis('off')
-    plt.savefig('TestFolder\\2-DSel.png', bbox_inches='tight', pad_inches=0)
+    plt.savefig('HeatMaps\\2-DSel.png', bbox_inches='tight', pad_inches=0)
 
 
 def two_dim_sweep(freqdf, magdf, num_scans):
@@ -40,7 +40,7 @@ def two_dim_sweep(freqdf, magdf, num_scans):
         fig, ax = plt.subplots()
         im = ax.imshow(freqdf_scan, cmap=cmap, norm=norm, alpha=magdf_scan, interpolation='catrom')
         plt.axis('off')
-        plt.savefig('TestFolder\\2-DTS_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
+        plt.savefig('Heatmaps\\2-DTS_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
 
 
 def one_dim_sweep_rpa(freqdf, magdf, num_scans):
@@ -63,12 +63,20 @@ def one_dim_sweep_rpa(freqdf, magdf, num_scans):
         fig, ax = plt.subplots()
         im = ax.imshow([[freq_list[i]]], cmap=cmap, norm=norm, alpha=mag_list[i])
         plt.axis('off')
-        plt.savefig('TestFolder\\1-DTS_RPA_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
+        plt.savefig('Heatmaps\\1-DTS_RPA_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
 
 
-freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data.csv')
-magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data.csv')
+foo.two_dim_sel_data(10, 20)
+freqdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sel.csv')
+magdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sel.csv')
+two_dim_sel(freqdf0, magdf0)
 
-#two_dim_sel(freqdf, magdf)
-one_dim_sweep_rpa(freqdf, magdf, 10)
-#two_dim_sweep(freqdf, magdf, 10)
+foo.two_dim_sweep_data(5, 8)
+freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
+magdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
+two_dim_sweep(freqdf1, magdf1, 5)
+
+foo.one_dim_sweep_rpa_data(5)
+freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_one_sweep.csv')
+magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_one_sweep.csv')
+one_dim_sweep_rpa(freqdf2, magdf2, 5)
