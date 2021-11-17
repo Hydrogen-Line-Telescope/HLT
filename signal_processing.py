@@ -29,7 +29,7 @@ def graph_data():
 
 
 def get_freq_mag():
-    datadf = pd.read_csv('raw_signal_data_set.csv', header=None)
+    datadf = pd.read_csv('raw_signal_data.csv', header=None)
 
     start_freq = datadf.iloc[0, 2]
     end_freq = datadf.iloc[-1, 3]
@@ -66,11 +66,11 @@ def pull_data():
     """
 
     # set a gain value to keep data consistent
-    command_line = ['-q', '-f', '1.2G', '-O', 'raw_signal_data_set.csv', '-g', '37.5', '-r', '6000000', '-k', '33.33',
+    command_line = ['-q', '-f', '1.42G', '-O', 'raw_signal_data.csv', '-g', '37.5', '-r', '6000000', '-k', '33.33',
                     '-n', '12800']
     __main__.main(command_line)
 
 
-#pull_data()
+pull_data()
 get_freq_mag()
 graph_data()

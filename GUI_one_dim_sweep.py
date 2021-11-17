@@ -8,12 +8,18 @@ import Route_Demo
 
 
 def relative_to_assets(path: str) -> Path:
+    """
+    this function helps retrieve the images for the GUI buttons
+    """
     OUTPUT_PATH_one_sweep = Path(__file__).parent
     ASSETS_PATH_one_sweep = OUTPUT_PATH_one_sweep / Path("./two_dim_sweep_buttons")
     return ASSETS_PATH_one_sweep / Path(path)
 
 
 def get_coordinates(event):
+    """
+    this function
+    """
     if len(coordinates_list) >= 2:
         coordinates_list.clear()
 
@@ -266,7 +272,7 @@ def main(og_window):
         font=("Courier New", 18 * -1)
     )
 
-    path = "result.png"
+    path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png"
     img = ImageTk.PhotoImage(file=path, master=one_sweep_window)
     canvas.create_image(275, 300, image=img)
 

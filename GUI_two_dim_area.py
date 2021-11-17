@@ -241,7 +241,7 @@ def main(og_window):
         font=("Courier New", 18 * -1)
     )
 
-    path = "result.png"
+    path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png"
     img = ImageTk.PhotoImage(file=path, master=two_sel_window)
     canvas.create_image(275, 300, image=img)
 

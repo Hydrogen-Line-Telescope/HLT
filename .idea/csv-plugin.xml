@@ -52,13 +52,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\raw_signal_data_set.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>

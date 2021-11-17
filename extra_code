@@ -223,3 +223,27 @@ sdr.read_stream_into_buffer(samples)
 
 # Stop receiving
 sdr.stop_stream()'''
+
+    '''from PIL import Image
+    im = Image.open('C:\\Users\\jojok\\Pictures\\Stellarium\\stellarium-021.png')
+    width, height = im.size   # Get dimensions
+
+    print(width, height)
+
+
+    left = (width - 1300)/2
+    top = (height - 1300)/2
+    right = (width + 1300)/2
+    bottom = (height + 1300)/2
+
+    # Crop the center of the image
+    im = im.crop((left, top, right, bottom))
+
+    im.save('test_crop.png', 'PNG')'''
+
+    '''# set projection style
+    # StelCore.setcurrentProjectionNameI18n('Perspective')
+    projection = requests.post(url_main + 'stelproperty/do', data={'id': 'StelCore.currentProjectionTypeKey',
+                                                                   'value': 'ProjectionPerspective'})
+    # ,'value': 'Perspective'})
+    print("Projection: ", projection)'''
