@@ -70,6 +70,8 @@ def get_freq_mag():
 
     # in GHz
     peak_freq = freq[int(max_mag_index[0])]
+    # in MHz
+    peak_freq = peak_freq * 1000
     print("Peak Frequency (GHz): ", peak_freq)
 
     freqdf = pd.DataFrame([peak_freq])
@@ -91,6 +93,6 @@ def pull_data():
     __main__.main(command_line)
 
 
-pull_data()
-#get_freq_mag()
-graph_data()
+#pull_data()
+get_freq_mag()
+#graph_data()

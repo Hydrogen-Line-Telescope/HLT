@@ -9,13 +9,19 @@ def two_dim_sel(freqdf, magdf):
     freq_max = freqdf.to_numpy().max()
     freq_min = freqdf.to_numpy().min()
 
-    cmap = colors.ListedColormap(['blue', 'red'])
+    # creating the color bounds
+    # red-shifted if frequency is less than 1420.4.. - moving away from telescope
+    # blue-shifted if frequency is more than 1420.4.. - moving towards telescope
+    cmap = colors.ListedColormap(['red', 'blue'])
     bounds = [freq_min, 1420.405751, freq_max]
     norm = colors.BoundaryNorm(bounds, cmap.N)
 
+    # creating the heatmap plot, interpolation set to 'catrom'
     fig, ax = plt.subplots()
     im = ax.imshow(freqdf, cmap=cmap, alpha=magdf, norm=norm, interpolation='catrom')
     plt.axis('off')
+
+    # save figure for overlay later
     plt.savefig('HeatMaps\\2-DSel.png', bbox_inches='tight', pad_inches=0)
 
 
@@ -23,13 +29,18 @@ def two_dim_sweep(freqdf, magdf, num_scans):
     # data is in multiple columns, each scan is one column
     # number of columns is determined by the number of scans
 
+    # get max and min frequencies from data
     freq_max = freqdf.to_numpy().max()
     freq_min = freqdf.to_numpy().min()
 
+    # creating the color bounds
+    # red-shifted if frequency is less than 1420.4.. - moving away from telescope
+    # blue-shifted if frequency is more than 1420.4.. - moving towards telescope
     cmap = colors.ListedColormap(['red', 'blue'])
     bounds = [freq_min, 1420.405751, freq_max]
     norm = colors.BoundaryNorm(bounds, cmap.N)
 
+    # create a heatmap for each column of frequency and magnitude data
     for i in range(num_scans):
         freq_col = freqdf.columns.values.tolist()
         mag_col = magdf.columns.values.tolist()
@@ -40,6 +51,7 @@ def two_dim_sweep(freqdf, magdf, num_scans):
         fig, ax = plt.subplots()
         im = ax.imshow(freqdf_scan, cmap=cmap, norm=norm, alpha=magdf_scan, interpolation='catrom')
         plt.axis('off')
+        # save image for overlay later
         plt.savefig('Heatmaps\\2-DTS_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
 
 
@@ -66,15 +78,13 @@ def one_dim_sweep_rpa(freqdf, magdf, num_scans):
     norm = colors.BoundaryNorm(bounds, cmap.N)
 
     for i in range(num_scans):
-        print(mag_list[i])
-        print(freq_list[i])
         fig, ax = plt.subplots()
         im = ax.imshow([[freq_list[i]]], cmap=cmap, norm=norm, alpha=mag_list[i])
         plt.axis('off')
         plt.savefig('Heatmaps\\1-DTS_RPA_' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
 
 
-'''foo.two_dim_sel_data(10, 20)
+foo.two_dim_sel_data(6, 8)
 freqdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sel.csv')
 magdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sel.csv')
 two_dim_sel(freqdf0, magdf0)
@@ -82,9 +92,9 @@ two_dim_sel(freqdf0, magdf0)
 foo.two_dim_sweep_data(5, 8)
 freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
 magdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
-two_dim_sweep(freqdf1, magdf1, 5)'''
+two_dim_sweep(freqdf1, magdf1, 5)
 
-foo.one_dim_sweep_rpa_data(1)
-freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_one_sweep.csv')
-magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_one_sweep.csv')
+#foo.one_dim_sweep_rpa_data(1)
+freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Peak Frequency.csv')
+magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Peak Magnitude.csv')
 one_dim_sweep_rpa(freqdf2, magdf2, 1)
