@@ -24,6 +24,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Peak Frequency.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Peak Magnitude.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\RPA Route.csv">
           <value>
             <Attribute>
@@ -39,6 +53,13 @@
           </value>
         </entry>
         <entry key="\idk.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\mag_data_one_sweep.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

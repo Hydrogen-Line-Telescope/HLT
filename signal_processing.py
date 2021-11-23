@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 
-def graph_data():
+'''def graph_data():
     with open('idk.csv', 'r') as csvfile:
         data_str = csvfile.read()  # Read the data
     data = data_str.split(',')  # Use comma as the delimiter
@@ -21,10 +21,10 @@ def graph_data():
     plt.xlim([freq[0], freq[-1]])
     plt.ylabel('PSD (dB)')
     plt.xlabel('Freq (GHz)')
-    plt.show()
+    plt.show()'''
 
 
-'''def graph_data():
+def graph_data():
     datadf = pd.read_csv('TEST_DATA.csv', header=None)
     f0 = datadf.iloc[0, 2]
     f1 = datadf.iloc[-1, 3]
@@ -45,7 +45,7 @@ def graph_data():
     plt.xlim([freq[0], freq[-1]])
     plt.ylabel('Magnitude')
     plt.xlabel('Freq (GHz)')
-    plt.show()'''
+    plt.show()
 
 
 def get_freq_mag():
