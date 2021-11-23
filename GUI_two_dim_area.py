@@ -19,6 +19,15 @@ def get_coordinates(event):
 
     coordinates_list.append([event.x-275, -1 * (event.y-300)])
 
+    if len(coordinates_list) <= 2:
+        canvas.create_text(
+            220.0,
+            570.0,
+            anchor="nw",
+            text=coordinates_list,
+            fill="#000000",
+            font=("Courier New", 20 * -1)
+        )
     print(coordinates_list)
 
 
@@ -45,6 +54,7 @@ def main(og_window):
 
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
+    global canvas
 
     coordinates_list = []
 

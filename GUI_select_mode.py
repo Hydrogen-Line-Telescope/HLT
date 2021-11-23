@@ -216,7 +216,7 @@ def select_mode_main():
         90.0,
         266.8000183105469,
         anchor="nw",
-        text="Antenna scans a vertical line as",
+        text="Antenna scans a line perpendicular",
         fill="#000000",
         font=("Courier New", 16 * -1)
     )
@@ -225,7 +225,7 @@ def select_mode_main():
         90.0,
         284.0,
         anchor="nw",
-        text="the earth rotates.",
+        text="to the earth's rotation.",
         fill="#000000",
         font=("Courier New", 16 * -1)
     )

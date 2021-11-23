@@ -19,6 +19,16 @@ def get_coordinates(event):
 
     coordinates_list.append([event.x-275, -1 * (event.y-300)])
 
+    if len(coordinates_list) == 1:
+        canvas.create_text(
+            220.0,
+            570.0,
+            anchor="nw",
+            text=coordinates_list,
+            fill="#000000",
+            font=("Courier New", 20 * -1)
+        )
+
     print(coordinates_list)
 
 
@@ -48,13 +58,13 @@ def main(og_window):
 
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
+    global canvas
 
     coordinates_list = []
 
     two_sweep_window = Tk()
     two_sweep_window.geometry("900x600")
     two_sweep_window.configure(bg = "#A5A5A5")
-
 
     canvas = Canvas(
         two_sweep_window,
@@ -123,7 +133,7 @@ def main(og_window):
         560.0,
         108.0,
         anchor="nw",
-        text="will scan a vertical line",
+        text="will scan a line perpendicular",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
@@ -132,14 +142,23 @@ def main(og_window):
         560.0,
         128.0,
         anchor="nw",
-        text="as the earth rotates.",
+        text="to the earth's rotation.",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
 
     canvas.create_text(
         560.0,
-        163.0,
+        153.0,
+        anchor="nw",
+        text="Enter a duration, 1-5hr.",
+        fill="#000000",
+        font=("Courier New", 18 * -1)
+    )
+
+    canvas.create_text(
+        560.0,
+        173.0,
         anchor="nw",
         text="Click the ‘Select Point’",
         fill="#000000",
@@ -148,7 +167,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        183.0,
+        193.0,
         anchor="nw",
         text="button. Selecting this",
         fill="#000000",
@@ -157,7 +176,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        203.0,
+        213.0,
         anchor="nw",
         text="button will prompt the",
         fill="#000000",
@@ -166,7 +185,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        223.0,
+        233.0,
         anchor="nw",
         text="program to record the",
         fill="#000000",
@@ -175,7 +194,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        243.0,
+        253.0,
         anchor="nw",
         text="coordinates of the next",
         fill="#000000",
@@ -184,7 +203,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        263.0,
+        273.0,
         anchor="nw",
         text="mouse click within the",
         fill="#000000",
@@ -193,7 +212,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        283.0,
+        293.0,
         anchor="nw",
         text="image.",
         fill="#000000",
@@ -271,4 +290,3 @@ def main(og_window):
 
     two_sweep_window.resizable(False, False)
     two_sweep_window.mainloop()
-
