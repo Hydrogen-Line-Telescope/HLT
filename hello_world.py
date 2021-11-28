@@ -21,7 +21,7 @@ def graph_data(file_name):
     freq = np.arange(f0, f1, df) / 1e9
 
     plt.plot(freq, linear_sig)
-    #plt.xlim((freq[0], freq[-1]))
+    plt.xlim([freq[0], freq[-1]])
     plt.ylabel('Magnitude')
     plt.xlabel('Freq (GHz)')
     plt.show()
@@ -51,7 +51,7 @@ def get_freq_mag(file_name):
     peak_freq = freq[int(max_mag_index[0])]
     # in MHz
     peak_freq = peak_freq * 1000
-    print("Peak Frequency (MHz): ", peak_freq)
+    print("Peak Frequency (GHz): ", peak_freq)
 
     freqdf = pd.DataFrame([peak_freq])
     magdf = pd.DataFrame([peak_mag])
@@ -59,16 +59,6 @@ def get_freq_mag(file_name):
     magdf.to_csv('Peak Magnitude.csv', index=False)
 
 
-# pull signal data using soapy_power
-# -q, quiet the soapy_power module notifications
-# -d, define driver used
-# -f, define center frequency
-# -O, output file name
-# -g, gain, currently set to the default number
-# -k, percentage of crop
-# -n, number of spectra to average, default is 1600
-command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g",
-                               "37.5", "-k", "20", "-n", "12800"])
-get_freq_mag("signal_demo.csv")
-graph_data("signal_demo.csv")
-
+command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "0_new.csv"])
+get_freq_mag("0_new.csv")
+graph_data("0_new.csv")
