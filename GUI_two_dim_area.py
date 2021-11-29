@@ -21,7 +21,7 @@ def get_coordinates(event):
 
     if len(coordinates_list) <= 2:
         canvas.create_text(
-            220.0,
+            150.0,
             570.0,
             anchor="nw",
             text=coordinates_list,

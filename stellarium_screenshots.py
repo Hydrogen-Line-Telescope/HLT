@@ -26,7 +26,7 @@ def change_settings(url_main):
     #print("Atmosphere: ", atmosphere)
 
     # calculate julian day according to Stellarium reference
-    date = pd.to_datetime("today") + pd.Timedelta(hours=5)
+    date = pd.to_datetime("today") + pd.Timedelta(hours=6)
     ts = pd.Timestamp(date)
     julian = ts.to_julian_date()
 

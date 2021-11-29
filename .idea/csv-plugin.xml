@@ -52,6 +52,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\freq_data_one_sweep.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\idk.csv">
           <value>
             <Attribute>

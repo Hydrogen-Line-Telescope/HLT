@@ -10,7 +10,7 @@ def normalize(max_r, c):
 
 
 def inv_projection(max_r, c_cart):
-    max_r = np.sqrt(2) * max_r
+    max_r = 1.1539 * max_r
 
     c_sph = [0, 0]  # Phi, Theta
     c_sph_pp = [0, 0]  # Phi_x, Phi_y
@@ -19,7 +19,7 @@ def inv_projection(max_r, c_cart):
 
     c_pol[0] = np.sqrt(c_cart[0] ** 2 + c_cart[1] ** 2)
     if c_cart[0] > 0:
-        c_pol[1] = np.arctan(c_cart[1] / c_cart[0]) * 180 / np.pi
+        c_pol[1] = np.arctan(c_cart[1] / c_cart[0])
     elif c_cart[0] == 0 and c_cart[1] > 0:
         c_pol[1] = 90
     elif c_cart[0] == 0 and c_cart[1] < 0:
@@ -27,10 +27,10 @@ def inv_projection(max_r, c_cart):
     elif c_cart[0] == 0 and c_cart[1] == 0:
         c_pol[1] = 0
     else:
-        c_pol[1] = (np.arctan(c_cart[1] / c_cart[0]) * 180 / np.pi) + 180
+        c_pol[1] = (np.arctan(c_cart[1] / c_cart[0]) ) + np.pi
 
     c_sph[0] = (2 * np.arcsin((np.sqrt(2) / 2) * c_pol[0]))
-    c_sph[1] = c_pol[1] * np.pi / 180
+    c_sph[1] = c_pol[1]
 
     c_sph_pp[0] = (np.arctan((np.sin(c_sph[0]) * np.cos(c_sph[1])) / np.cos(c_sph[0]))) * (180 / np.pi)
     c_sph_pp[1] = (np.arctan((np.sin(c_sph[0]) * np.sin(c_sph[1])) / np.cos(c_sph[0]))) * (180 / np.pi)
@@ -73,17 +73,24 @@ def two_dim(max_r, c_l, c_r, hpbw):
 
 
 def two_terra(max_r, c, hpbw):
-    points_out = []
+    #points_out = []
 
+    x_in = c[0]
     x = c[0] * c[0]
-
     y_1 = np.sqrt((max_r ** 2) - (x))
     y_2 = -1 * np.sqrt((max_r ** 2) - (x))
+    c_s_out = []
 
-    c_t = [c[0], y_1]
-    c_b = [c[0], y_2]
+    for i in range(0, int(((y_1 - y_2)/34)) + 1):
+        c_in = inv_projection(max_r, [x_in, int((y_1 - (i*34)))])
+        c_in = np.around(c_in, decimals=0)
+        c_s_out.append(c_in)
 
-    c_s_t = inv_projection(max_r, c_t)
+    #c_t = [c[0], y_1]
+    #c_b = [c[0], y_2]
+
+
+    """c_s_t = inv_projection(max_r, c_t)
     c_s_b = inv_projection(max_r, c_b)
 
     phi_delta = c_s_t[1] - c_s_b[1]
@@ -97,9 +104,9 @@ def two_terra(max_r, c, hpbw):
         next_point = np.around([phi_x, phi_y], decimals=0)
         next_point = next_point.tolist()
 
-        points_out.append(next_point)
+        points_out.append(next_point)"""
 
-    return points_out
+    return c_s_out
 
 
 def one_terra(max_r, c):
