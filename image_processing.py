@@ -77,6 +77,7 @@ def one_dim_sweep_rpa(freqdf, magdf, num_scans):
     # bounds = [1400, 1420.405751, 1440]
     norm = colors.BoundaryNorm(bounds, cmap.N)
 
+    # create a heatmap for each scanned pixel
     for i in range(num_scans):
         fig, ax = plt.subplots()
         im = ax.imshow([[freq_list[i]]], cmap=cmap, norm=norm, alpha=mag_list[i])

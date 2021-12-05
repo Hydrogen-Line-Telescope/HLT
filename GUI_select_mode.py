@@ -88,14 +88,14 @@ def select_mode_main():
     calls functions for each mode from the GUI buttons
     """
 
-    # clear the Screenshots folder
+    '''# clear the Screenshots folder
     clear_screenshots()
 
     # get a current stellarium screenshot
     stellarium_screenshots.open_close_stellarium()
 
     # crop the stellarium image for the GUI
-    crop_image()
+    crop_image()'''
 
     # set the GUI clarity
     ctypes.windll.shcore.SetProcessDpiAwareness(3)

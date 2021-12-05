@@ -8,12 +8,18 @@ import Route_Demo
 
 
 def relative_to_assets(path: str) -> Path:
+    """
+    this function helps retrieve the images for the GUI buttons
+    """
     OUTPUT_PATH_two_sweep = Path(__file__).parent
     ASSETS_PATH_two_sweep = OUTPUT_PATH_two_sweep / Path("./two_dim_sweep_buttons")
     return ASSETS_PATH_two_sweep / Path(path)
 
 
 def get_coordinates(event):
+    """
+    this function gets the coordinates from mouse clicks within the skymap image
+    """
     if len(coordinates_list) >= 2:
         coordinates_list.clear()
 
@@ -33,10 +39,17 @@ def get_coordinates(event):
 
 
 def bind_mouse(two_sweep_window):
+    """
+    this function binds the mouse - button 1 to the get_coordinates event
+    """
     two_sweep_window.bind('<Button-1>', get_coordinates)
 
 
 def unbind_mouse(two_sweep_window, entry_1):
+    """
+    this function unbinds the mouse - button 1 from events and sends the coordinates
+    to the route planning subsystem
+    """
     two_sweep_window.unbind('<Button-1>')
     del coordinates_list[1]
 
@@ -54,14 +67,17 @@ def unbind_mouse(two_sweep_window, entry_1):
 
 def main(og_window):
 
+    # remove the select mode window
     og_window.destroy()
 
+    # set GUI clarity
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
     global canvas
 
     coordinates_list = []
 
+    # create the GUI window for this mode
     two_sweep_window = Tk()
     two_sweep_window.geometry("900x600")
     two_sweep_window.configure(bg = "#A5A5A5")

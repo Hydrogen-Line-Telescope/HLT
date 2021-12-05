@@ -5,6 +5,9 @@ import pandas as pd
 
 
 def graph_data(file_name):
+    """
+    this function graphs the pulled signal data and is for testing purposes only
+    """
     datadf = pd.read_csv(file_name, header=None)
     f0 = datadf.iloc[0, 2]
     f1 = datadf.iloc[-1, 3]
@@ -67,8 +70,8 @@ def get_freq_mag(file_name):
 # -g, gain, currently set to the default number
 # -k, percentage of crop
 # -n, number of spectra to average, default is 1600
-command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_validation.csv", "-g",
-                               "37.5", "-n", "12800"])
+command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_validation.csv",
+                               "-g", "37.5", "-n", "12800"])
 
 # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
 # hydrogen line frequency, 1.420405751G
