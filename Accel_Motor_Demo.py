@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 #import used libraries
 
 
-#initialze variables to use as registers for accelertometer
+#initialze variables to use as registers for accelerometer
 accel_x_out_reg = 0x3B
 accel_y_out_reg = 0x3D
 accel_x_out_reg = 0x3F

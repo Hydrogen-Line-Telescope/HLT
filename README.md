@@ -1,6 +1,13 @@
 # HLT
 Hydrogen Line Telescope Project
 
+This repository contains all current .py files and folders needed for the Hydrogen Line Telescope Project. 
+The scripts are listed below with their corresponding subsystems. 
+ 
+The Motorized Mount, Antenna, and Route Planning subsystems are the responsibility
+of Warren Herrington. The Signal Processing, Image Processing, and GUI subsystems
+are the responsibility of Johanna Hein.
+
 # Motorized Mount Subsystem:
 - Accel_Motor_Demo.py
 
