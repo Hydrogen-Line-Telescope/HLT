@@ -1,0 +1,18 @@
+Things to work on:
+
+Integrating GUI & Image Processing:
+- Create GUI to display final results (either image or gif) and data to the user
+- Create a gif from a series of images
+- Capture and crop stellarium images given a time interval & selection coordinates from the GUI
+- Overlay heat map with cropped stellarium image
+
+Integrating Signal Processing & Antenna:
+- Get Airspy Mini repaired
+- Run script from Raspberry Pi
+- Create a rolling average of data?
+	- Pull overall maximum or average maximum for peak magnitude?
+
+Integrating Route Planning & Motorized Mount:
+- Add earth's rotation function given a time interval
+
+
