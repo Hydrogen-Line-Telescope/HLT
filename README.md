@@ -1,4 +1,5 @@
 # HLT
+ECEN 404:
 Hydrogen Line Telescope Project
 
 This repository contains all current .py files and folders needed for the Hydrogen Line Telescope Project. 
