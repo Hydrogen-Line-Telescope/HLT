@@ -9,10 +9,9 @@ Integrating GUI & Image Processing:
 Integrating Signal Processing & Antenna:
 - Get Airspy Mini repaired
 - Run script from Raspberry Pi
-- Create a rolling average of data?
-	- Pull overall maximum or average maximum for peak magnitude?
+- Clean up signal data
+	- Look into wavelet denoising through python
 
 Integrating Route Planning & Motorized Mount:
 - Add earth's rotation function given a time interval
-
 
