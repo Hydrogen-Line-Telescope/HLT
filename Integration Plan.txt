@@ -15,3 +15,8 @@ Integrating Signal Processing & Antenna:
 Integrating Route Planning & Motorized Mount:
 - Add earth's rotation function given a time interval
 
+Motorized Mount:
+
+
+Image Processing:
+- whole skymap image with heatmap 
