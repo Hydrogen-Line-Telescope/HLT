@@ -53,12 +53,13 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size):
 
     # blend the skymap and heatmap with an alpha value
     # decide which alpha to use
-    blended_image = Image.blend(skymap_cropped, adjusted_heatmap, alpha=0.2)
+    blended_image = Image.blend(skymap_cropped, adjusted_heatmap, alpha=0.4)
     # blended_image.show()
 
     # paste the blended skymap and heatmap on the full skymap image at the correct coordinates
     skymap.paste(blended_image, tuple(heatmap_size))
     skymap.show()
+    skymap.save("image_overlay.png")
 
 
 def two_dim_sel_coordinates(gui_coordinates):
@@ -162,14 +163,14 @@ two_dim_coordinates = [[-250, -68], [134, 162]]
 one_dim_coordinates = [[-83, 2]]
 
 # get adjusted coordinates from this function
-heatmap = one_dim_terr_rpa_coordinates(one_dim_coordinates)
+'''heatmap = one_dim_terr_rpa_coordinates(one_dim_coordinates)
 print(heatmap)
 image_overlay("Heatmaps\\1-DTS_RPA_0.png", "Screenshots\\cropped_stellarium.png", heatmap)
+'''
 
-
-'''heatmap = two_dim_terr_coordinates(one_dim_coordinates)
+heatmap = two_dim_terr_coordinates(one_dim_coordinates)
 print(heatmap)
-image_overlay("Heatmaps\\2-DTS_0.png", "Screenshots\\cropped_stellarium.png", heatmap)'''
+image_overlay("Heatmaps\\2-DTS_0.png", "Screenshots\\cropped_stellarium.png", heatmap)
 
 '''heatmap_two = two_dim_sel_coordinates(two_dim_coordinates)
 # pass file locations for the heatmap and skymap as well as the adjusted coordinates
