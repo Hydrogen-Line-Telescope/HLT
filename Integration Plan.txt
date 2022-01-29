@@ -11,6 +11,7 @@ Integrating Signal Processing & Antenna:
 - Run script from Raspberry Pi
 - Clean up signal data
 	- Look into wavelet denoising through python
+- Take a scan with the LNA and SDR without an antenna attached, subtract this scan from all other scans taken with the telescope
 
 Integrating Route Planning & Motorized Mount:
 - Add earth's rotation function given a time interval
@@ -20,3 +21,8 @@ Motorized Mount:
 
 Image Processing:
 - whole skymap image with heatmap 
+- function to take skymap images every time interval
+- make a mask to make the final image overlay a circle
+
+GUI:
+- show final image / gif to the user along with a legend for the heatmap
