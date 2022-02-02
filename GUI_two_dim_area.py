@@ -57,7 +57,9 @@ def unbind_mouse(two_sel_window):
 
     route_list = Route_Demo.two_dim(250, coordinates_list[0], coordinates_list[1], 10)
     routedf = pd.DataFrame(route_list)
-    routedf.to_csv('2-D Area Route.csv', index=False)
+    routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
+    with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+        f.write('0')
     two_sel_window.destroy()
 
 

@@ -26,3 +26,4 @@ Image Processing:
 
 GUI:
 - show final image / gif to the user along with a legend for the heatmap
+- clean up gui area selections

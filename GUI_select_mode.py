@@ -11,7 +11,6 @@ import GUI_one_dim_sweep
 import GUI_repeated_point_analysis
 import stellarium_screenshots
 
-
 def relative_to_assets(path: str) -> Path:
     """
     this function helps retrieve the images for the GUI buttons

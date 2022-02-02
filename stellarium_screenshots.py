@@ -7,6 +7,10 @@ import time
 # need to download Stellarium and set the default projection mode to 'equal area'
 # need to set the screenshot location in Stellarium to "Screenshots" folder within the HLT project
 
+# add a function, add 14 minutes to the current time
+
+def time_tracker():
+    x = 0
 
 def change_settings(url_main):
     """

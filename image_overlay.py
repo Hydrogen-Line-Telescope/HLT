@@ -27,7 +27,8 @@
 # input the heatmap
 # overlay heatmap onto the correct skymap coordinates
 
-from PIL import Image
+
+from PIL import Image, ImageDraw
 import numpy as np
 
 
@@ -53,13 +54,33 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size):
 
     # blend the skymap and heatmap with an alpha value
     # decide which alpha to use
-    blended_image = Image.blend(skymap_cropped, adjusted_heatmap, alpha=0.4)
+    blended_image = Image.blend(skymap_cropped, adjusted_heatmap, alpha=0.2)
     # blended_image.show()
 
     # paste the blended skymap and heatmap on the full skymap image at the correct coordinates
     skymap.paste(blended_image, tuple(heatmap_size))
     skymap.show()
-    skymap.save("image_overlay.png")
+    img = skymap.convert("RGB")
+    npImage = np.array(img)
+    h, w = skymap.size
+
+    # Create same size alpha layer with circle
+    alpha = Image.new('L', img.size, 0)
+    draw = ImageDraw.Draw(alpha)
+    draw.pieslice([0, 0, h, w], 0, 360, fill=255)
+
+    # Convert alpha Image to numpy array
+    npAlpha = np.array(alpha)
+
+    # Add alpha layer to RGB
+    npImage = np.dstack((npImage, npAlpha))
+
+    # Save with alpha
+    final_image = Image.fromarray(npImage)
+    final_image.show()
+    final_image.resize((500, 500), Image.ANTIALIAS)
+    final_image.save("final_image_overlay.png")
+    skymap.save("not_final_image_overlay.png")
 
 
 def two_dim_sel_coordinates(gui_coordinates):
