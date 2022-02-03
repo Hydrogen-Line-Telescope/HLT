@@ -27,5 +27,16 @@ print(final_image.size)
 final_image.save("final_image_overlay.png")
 '''
 
+'''
 with open('Scanning_Key.txt', 'w') as f:
-    f.write('1')
+    f.write('1')'''
+
+
+import pandas as pd
+
+df = pd.read_csv('2-D Area Route.csv')
+products_list = df.values.tolist()
+
+print(df)
+print(products_list)
+

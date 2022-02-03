@@ -43,5 +43,3 @@ Timed Screenshots:
 - let user select mode
 - if one of the terrestrial or RPA, pass duration and start screenshot timer function
 - take a screenshot every 15 minutes
-
-
