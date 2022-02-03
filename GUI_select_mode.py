@@ -9,7 +9,9 @@ import GUI_two_dim_area
 import GUI_two_dim_sweep
 import GUI_one_dim_sweep
 import GUI_repeated_point_analysis
+import sys
 import stellarium_screenshots
+
 
 def relative_to_assets(path: str) -> Path:
     """
@@ -86,6 +88,12 @@ def select_mode_main():
     creates the select mode GUI window
     calls functions for each mode from the GUI buttons
     """
+    '''Y:\\Route Data\\'''
+    with open('Scanning_Key.txt') as f:
+        lines = f.readlines()
+        print(lines)
+        if lines[0] == '0':
+            sys.exit("Route planning in progress, please wait.")
 
     '''# clear the Screenshots folder
     clear_screenshots()

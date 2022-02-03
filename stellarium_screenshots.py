@@ -9,8 +9,45 @@ import time
 
 # add a function, add 14 minutes to the current time
 
-def time_tracker():
-    x = 0
+
+def time_tracker(hr_duration):
+    """
+     this function will take a new stellarium screenshot every 15 minutes for the two terrestrial scanning modes
+    """
+    min_duration = hr_duration * 60
+    num_screenshots = min_duration / 15
+    print(num_screenshots)
+
+    url = "http://localhost:8090/api/"
+    path = 'C:\\Program Files\\Stellarium\\stellarium.exe'
+    proc_stellarium = subprocess.Popen(path)
+    time.sleep(10)
+    change_settings(url)
+
+    # 15 min = 840 seconds
+    # - 10 seconds of sleep for stellarium to open
+    # time.sleep(830)
+
+    for i in range(0, int(num_screenshots)):
+        print(i)
+        # time.sleep(840)
+        time.sleep(10)
+        stellarium_current_time(url)
+        take_screenshot(url)
+
+    proc_stellarium.kill()
+
+
+def stellarium_current_time(url_main):
+    # calculate julian day according to Stellarium reference
+    date = pd.to_datetime("today") + pd.Timedelta(hours=6)
+    ts = pd.Timestamp(date)
+    julian = ts.to_julian_date()
+
+    # set the date and time
+    set_date_time = {'time': julian, 'timerate': 0, }
+    time = requests.post(url_main + "main/time", data=set_date_time)
+
 
 def change_settings(url_main):
     """
@@ -67,6 +104,7 @@ def crop_selection_image():
 
 
 def open_close_stellarium():
+    start_time = time.time()
     # enable remote control plugin for Stellarium
     # open Stellarium before running this program
     url = "http://localhost:8090/api/"
@@ -92,6 +130,7 @@ def open_close_stellarium():
         print(properties.json())'''
 
     proc_stellarium.kill()
+    print("program time in seconds", (time.time() - start_time))
 
 
-# open_close_stellarium()
+#time_tracker(1)

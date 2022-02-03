@@ -27,3 +27,21 @@ Image Processing:
 GUI:
 - show final image / gif to the user along with a legend for the heatmap
 - clean up gui area selections
+- waiting animation after route planning is sent
+
+Scanning Key:
+0 - new route planning, ready to read
+1 - scan complete?
+
+Timed Screenshots:
+- run GUI_select_mode.py
+- check for running process
+- clear screenshots folder
+- take new stellarium screenshot
+- crop that image for the mode windows
+- show select mode window
+- let user select mode
+- if one of the terrestrial or RPA, pass duration and start screenshot timer function
+- take a screenshot every 15 minutes
+
+
