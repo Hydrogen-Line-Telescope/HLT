@@ -1,109 +1,10 @@
-from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 from PIL import Image, ImageDraw
 import numpy as np
 import ctypes
-import os
-import glob
-import GUI_two_dim_area
-import GUI_two_dim_sweep
-import GUI_one_dim_sweep
-import GUI_repeated_point_analysis
-import sys
-import stellarium_screenshots
-
-
-def relative_to_assets(path: str) -> Path:
-    """
-    this function helps retrieve the images for the GUI buttons
-    """
-    # get button image files
-    OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path("./select_mode_buttons")
-    return ASSETS_PATH / Path(path)
-
-
-def clear_screenshots():
-    """
-    this function clears all previous screenshots from the Screenshots folder
-    """
-    files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*.png')
-    for f in files:
-        os.remove(f)
-
-
-def crop_image():
-    """
-    this function takes the screenshot output by stellarium and crops the image to fit
-    within the GUI as a lower quality circle
-    """
-
-    im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\stellarium-000.png')
-    width, height = im.size   # Get dimensions
-
-    left = (width - 1250)/2
-    top = (height - 1250)/2
-    right = (width + 1250)/2
-    bottom = (height + 1250)/2
-
-    # Crop the center of the image
-    im = im.crop((left, top, right, bottom))
-
-    img = im.convert("RGB")
-    npImage = np.array(img)
-    h, w = img.size
-
-    # Create same size alpha layer with circle
-    alpha = Image.new('L', img.size, 0)
-    draw = ImageDraw.Draw(alpha)
-    draw.pieslice([0, 0, h, w], 0, 360, fill=255)
-
-    # Convert alpha Image to numpy array
-    npAlpha = np.array(alpha)
-
-    # Add alpha layer to RGB
-    npImage = np.dstack((npImage, npAlpha))
-
-    # Save with alpha
-    Image.fromarray(npImage).save(
-        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
-
-    im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
-    width, height = im.size   # Get dimensions
-    #print(width, height)
-
-    new_im = im.resize((500, 500), Image.ANTIALIAS)
-    width, height = im.size   # Get dimensions
-    #print(width, height)
-    new_im.save('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png', 'PNG',
-                quality=100)
 
 
 def select_mode_main():
-    """
-    this function:
-    clears the Screenshots folder
-    creates a new Stellarium screenshot at the current time
-    crops that screenshot
-    creates the select mode GUI window
-    calls functions for each mode from the GUI buttons
-    """
-    '''Y:\\Route Data\\'''
-    with open('Z:\\Route Data\\Scanning_Key.txt') as f:
-        lines = f.readlines()
-        print(lines)
-        if lines[0] == '0':
-            sys.exit("Route planning in progress, please wait.")
-
-    '''# clear the Screenshots folder
-    clear_screenshots()
-
-    # get a current stellarium screenshot
-    stellarium_screenshots.open_close_stellarium()
-
-    # crop the stellarium image for the GUI
-    crop_image()'''
-
     # set the GUI clarity
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
 
@@ -297,6 +198,3 @@ def select_mode_main():
     )
     window.resizable(False, False)
     window.mainloop()
-
-
-select_mode_main()

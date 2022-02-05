@@ -62,8 +62,8 @@ def unbind_mouse(one_sweep_window, entry_1):
     route_list = Route_Demo.one_terra(250, coordinates_list[0])
     routedf = pd.DataFrame(route_list)
     routedf = routedf.transpose()
-    routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
-    with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+    routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
+    with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
         f.write('0')
     one_sweep_window.destroy()
 

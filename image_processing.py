@@ -19,7 +19,8 @@ def two_dim_sel(freqdf, magdf):
     # creating the heatmap plot, interpolation set to 'catrom'
     fig, ax = plt.subplots()
     im = ax.imshow(freqdf, cmap=cmap, alpha=magdf, norm=norm, interpolation='catrom')
-    plt.axis('off')
+    #fig.colorbar(im)
+    #plt.axis('off')
 
     # save figure for overlay later
     plt.savefig('HeatMaps\\2-DSel.png', bbox_inches='tight', pad_inches=0)
@@ -90,14 +91,14 @@ freqdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\fr
 magdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sel.csv')
 two_dim_sel(freqdf0, magdf0)
 
-foo.two_dim_sweep_data(5, 8)
+'''foo.two_dim_sweep_data(5, 8)
 freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
 magdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
-two_dim_sweep(freqdf1, magdf1, 5)
+two_dim_sweep(freqdf1, magdf1, 5)'''
 
-foo.one_dim_sweep_rpa_data(1)
+'''foo.one_dim_sweep_rpa_data(1)
 freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_one_sweep.csv')
-magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_one_sweep.csv')
+magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_one_sweep.csv')'''
 '''freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Peak Frequency.csv')
 magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Peak Magnitude.csv')'''
-one_dim_sweep_rpa(freqdf2, magdf2, 1)
+'''one_dim_sweep_rpa(freqdf2, magdf2, 1)'''

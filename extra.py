@@ -31,12 +31,23 @@ final_image.save("final_image_overlay.png")
 with open('Scanning_Key.txt', 'w') as f:
     f.write('1')'''
 
-
+'''
 import pandas as pd
 
 df = pd.read_csv('2-D Area Route.csv')
 products_list = df.values.tolist()
 
 print(df)
-print(products_list)
+print(products_list)'''
 
+import os
+import imageio
+
+png_dir = 'Results'
+images = []
+for file_name in sorted(os.listdir(png_dir)):
+    if file_name.endswith('.png'):
+        file_path = os.path.join(png_dir, file_name)
+        images.append(imageio.imread(file_path))
+kargs = { 'duration': 2}
+imageio.mimsave('Results\\movie.gif', images, **kargs)

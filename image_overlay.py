@@ -32,7 +32,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 
 
-def image_overlay(heatmap_file, skymap_file, heatmap_size):
+def image_overlay(heatmap_file, skymap_file, heatmap_size, mode):
     # open the heatmap and skymap photos
     heatmap = Image.open(heatmap_file)
     skymap = Image.open(skymap_file)
@@ -59,7 +59,7 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size):
 
     # paste the blended skymap and heatmap on the full skymap image at the correct coordinates
     skymap.paste(blended_image, tuple(heatmap_size))
-    skymap.show()
+    # skymap.show()
     img = skymap.convert("RGB")
     npImage = np.array(img)
     h, w = skymap.size
@@ -77,10 +77,9 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size):
 
     # Save with alpha
     final_image = Image.fromarray(npImage)
-    final_image.show()
+    # final_image.show()
     final_image.resize((500, 500), Image.ANTIALIAS)
-    final_image.save("final_image_overlay.png")
-    skymap.save("not_final_image_overlay.png")
+    final_image.save("Results\\final_image_overlay_" + mode + ".png")
 
 
 def two_dim_sel_coordinates(gui_coordinates):
@@ -180,20 +179,20 @@ def one_dim_terr_rpa_coordinates(gui_coordinates):
     return heatmap_size
 
 
-two_dim_coordinates = [[-250, -68], [134, 162]]
+two_dim_coordinates = [[-190, -68], [134, 162]]
 one_dim_coordinates = [[-83, 2]]
 
 # get adjusted coordinates from this function
-'''heatmap = one_dim_terr_rpa_coordinates(one_dim_coordinates)
+heatmap = one_dim_terr_rpa_coordinates(one_dim_coordinates)
 print(heatmap)
-image_overlay("Heatmaps\\1-DTS_RPA_0.png", "Screenshots\\cropped_stellarium.png", heatmap)
-'''
+image_overlay("Heatmaps\\1-DTS_RPA_0.png", "Screenshots\\cropped_stellarium.png", heatmap, '1d_terr')
+
 
 heatmap = two_dim_terr_coordinates(one_dim_coordinates)
 print(heatmap)
-image_overlay("Heatmaps\\2-DTS_0.png", "Screenshots\\cropped_stellarium.png", heatmap)
+image_overlay("Heatmaps\\2-DTS_0.png", "Screenshots\\cropped_stellarium.png", heatmap, '2d_terr')
 
-'''heatmap_two = two_dim_sel_coordinates(two_dim_coordinates)
+heatmap_two = two_dim_sel_coordinates(two_dim_coordinates)
 # pass file locations for the heatmap and skymap as well as the adjusted coordinates
-image_overlay("Heatmaps\\2-DSel.png", "Screenshots\\cropped_stellarium.png", heatmap_two)
-'''
+image_overlay("Heatmaps\\2-DSel.png", "Screenshots\\cropped_stellarium.png", heatmap_two, '2d_sel')
+
