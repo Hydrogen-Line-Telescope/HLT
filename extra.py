@@ -40,7 +40,7 @@ products_list = df.values.tolist()
 print(df)
 print(products_list)'''
 
-import os
+'''import os
 import imageio
 
 png_dir = 'Results'
@@ -50,4 +50,31 @@ for file_name in sorted(os.listdir(png_dir)):
         file_path = os.path.join(png_dir, file_name)
         images.append(imageio.imread(file_path))
 kargs = { 'duration': 2}
-imageio.mimsave('Results\\movie.gif', images, **kargs)
+imageio.mimsave('Results\\movie.gif', images, **kargs)'''
+
+
+coordinates_list = [[-105, 54], [130, -92]]
+
+lower_left_coord = [0, 0]
+upper_right_coord = [0, 0]
+
+# compare x's
+if coordinates_list[0][0] < coordinates_list[1][0]:
+    lower_left_coord[0] = coordinates_list[0][0]
+    upper_right_coord[0] = coordinates_list[1][0]
+else:
+    upper_right_coord[0] = coordinates_list[0][0]
+    lower_left_coord[0] = coordinates_list[1][0]
+
+# compare y's
+if coordinates_list[0][1] < coordinates_list[1][1]:
+    lower_left_coord[1] = coordinates_list[0][1]
+    upper_right_coord[1] = coordinates_list[1][1]
+else:
+    upper_right_coord[1] = coordinates_list[0][1]
+    lower_left_coord[1] = coordinates_list[1][1]
+
+
+print(coordinates_list)
+print(lower_left_coord)
+print(upper_right_coord)

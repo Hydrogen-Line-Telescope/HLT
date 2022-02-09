@@ -55,7 +55,30 @@ def unbind_mouse(two_sel_window):
     print("mouse unbound")
     print(coordinates_list)
 
-    route_list = Route_Demo.two_dim(250, coordinates_list[0], coordinates_list[1], 10)
+    lower_left_coord = [0, 0]
+    upper_right_coord = [0, 0]
+    # lower left is smaller x, smaller y
+    # upper right is larger x, larger y
+
+    # compare x's
+    if coordinates_list[0][0] < coordinates_list[1][0]:
+        lower_left_coord[0] = coordinates_list[0][0]
+        upper_right_coord[0] = coordinates_list[1][0]
+    else:
+        upper_right_coord[0] = coordinates_list[0][0]
+        lower_left_coord[0] = coordinates_list[1][0]
+
+    # compare y's
+    if coordinates_list[0][1] < coordinates_list[1][1]:
+        lower_left_coord[1] = coordinates_list[0][1]
+        upper_right_coord[1] = coordinates_list[1][1]
+    else:
+        upper_right_coord[1] = coordinates_list[0][1]
+        lower_left_coord[1] = coordinates_list[1][1]
+
+    print(lower_left_coord)
+    print(upper_right_coord)
+    route_list = Route_Demo.two_dim(250, lower_left_coord, upper_right_coord, 10)
     routedf = pd.DataFrame(route_list)
     routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
     with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
