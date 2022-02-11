@@ -5,6 +5,7 @@ import pandas as pd
 from PIL import ImageTk
 import ctypes
 import Route_Demo
+import error_message_1
 
 
 def relative_to_assets(path: str) -> Path:
@@ -52,6 +53,10 @@ def unbind_mouse(two_sel_window):
     two_sel_window.unbind('<Button-1>')
     del coordinates_list[2]
 
+    print("test", coordinates_list)
+
+    two_sel_window.destroy()
+
     print("mouse unbound")
     print(coordinates_list)
 
@@ -78,12 +83,23 @@ def unbind_mouse(two_sel_window):
 
     print(lower_left_coord)
     print(upper_right_coord)
-    route_list = Route_Demo.two_dim(250, lower_left_coord, upper_right_coord, 10)
-    routedf = pd.DataFrame(route_list)
-    routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
-    with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
-        f.write('0')
-    two_sel_window.destroy()
+
+    # check rectangle dimensions
+    if upper_right_coord[0] - lower_left_coord[0] < 15:
+        print("Selected area is too small.")
+        error_message_1.selection_size_error()
+    elif upper_right_coord[1] - lower_left_coord[1] < 15:
+        print("Selected area is too small.")
+        error_message_1.selection_size_error()
+    else:
+        route_list = Route_Demo.two_dim(250, lower_left_coord, upper_right_coord, 10)
+        routedf = pd.DataFrame(route_list)
+        # Z:\\Route Data\\Scanning_Route.csv
+        print("dataframe", routedf)
+        routedf.to_csv('Route Data\\Scanning_Route.csv', index=False)
+
+    '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
+        f.write('0')'''
 
 
 def main(og_window):
@@ -97,6 +113,9 @@ def main(og_window):
     global canvas
 
     coordinates_list = []
+    coordinates_list.clear()
+
+    print("test", coordinates_list)
 
     # create the GUI window for this mode
     two_sel_window = Tk()

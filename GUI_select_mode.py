@@ -89,11 +89,11 @@ def select_mode_main():
     calls functions for each mode from the GUI buttons
     """
     '''Y:\\Route Data\\'''
-    with open('Z:\\Route Data\\Scanning_Key.txt') as f:
+    '''with open('Z:\\Route Data\\Scanning_Key.txt') as f:
         lines = f.readlines()
         print(lines)
         if lines[0] == '0':
-            sys.exit("Route planning in progress, please wait.")
+            sys.exit("Route planning in progress, please wait.")'''
 
     '''# clear the Screenshots folder
     clear_screenshots()
