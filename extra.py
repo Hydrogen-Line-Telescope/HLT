@@ -51,7 +51,7 @@ for file_name in sorted(os.listdir(png_dir)):
         images.append(imageio.imread(file_path))
 kargs = { 'duration': 2}
 imageio.mimsave('Results\\movie.gif', images, **kargs)'''
-
+'''
 
 coordinates_list = [[-105, 54], [130, -92]]
 
@@ -77,4 +77,38 @@ else:
 
 print(coordinates_list)
 print(lower_left_coord)
-print(upper_right_coord)
+print(upper_right_coord)'''
+
+import tkinter as tk
+
+root = tk.Tk()
+
+framelist = []  # List to hold all the frames
+frame_index = 0  # Frame index
+
+
+while True:
+    try:
+        # Read a frame from GIF file
+        part = 'gif -index {}'.format(frame_index)
+        frame = tk.PhotoImage(file='images/animated.gif', format=part)
+    except:
+        last_frame = frame_index - 1  # Save index for last frame
+        break  # Will break when GIF index is reached
+    framelist.append(frame)
+    frame_index += 1  # Next frame index
+
+
+def animate(frame_number):
+    if frame_number > last_frame:
+        frame_number = 0
+    label.config(image=framelist[frame_number])
+    root.after(50, animate, frame_number + 1)
+
+
+label = tk.Label(root, bg='#202020')
+label.pack()
+
+animate(0)  # Start animation
+
+root.mainloop()

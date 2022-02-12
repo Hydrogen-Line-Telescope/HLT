@@ -81,21 +81,21 @@ def unbind_mouse(two_sel_window):
         upper_right_coord[1] = coordinates_list[0][1]
         lower_left_coord[1] = coordinates_list[1][1]
 
-    print(lower_left_coord)
-    print(upper_right_coord)
+    # print(lower_left_coord)
+    # print(upper_right_coord)
 
     # check rectangle dimensions
     if upper_right_coord[0] - lower_left_coord[0] < 15:
-        print("Selected area is too small.")
+        # print("Selected area is too small.")
         error_message_1.selection_size_error()
     elif upper_right_coord[1] - lower_left_coord[1] < 15:
-        print("Selected area is too small.")
+        # print("Selected area is too small.")
         error_message_1.selection_size_error()
     else:
         route_list = Route_Demo.two_dim(250, lower_left_coord, upper_right_coord, 10)
         routedf = pd.DataFrame(route_list)
         # Z:\\Route Data\\Scanning_Route.csv
-        print("dataframe", routedf)
+        # print("dataframe", routedf)
         routedf.to_csv('Route Data\\Scanning_Route.csv', index=False)
 
     '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
@@ -167,6 +167,23 @@ def main(og_window):
         height=61.0
     )
 
+    canvas.place(x=0, y=0)
+    reset_image = PhotoImage(
+        file=relative_to_assets("reset_button.png"))
+    reset_button = Button(
+        image=reset_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("reset button clicked"),
+        relief="flat"
+    )
+    reset_button.place(
+        x=4.0,
+        y=4.0,
+        width=34.0,
+        height=34.0
+    )
+
     canvas.create_text(
         606.0,
         49.0,
@@ -205,7 +222,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        160.0,
+        165.0,
         anchor="nw",
         text="Click the ‘Select Corners’",
         fill="#000000",
@@ -214,7 +231,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        180.0,
+        185.0,
         anchor="nw",
         text="button. Selecting this",
         fill="#000000",
@@ -223,7 +240,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        200.0,
+        205.0,
         anchor="nw",
         text="button will prompt the",
         fill="#000000",
@@ -232,7 +249,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        220.0,
+        225.0,
         anchor="nw",
         text="program to record the",
         fill="#000000",
@@ -241,7 +258,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        240.0,
+        245.0,
         anchor="nw",
         text="coordinates of the next two",
         fill="#000000",
@@ -250,7 +267,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        260.0,
+        265.0,
         anchor="nw",
         text="mouse clicks within the",
         fill="#000000",
@@ -259,7 +276,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        280.0,
+        285.0,
         anchor="nw",
         text="image.",
         fill="#000000",
@@ -268,34 +285,25 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        312.0,
+        317.0,
         anchor="nw",
-        text="Select a lower left corner",
+        text="Select two diagonal rectangle",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
 
     canvas.create_text(
         560.0,
-        332.0,
+        337.0,
         anchor="nw",
-        text="first and then an upper",
+        text="corners.",
         fill="#000000",
         font=("Courier New", 18 * -1)
     )
 
     canvas.create_text(
         560.0,
-        352.0,
-        anchor="nw",
-        text="right corner.",
-        fill="#000000",
-        font=("Courier New", 18 * -1)
-    )
-
-    canvas.create_text(
-        560.0,
-        383.0,
+        369.0,
         anchor="nw",
         text="Then, select ‘Initiate",
         fill="#000000",
@@ -304,7 +312,7 @@ def main(og_window):
 
     canvas.create_text(
         560.0,
-        403.0,
+        389.0,
         anchor="nw",
         text="Scan’.",
         fill="#000000",

@@ -35,8 +35,6 @@ def select_mode_main():
     )
     # 323077-b9dec4ce-e04b-4690-ab1d-462ad0e2f003
 
-
-
     window.resizable(False, False)
     window.mainloop()
 

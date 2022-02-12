@@ -39,12 +39,12 @@ def crop_image():
     """
 
     im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\stellarium-000.png')
-    width, height = im.size   # Get dimensions
+    width, height = im.size  # Get dimensions
 
-    left = (width - 1250)/2
-    top = (height - 1250)/2
-    right = (width + 1250)/2
-    bottom = (height + 1250)/2
+    left = (width - 1250) / 2
+    top = (height - 1250) / 2
+    right = (width + 1250) / 2
+    bottom = (height + 1250) / 2
 
     # Crop the center of the image
     im = im.crop((left, top, right, bottom))
@@ -69,12 +69,12 @@ def crop_image():
         'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
 
     im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
-    width, height = im.size   # Get dimensions
-    #print(width, height)
+    width, height = im.size  # Get dimensions
+    # print(width, height)
 
     new_im = im.resize((500, 500), Image.ANTIALIAS)
-    width, height = im.size   # Get dimensions
-    #print(width, height)
+    width, height = im.size  # Get dimensions
+    # print(width, height)
     new_im.save('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png', 'PNG',
                 quality=100)
 
@@ -111,19 +111,19 @@ def select_mode_main():
     window = Tk()
 
     window.geometry("500x600")
-    window.configure(bg = "#A4A4A4")
+    window.configure(bg="#A4A4A4")
 
     canvas = Canvas(
         window,
-        bg = "#A4A4A4",
-        height = 600,
-        width = 500,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
+        bg="#A4A4A4",
+        height=600,
+        width=500,
+        bd=0,
+        highlightthickness=0,
+        relief="ridge"
     )
 
-    canvas.place(x = 0, y = 0)
+    canvas.place(x=0, y=0)
     canvas.create_text(
         91.0,
         517.0,
