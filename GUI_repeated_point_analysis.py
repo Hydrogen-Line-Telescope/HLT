@@ -39,19 +39,19 @@ def get_coordinates(event):
         coord_text()
 
 
-def bind_mouse(one_sweep_window):
+def bind_mouse(rpa_window):
     """
     this function binds the mouse - button 1 to the get_coordinates event
     """
-    one_sweep_window.bind('<Button-1>', get_coordinates)
+    rpa_window.bind('<Button-1>', get_coordinates)
 
 
-def unbind_mouse(one_sweep_window, entry_1):
+def unbind_mouse(rpa_window, entry_1):
     """
     this function unbinds the mouse - button 1 from events and sends the coordinates
     to the route planning subsystem
     """
-    one_sweep_window.unbind('<Button-1>')
+    rpa_window.unbind('<Button-1>')
     del coordinates_list[1]
 
     print("mouse unbound")
@@ -67,7 +67,7 @@ def unbind_mouse(one_sweep_window, entry_1):
     routedf.to_csv('Route Data\\Scanning_Route.csv', index=False)
     '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
         f.write('0')'''
-    one_sweep_window.destroy()
+    rpa_window.destroy()
 
 
 def reset_selection(two_sel_window):
@@ -89,12 +89,12 @@ def main(og_window):
     coordinates_list = []
 
     # create the GUI window for this mode
-    one_sweep_window = Tk()
-    one_sweep_window.geometry("900x600")
-    one_sweep_window.configure(bg = "#A5A5A5")
+    rpa_window = Tk()
+    rpa_window.geometry("900x600")
+    rpa_window.configure(bg = "#A5A5A5")
 
     canvas = Canvas(
-        one_sweep_window,
+        rpa_window,
         bg = "#A5A5A5",
         height = 600,
         width = 900,
@@ -107,12 +107,12 @@ def main(og_window):
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     button_1 = Button(
-        one_sweep_window,
+        rpa_window,
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
         relief="flat",
-        command=lambda: bind_mouse(one_sweep_window)
+        command=lambda: bind_mouse(rpa_window)
     )
     button_1.place(
         x=585.0,
@@ -122,13 +122,13 @@ def main(og_window):
     )
 
     button_image_2 = PhotoImage(
-        file=relative_to_assets("button_2.png"), master=one_sweep_window)
+        file=relative_to_assets("button_2.png"), master=rpa_window)
     button_2 = Button(
-        one_sweep_window,
+        rpa_window,
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: unbind_mouse(one_sweep_window, entry_1),
+        command=lambda: unbind_mouse(rpa_window, entry_1),
         relief="flat"
     )
     button_2.place(
@@ -144,7 +144,7 @@ def main(og_window):
         image=reset_image,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: reset_selection(one_sweep_window),
+        command=lambda: reset_selection(rpa_window),
         relief="flat"
     )
     reset_button.place(
@@ -328,9 +328,9 @@ def main(og_window):
     )
 
     path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png"
-    img = ImageTk.PhotoImage(file=path, master=one_sweep_window)
+    img = ImageTk.PhotoImage(file=path, master=rpa_window)
     canvas.create_image(275, 300, image=img)
 
-    one_sweep_window.resizable(False, False)
-    one_sweep_window.mainloop()
+    rpa_window.resizable(False, False)
+    rpa_window.mainloop()
 

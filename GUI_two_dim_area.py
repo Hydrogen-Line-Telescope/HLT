@@ -7,10 +7,6 @@ import ctypes
 import Route_Demo
 import error_message_1
 
-'''canvas = 0
-coordinates_list = []
-'''
-
 
 def relative_to_assets(path: str) -> Path:
     """
