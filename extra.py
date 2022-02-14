@@ -79,7 +79,7 @@ print(coordinates_list)
 print(lower_left_coord)
 print(upper_right_coord)'''
 
-import tkinter as tk
+'''import tkinter as tk
 
 root = tk.Tk()
 
@@ -112,3 +112,19 @@ label.pack()
 animate(0)  # Start animation
 
 root.mainloop()
+'''
+
+
+def function_1():
+    # assigning a string as a member of the function object
+    function_1.var = "variable inside function_1"
+    print("function_1 has been called")
+
+
+def function_2():
+    print("function_2 has been called")
+    print(function_1.var)
+
+
+function_1()
+function_2()

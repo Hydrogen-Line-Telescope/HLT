@@ -1,11 +1,15 @@
 # coding=utf-8
 from pathlib import Path
-from tkinter import Tk, Canvas, Button, PhotoImage
+from tkinter import Tk, Canvas, Button, PhotoImage, Label
 import pandas as pd
 from PIL import ImageTk
 import ctypes
 import Route_Demo
 import error_message_1
+
+'''canvas = 0
+coordinates_list = []
+'''
 
 
 def relative_to_assets(path: str) -> Path:
@@ -17,6 +21,15 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH_two / Path(path)
 
 
+def coord_text():
+    coord_text.var = Label(canvas,
+                           text=coordinates_list,
+                           fg="#000000",
+                           bg="#A5A5A5",
+                           font=("Courier New", 20 * -1))
+    coord_text.var.place(x=150, y=570)
+
+
 def get_coordinates(event):
     """
     this function gets the coordinates from mouse clicks within the skymap image
@@ -24,18 +37,14 @@ def get_coordinates(event):
     if len(coordinates_list) >= 4:
         coordinates_list.clear()
 
-    coordinates_list.append([event.x-275, -1 * (event.y-300)])
+    coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
-    if len(coordinates_list) <= 2:
-        canvas.create_text(
-            150.0,
-            570.0,
-            anchor="nw",
-            text=coordinates_list,
-            fill="#000000",
-            font=("Courier New", 20 * -1)
-        )
     print(coordinates_list)
+    if len(coordinates_list) == 1:
+        coord_text()
+    elif len(coordinates_list) == 2:
+        coord_text.var["text"] = ""
+        coord_text()
 
 
 def bind_mouse(two_sel_window):
@@ -102,8 +111,13 @@ def unbind_mouse(two_sel_window):
         f.write('0')'''
 
 
-def main(og_window):
+def reset_selection(two_sel_window):
+    two_sel_window.unbind('<Button-1>')
+    coordinates_list.clear()
+    coord_text.var["text"] = ""
 
+
+def main(og_window):
     # remove the select mode window
     og_window.destroy()
 
@@ -124,15 +138,15 @@ def main(og_window):
 
     canvas = Canvas(
         two_sel_window,
-        bg = "#A5A5A5",
-        height = 600,
-        width = 900,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
+        bg="#A5A5A5",
+        height=600,
+        width=900,
+        bd=0,
+        highlightthickness=0,
+        relief="ridge"
     )
 
-    canvas.place(x = 0, y = 0)
+    canvas.place(x=0, y=0)
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"), master=two_sel_window)
     button_1 = Button(
@@ -157,7 +171,7 @@ def main(og_window):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command= lambda: unbind_mouse(two_sel_window),
+        command=lambda: unbind_mouse(two_sel_window),
         relief="flat"
     )
     button_2.place(
@@ -167,14 +181,13 @@ def main(og_window):
         height=61.0
     )
 
-    canvas.place(x=0, y=0)
     reset_image = PhotoImage(
         file=relative_to_assets("reset_button.png"))
     reset_button = Button(
         image=reset_image,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("reset button clicked"),
+        command=lambda: reset_selection(two_sel_window),
         relief="flat"
     )
     reset_button.place(

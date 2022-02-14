@@ -1,6 +1,6 @@
 # coding=utf-8
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END, Label
 import pandas as pd
 from PIL import ImageTk
 import ctypes
@@ -16,6 +16,15 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH_one_sweep / Path(path)
 
 
+def coord_text():
+    coord_text.var = Label(canvas,
+                           text=coordinates_list,
+                           fg="#000000",
+                           bg="#A5A5A5",
+                           font=("Courier New", 20 * -1))
+    coord_text.var.place(x=220, y=570)
+
+
 def get_coordinates(event):
     """
     this function gets the coordinates from mouse clicks within the skymap image
@@ -25,16 +34,9 @@ def get_coordinates(event):
 
     coordinates_list.append([event.x-275, -1 * (event.y-300)])
 
-    if len(coordinates_list) == 1:
-        canvas.create_text(
-            220.0,
-            570.0,
-            anchor="nw",
-            text=coordinates_list,
-            fill="#000000",
-            font=("Courier New", 20 * -1)
-        )
     print(coordinates_list)
+    if len(coordinates_list) == 1:
+        coord_text()
 
 
 def bind_mouse(one_sweep_window):
@@ -61,10 +63,17 @@ def unbind_mouse(one_sweep_window, entry_1):
     route_list = Route_Demo.one_terra(250, coordinates_list[0])
     routedf = pd.DataFrame(route_list)
     routedf = routedf.transpose()
-    routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
-    with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
-        f.write('0')
+    '''Z:\\'''
+    routedf.to_csv('Route Data\\Scanning_Route.csv', index=False)
+    '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
+        f.write('0')'''
     one_sweep_window.destroy()
+
+
+def reset_selection(two_sel_window):
+    two_sel_window.unbind('<Button-1>')
+    coordinates_list.clear()
+    coord_text.var["text"] = ""
 
 
 def main(og_window):
@@ -127,6 +136,22 @@ def main(og_window):
         y=519.0,
         width=258.0,
         height=61.0
+    )
+
+    reset_image = PhotoImage(
+        file=relative_to_assets("reset_button.png"))
+    reset_button = Button(
+        image=reset_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: reset_selection(one_sweep_window),
+        relief="flat"
+    )
+    reset_button.place(
+        x=4.0,
+        y=4.0,
+        width=34.0,
+        height=34.0
     )
 
     canvas.create_text(
