@@ -114,6 +114,16 @@ animate(0)  # Start animation
 root.mainloop()
 '''
 
+'''
+def clear_screenshots():
+    """
+    this function clears all previous screenshots from the Screenshots folder
+    """
+    files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*.png')
+    for f in files:
+        os.remove(f)
+'''
+
 
 def function_1():
     # assigning a string as a member of the function object

@@ -5,6 +5,7 @@ import pandas as pd
 from PIL import ImageTk
 import ctypes
 import Route_Demo
+import stellarium_screenshots
 
 
 def relative_to_assets(path: str) -> Path:
@@ -57,7 +58,7 @@ def unbind_mouse(two_sweep_window, entry_1):
     print("mouse unbound")
     print(coordinates_list)
 
-    duration = entry_1.get()
+    duration = int(entry_1.get())
     print(duration)
 
     route_list = Route_Demo.two_terra(250, coordinates_list[0], 10)
@@ -67,6 +68,9 @@ def unbind_mouse(two_sweep_window, entry_1):
     '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
         f.write('0')'''
     two_sweep_window.destroy()
+
+    # call the time tracker function to start taking Stellarium screenshots
+    stellarium_screenshots.time_tracker(duration)
 
 
 def reset_selection(two_sel_window):

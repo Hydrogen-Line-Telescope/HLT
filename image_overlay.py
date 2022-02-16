@@ -79,7 +79,7 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size, mode):
     final_image = Image.fromarray(npImage)
     # final_image.show()
     final_image.resize((500, 500), Image.ANTIALIAS)
-    final_image.save("Results\\final_image_overlay_" + mode + ".png")
+    final_image.save("Overlays\\final_image_overlay_" + mode + ".png")
 
 
 def two_dim_sel_coordinates(gui_coordinates):

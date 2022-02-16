@@ -1,4 +1,6 @@
-from PIL import Image, ImageOps, ImageDraw
+import glob
+
+'''from PIL import Image, ImageOps, ImageDraw
 
 im = Image.open('two_dim_terr_overlay.png')
 im.show()
@@ -8,4 +10,7 @@ draw = ImageDraw.Draw(mask)
 draw.ellipse((0, 0) + bigsize, fill=255)
 mask = mask.resize(im.size, Image.ANTIALIAS)
 im.putalpha(mask)
-im.show()
+im.show()'''
+
+files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*')
+print(files)

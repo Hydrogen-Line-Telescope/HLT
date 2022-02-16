@@ -2,18 +2,79 @@ import requests
 import subprocess
 import pandas as pd
 import time
+import os
+import glob
+from PIL import Image, ImageDraw
+import numpy as np
 
 # user will:
 # need to download Stellarium and set the default projection mode to 'equal area'
 # need to set the screenshot location in Stellarium to "Screenshots" folder within the HLT project
 
-# add a function, add 14 minutes to the current time
+
+def crop_image(im, i):
+    """
+    this function takes the screenshot output by stellarium and crops the image to fit
+    within the GUI as a lower quality circle
+    """
+
+    width, height = im.size  # Get dimensions
+
+    left = (width - 1250) / 2
+    top = (height - 1250) / 2
+    right = (width + 1250) / 2
+    bottom = (height + 1250) / 2
+
+    # Crop the center of the image
+    im = im.crop((left, top, right, bottom))
+
+    img = im.convert("RGB")
+    npImage = np.array(img)
+    h, w = img.size
+
+    # Create same size alpha layer with circle
+    alpha = Image.new('L', img.size, 0)
+    draw = ImageDraw.Draw(alpha)
+    draw.pieslice([0, 0, h, w], 0, 360, fill=255)
+
+    # Convert alpha Image to numpy array
+    npAlpha = np.array(alpha)
+
+    # Add alpha layer to RGB
+    npImage = np.dstack((npImage, npAlpha))
+
+    # Save with alpha
+    Image.fromarray(npImage).save(
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
+
+    im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
+    width, height = im.size  # Get dimensions
+    # print(width, height)
+
+    new_im = im.resize((500, 500), Image.ANTIALIAS)
+    width, height = im.size  # Get dimensions
+    # print(width, height)
+    new_im.save('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png', 'PNG',
+                quality=100)
+
+
+def clear_folder(folder_path):
+    """
+    this function clears all previous screenshots from the Screenshots folder
+    """
+    files = glob.glob(folder_path + '\\*')
+    for f in files:
+        os.remove(f)
 
 
 def time_tracker(hr_duration):
     """
      this function will take a new stellarium screenshot every 15 minutes for the two terrestrial scanning modes
     """
+
+    # first, clear the Screenshots folder to get rid of the screenshot taken for the GUI display
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
+
     min_duration = hr_duration * 60
     num_screenshots = min_duration / 15
     print(num_screenshots)
@@ -28,6 +89,7 @@ def time_tracker(hr_duration):
     # - 10 seconds of sleep for stellarium to open
     # time.sleep(830)
 
+    # currently takes a screenshot every 10 seconds
     for i in range(0, int(num_screenshots)):
         print(i)
         # time.sleep(840)
@@ -36,6 +98,13 @@ def time_tracker(hr_duration):
         take_screenshot(url)
 
     proc_stellarium.kill()
+
+    # crop all of the stellarium screenshots for the image overlay function
+    # labeled as stellarium_cropped-#.png
+    files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*')
+    print(files)
+    for i in range(0, len(files)):
+        im = Image.open(files[i])
 
 
 def stellarium_current_time(url_main):
@@ -130,7 +199,7 @@ def open_close_stellarium():
         print(properties.json())'''
 
     proc_stellarium.kill()
-    print("program time in seconds", (time.time() - start_time))
+    #print("program time in seconds", (time.time() - start_time))
 
 
 #time_tracker(1)

@@ -23,11 +23,11 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 
-def clear_screenshots():
+def clear_folder(folder_path):
     """
-    this function clears all previous screenshots from the Screenshots folder
+    this function clears all previous screenshots from any folder
     """
-    files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*.png')
+    files = glob.glob(folder_path + '\\*')
     for f in files:
         os.remove(f)
 
@@ -95,14 +95,20 @@ def select_mode_main():
         if lines[0] == '0':
             sys.exit("Route planning in progress, please wait.")'''
 
-    '''# clear the Screenshots folder
-    clear_screenshots()
+    # clear the Screenshots folder
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
+
+    # clear the Heatmaps folder
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps')
+
+    # clear the Overlays folder
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays')
 
     # get a current stellarium screenshot
     stellarium_screenshots.open_close_stellarium()
 
     # crop the stellarium image for the GUI
-    crop_image()'''
+    crop_image()
 
     # set the GUI clarity
     ctypes.windll.shcore.SetProcessDpiAwareness(3)

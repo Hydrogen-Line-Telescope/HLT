@@ -3,9 +3,22 @@ from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END, Label
 import ctypes
 import imageio
 import os
+import glob
+
+
+def clear_folder(folder_path):
+    """
+    this function clears all previous screenshots from any folder
+    """
+    files = glob.glob(folder_path + '\\*')
+    for f in files:
+        os.remove(f)
 
 
 def create_gif():
+    # clear the Results folder
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+
     picture_dir = 'Results'
     images = []
     for file_name in sorted(os.listdir(picture_dir)):
@@ -47,7 +60,7 @@ def main(duration):
         if number == frame_number:
             number = 0
         label.config(image=frame_list[number])
-        root.after(1000, change_frame, number + 1)
+        root.after(2000, change_frame, number + 1)
 
     label = Label(root)
     label.place(x=25, y=50)
