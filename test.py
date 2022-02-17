@@ -5,6 +5,13 @@ import image_processing as im_proc
 import pandas as pd
 import image_overlay
 import GUI_display_results
+# coding=utf-8
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END, Label
+import ctypes
+import imageio
+import os
+import glob
+
 
 def crop_image(im, num_image):
     """
@@ -84,9 +91,9 @@ heatmap_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 for i in range(0, num_scans):
     image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))'''
 
-GUI_display_results.create_gif()
+'''GUI_display_results.create_gif()
 GUI_display_results.main(1)
-
+'''
 
 '''picture_dir = 'Results'
     images = []
@@ -96,3 +103,46 @@ GUI_display_results.main(1)
             images.append(imageio.imread(file_path))
     kargs = {'duration': 2}
     imageio.mimsave('Results\\movie.gif', images, **kargs)'''
+
+
+'''def print_width():
+   print("The width of Tkinter window:", root.winfo_width())
+   print("The height of Tkinter window:", root.winfo_height())
+
+
+root = Tk()
+root.geometry("2256x600")
+root.configure(bg="#A5A5A5")
+
+canvas = Canvas(
+    root,
+    bg="#A5A5A5",
+    height=600,
+    width=900,
+    bd=0,
+    highlightthickness=0,
+    relief="ridge"
+)
+canvas.place(x=0, y=0)
+
+Button(root, text="Click", command=print_width).pack(pady=10)
+
+
+root.resizable(False, False)
+root.mainloop()'''
+# [[-117, 23], [-7, -69]]
+lower = [-190, -68]
+upper = [134, 162]
+coordinates_list = [lower, upper]
+
+# get cropped stellarium image path
+cropped_file = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium'
+                         '.png')
+
+# get heatmap image paths
+heatmap_file = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap.png')
+
+heatmap_size = image_overlay.two_dim_sel_coordinates(coordinates_list)
+
+image_overlay.image_overlay(heatmap_file[0], cropped_file[0], heatmap_size, '0')
+

@@ -80,7 +80,7 @@ def time_tracker(hr_duration):
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
 
     min_duration = hr_duration * 60
-    num_screenshots = min_duration / 15
+    num_screenshots = (min_duration / 15) + 1
     print(num_screenshots)
 
     url = "http://localhost:8090/api/"
@@ -97,7 +97,7 @@ def time_tracker(hr_duration):
     for i in range(0, int(num_screenshots)):
         print("screenshot:", i)
         # time.sleep(840)
-        time.sleep(10)
+        time.sleep(2)
         stellarium_current_time(url)
         take_screenshot(url)
 

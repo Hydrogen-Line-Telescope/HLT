@@ -37,14 +37,13 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size, num_image):
     heatmap = Image.open(heatmap_file)
     skymap = Image.open(skymap_file)
 
-    print(heatmap_size)
     # crop the skymap according to the user's selection for 2-dim selection
     skymap_cropped = skymap.crop(heatmap_size)
     size = skymap_cropped.size
 
-    print(heatmap.size)
-    print(skymap.size)
-    print(skymap_cropped.size)
+    print("heatmap size", heatmap.size)
+    print("skymap size", skymap.size)
+    print("skymap cropped size", skymap_cropped.size)
 
     #skymap_cropped.show()
 
@@ -54,7 +53,7 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size, num_image):
 
     # blend the skymap and heatmap with an alpha value
     # decide which alpha to use
-    blended_image = Image.blend(skymap_cropped, adjusted_heatmap, alpha=0.2)
+    blended_image = Image.blend(skymap_cropped, adjusted_heatmap, alpha=0.3)
     # blended_image.show()
 
     # paste the blended skymap and heatmap on the full skymap image at the correct coordinates

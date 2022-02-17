@@ -11,6 +11,7 @@ import image_processing
 import image_overlay
 import GUI_display_results
 
+
 def relative_to_assets(path: str) -> Path:
     """
     this function helps retrieve the images for the GUI buttons
@@ -36,7 +37,7 @@ def get_coordinates(event):
     if len(coordinates_list) >= 2:
         coordinates_list.clear()
 
-    coordinates_list.append([event.x-275, -1 * (event.y-300)])
+    coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
     print(coordinates_list)
     if len(coordinates_list) == 1:
@@ -63,7 +64,7 @@ def unbind_mouse(two_sweep_window, entry_1):
 
     hr_duration = int(entry_1.get())
     min_duration = hr_duration * 60
-    num_scans = min_duration / 15
+    num_scans = (min_duration / 15) + 1
 
     route_list = Route_Demo.two_terra(250, coordinates_list[0], 10)
     routedf = pd.DataFrame(route_list)
@@ -76,38 +77,10 @@ def unbind_mouse(two_sweep_window, entry_1):
     # call integration function for gui and image processing
     image_gui_integration(hr_duration, num_scans)
 
-    '''# call the time tracker function to start taking Stellarium screenshots
-    stellarium_screenshots.time_tracker(hr_duration)
-
-    # after the images are taken and cropped
-    # check for signal data - check a value in a file?
-    # for now assume it is written and ready for heatmaps in the Signal Data folder
-    # read frequency and magnitude data into pandas dataframes
-    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
-    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
-
-    # call the heatmap function with the data
-    # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
-    image_processing.two_dim_sweep(freqdf, magdf, num_scans)
-
-    # get the size of the heatmap for image overlay
-    heatmap_size = image_overlay.two_dim_terr_coordinates(coordinates_list)
-
-    # get cropped stellarium image paths
-    cropped_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped*')
-    # make sure they are in numerical order
-    cropped_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
-
-    # get heatmap image paths
-    heatmap_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap*')
-    # make sure they are in numerical order
-    heatmap_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))'''
-
 
 def image_gui_integration(hr_duration, num_scans):
     """
     this function integrates the image processing and GUI subsystems
-
     """
 
     num_scans = int(num_scans)
@@ -145,7 +118,7 @@ def image_gui_integration(hr_duration, num_scans):
 
     # create a gif
     GUI_display_results.create_gif()
-    GUI_display_results.main(hr_duration)
+    GUI_display_results.main(num_scans)
 
 
 def reset_selection(two_sel_window):
@@ -155,12 +128,11 @@ def reset_selection(two_sel_window):
 
 
 def main(og_window):
-
     # remove the select mode window
     og_window.destroy()
 
     # set GUI clarity
-    ctypes.windll.shcore.SetProcessDpiAwareness(3)
+    #ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
     global canvas
 
@@ -169,19 +141,19 @@ def main(og_window):
     # create the GUI window for this mode
     two_sweep_window = Tk()
     two_sweep_window.geometry("900x600")
-    two_sweep_window.configure(bg = "#A5A5A5")
+    two_sweep_window.configure(bg="#A5A5A5")
 
     canvas = Canvas(
         two_sweep_window,
-        bg = "#A5A5A5",
-        height = 600,
-        width = 900,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
+        bg="#A5A5A5",
+        height=600,
+        width=900,
+        bd=0,
+        highlightthickness=0,
+        relief="ridge"
     )
 
-    canvas.place(x = 0, y = 0)
+    canvas.place(x=0, y=0)
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     button_1 = Button(
@@ -391,7 +363,7 @@ def main(og_window):
     entry_1.insert(END, '1')
     entry_1.place(
         x=602.0,
-        y=408.0+18,
+        y=408.0 + 18,
         width=224.0,
         height=28.0
     )

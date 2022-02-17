@@ -1,6 +1,6 @@
 # coding=utf-8
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END, Label
-import ctypes
+from PIL import ImageTk
 import imageio
 import os
 import glob
@@ -35,13 +35,15 @@ def create_gif():
     imageio.mimsave('Results\\Results.gif', images, **kargs)
 
 
-def main(duration):
+def main(frame_number):
     # create the GUI window for this mode
+    #ctypes.windll.shcore.SetProcessDpiAwareness(2)
+
     root = Tk()
     root.geometry("900x600")
     root.configure(bg="#A5A5A5")
 
-    frame_number = int((duration * 60) / 15)
+    #frame_number = int((duration * 60) / 15) + 1
     frame_list = []
 
     for i in range(0, frame_number):
@@ -49,13 +51,11 @@ def main(duration):
         frame = PhotoImage(file='Results\\Results.gif', format=index)
         frame_list.append(frame)
 
-    ctypes.windll.shcore.SetProcessDpiAwareness(3)
-
     canvas = Canvas(
         root,
         bg="#A5A5A5",
-        height=600,
-        width=900,
+        height=900,
+        width=1350,
         bd=0,
         highlightthickness=0,
         relief="ridge"
@@ -77,3 +77,37 @@ def main(duration):
     root.resizable(False, False)
     root.mainloop()
 
+
+def display_two_dim_sel():
+    # create the GUI window for this mode
+    #ctypes.windll.shcore.SetProcessDpiAwareness(2)
+
+    root = Tk()
+    root.geometry("900x600")
+    root.configure(bg="#A5A5A5")
+
+    #frame_number = int((duration * 60) / 15) + 1
+    frame_list = []
+
+    canvas = Canvas(
+        root,
+        bg="#A5A5A5",
+        height=900,
+        width=1350,
+        bd=0,
+        highlightthickness=0,
+        relief="ridge"
+    )
+    canvas.place(x=0, y=0)
+
+    path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\Overlay-0.png"
+    img = ImageTk.PhotoImage(file=path, master=root)
+    canvas.create_image(275, 300, image=img)
+
+    # need to add a legend for the user and a description of the results
+
+    root.resizable(False, False)
+    root.mainloop()
+
+
+#display_two_dim_sel()

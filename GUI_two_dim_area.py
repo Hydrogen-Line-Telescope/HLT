@@ -4,8 +4,13 @@ from tkinter import Tk, Canvas, Button, PhotoImage, Label
 import pandas as pd
 from PIL import ImageTk
 import ctypes
+import glob
 import Route_Demo
 import error_message_1
+import stellarium_screenshots
+import image_processing
+import image_overlay
+import GUI_display_results
 
 
 def relative_to_assets(path: str) -> Path:
@@ -105,6 +110,43 @@ def unbind_mouse(two_sel_window):
 
     '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
         f.write('0')'''
+
+    new_coordinates_list = [lower_left_coord, upper_right_coord]
+    print(new_coordinates_list)
+    image_gui_integration(new_coordinates_list)
+
+
+def image_gui_integration(coordinates):
+    """
+    this function integrates the image processing and GUI subsystems
+    """
+    # use the image taken for selection
+
+    # check for signal data - check a value in a file?
+    # for now assume it is written and ready for heatmaps in the Signal Data folder
+    # read frequency and magnitude data into pandas dataframes
+    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
+    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+
+    # call the heatmap function with the 2D area data
+    image_processing.two_dim_sel(freqdf, magdf)
+
+    # get the size of the heatmap for image overlay
+    heatmap_size = image_overlay.two_dim_sel_coordinates(coordinates)
+
+    # get cropped stellarium image path
+    cropped_file = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium'
+                             '.png')
+
+    # get heatmap image paths
+    heatmap_file = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap.png')
+
+    # send files to the overlay function
+    # save to the Overlays folder
+    image_overlay.image_overlay(heatmap_file[0], cropped_file[0], heatmap_size, '0')
+
+    # display the results
+    GUI_display_results.display_two_dim_sel()
 
 
 def reset_selection(two_sel_window):

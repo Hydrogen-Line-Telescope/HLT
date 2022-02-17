@@ -138,3 +138,30 @@ def function_2():
 
 function_1()
 function_2()
+
+'''# call the time tracker function to start taking Stellarium screenshots
+stellarium_screenshots.time_tracker(hr_duration)
+
+# after the images are taken and cropped
+# check for signal data - check a value in a file?
+# for now assume it is written and ready for heatmaps in the Signal Data folder
+# read frequency and magnitude data into pandas dataframes
+freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
+magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+
+# call the heatmap function with the data
+# assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
+image_processing.two_dim_sweep(freqdf, magdf, num_scans)
+
+# get the size of the heatmap for image overlay
+heatmap_size = image_overlay.two_dim_terr_coordinates(coordinates_list)
+
+# get cropped stellarium image paths
+cropped_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped*')
+# make sure they are in numerical order
+cropped_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+# get heatmap image paths
+heatmap_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap*')
+# make sure they are in numerical order
+heatmap_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))'''

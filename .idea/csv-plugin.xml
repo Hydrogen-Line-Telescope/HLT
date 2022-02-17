@@ -10,7 +10,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\freq_data_one_sweep.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\freq_data_two_sweep.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\mag_data_one_sweep.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
