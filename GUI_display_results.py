@@ -17,21 +17,22 @@ def clear_folder(folder_path):
 
 def create_gif():
     # clear the Results folder
-    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Results')
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
     # get overlay image paths from Overlays
-    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Overlays*')
-    # make sure they are in numerical order
+    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\*')
+
+    # make sure the overlay files are in numerical order
     overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
-    picture_dir = 'Results'
     images = []
-    for file_name in overlay_files:
-        if file_name.endswith('.png'):
-            file_path = os.path.join(picture_dir, file_name)
-            images.append(imageio.imread(file_path))
+    for file_path in overlay_files:
+        images.append(imageio.imread(file_path))
+    # doesnt really matter since we'll adjust the timing in the tkinter display
     kargs = {'duration': 2}
-    imageio.mimsave('Results\\movie.gif', images, **kargs)
+
+    # save the gif in the Results folder
+    imageio.mimsave('Results\\Results.gif', images, **kargs)
 
 
 def main(duration):
@@ -45,7 +46,7 @@ def main(duration):
 
     for i in range(0, frame_number):
         index = 'gif -index {}'.format(i)
-        frame = PhotoImage(file='Results\\movie.gif', format=index)
+        frame = PhotoImage(file='Results\\Results.gif', format=index)
         frame_list.append(frame)
 
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
@@ -76,5 +77,3 @@ def main(duration):
     root.resizable(False, False)
     root.mainloop()
 
-
-#main(1)

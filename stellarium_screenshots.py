@@ -95,7 +95,7 @@ def time_tracker(hr_duration):
 
     # currently takes a screenshot every 10 seconds
     for i in range(0, int(num_screenshots)):
-        print(i)
+        print("screenshot:", i)
         # time.sleep(840)
         time.sleep(10)
         stellarium_current_time(url)

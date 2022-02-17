@@ -85,3 +85,14 @@ for i in range(0, num_scans):
     image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))'''
 
 GUI_display_results.create_gif()
+GUI_display_results.main(1)
+
+
+'''picture_dir = 'Results'
+    images = []
+    for file_name in overlay_files:
+        if file_name.endswith('.png'):
+            file_path = os.path.join(picture_dir, file_name)
+            images.append(imageio.imread(file_path))
+    kargs = {'duration': 2}
+    imageio.mimsave('Results\\movie.gif', images, **kargs)'''

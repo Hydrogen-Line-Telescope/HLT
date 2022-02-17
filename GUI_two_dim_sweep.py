@@ -109,6 +109,8 @@ def image_gui_integration(hr_duration, num_scans):
     this function integrates the image processing and GUI subsystems
 
     """
+
+    num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
     stellarium_screenshots.time_tracker(hr_duration)
 
@@ -143,6 +145,7 @@ def image_gui_integration(hr_duration, num_scans):
 
     # create a gif
     GUI_display_results.create_gif()
+    GUI_display_results.main(hr_duration)
 
 
 def reset_selection(two_sel_window):
