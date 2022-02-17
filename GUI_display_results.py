@@ -17,11 +17,16 @@ def clear_folder(folder_path):
 
 def create_gif():
     # clear the Results folder
-    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Results')
+
+    # get overlay image paths from Overlays
+    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Overlays*')
+    # make sure they are in numerical order
+    overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
     picture_dir = 'Results'
     images = []
-    for file_name in sorted(os.listdir(picture_dir)):
+    for file_name in overlay_files:
         if file_name.endswith('.png'):
             file_path = os.path.join(picture_dir, file_name)
             images.append(imageio.imread(file_path))
@@ -72,4 +77,4 @@ def main(duration):
     root.mainloop()
 
 
-main(1)
+#main(1)

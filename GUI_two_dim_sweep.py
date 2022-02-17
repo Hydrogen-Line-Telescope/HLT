@@ -4,9 +4,12 @@ from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END, Label
 import pandas as pd
 from PIL import ImageTk
 import ctypes
+import glob
 import Route_Demo
 import stellarium_screenshots
-
+import image_processing
+import image_overlay
+import GUI_display_results
 
 def relative_to_assets(path: str) -> Path:
     """
@@ -58,8 +61,9 @@ def unbind_mouse(two_sweep_window, entry_1):
     print("mouse unbound")
     print(coordinates_list)
 
-    duration = int(entry_1.get())
-    print(duration)
+    hr_duration = int(entry_1.get())
+    min_duration = hr_duration * 60
+    num_scans = min_duration / 15
 
     route_list = Route_Demo.two_terra(250, coordinates_list[0], 10)
     routedf = pd.DataFrame(route_list)
@@ -69,8 +73,76 @@ def unbind_mouse(two_sweep_window, entry_1):
         f.write('0')'''
     two_sweep_window.destroy()
 
+    # call integration function for gui and image processing
+    image_gui_integration(hr_duration, num_scans)
+
+    '''# call the time tracker function to start taking Stellarium screenshots
+    stellarium_screenshots.time_tracker(hr_duration)
+
+    # after the images are taken and cropped
+    # check for signal data - check a value in a file?
+    # for now assume it is written and ready for heatmaps in the Signal Data folder
+    # read frequency and magnitude data into pandas dataframes
+    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
+    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+
+    # call the heatmap function with the data
+    # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
+    image_processing.two_dim_sweep(freqdf, magdf, num_scans)
+
+    # get the size of the heatmap for image overlay
+    heatmap_size = image_overlay.two_dim_terr_coordinates(coordinates_list)
+
+    # get cropped stellarium image paths
+    cropped_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped*')
+    # make sure they are in numerical order
+    cropped_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+    # get heatmap image paths
+    heatmap_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap*')
+    # make sure they are in numerical order
+    heatmap_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))'''
+
+
+def image_gui_integration(hr_duration, num_scans):
+    """
+    this function integrates the image processing and GUI subsystems
+
+    """
     # call the time tracker function to start taking Stellarium screenshots
-    stellarium_screenshots.time_tracker(duration)
+    stellarium_screenshots.time_tracker(hr_duration)
+
+    # after the images are taken and cropped
+    # check for signal data - check a value in a file?
+    # for now assume it is written and ready for heatmaps in the Signal Data folder
+    # read frequency and magnitude data into pandas dataframes
+    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
+    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+
+    # call the heatmap function with the data
+    # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
+    image_processing.two_dim_sweep(freqdf, magdf, num_scans)
+
+    # get the size of the heatmap for image overlay
+    heatmap_size = image_overlay.two_dim_terr_coordinates(coordinates_list)
+
+    # get cropped stellarium image paths
+    cropped_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped*')
+    # make sure they are in numerical order
+    cropped_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+    # get heatmap image paths
+    heatmap_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap*')
+    # make sure they are in numerical order
+    heatmap_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+    # send files in order to the overlay function
+    # save to the Overlays folder
+    for i in range(0, num_scans):
+        image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))
+
+    # create a gif
+    GUI_display_results.create_gif()
 
 
 def reset_selection(two_sel_window):

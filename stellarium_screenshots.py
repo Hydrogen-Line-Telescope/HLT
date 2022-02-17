@@ -12,7 +12,7 @@ import numpy as np
 # need to set the screenshot location in Stellarium to "Screenshots" folder within the HLT project
 
 
-def crop_image(im, i):
+def crop_image(im, num_image):
     """
     this function takes the screenshot output by stellarium and crops the image to fit
     within the GUI as a lower quality circle
@@ -45,17 +45,21 @@ def crop_image(im, i):
 
     # Save with alpha
     Image.fromarray(npImage).save(
-        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped-' + num_image + '.png')
 
-    im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png')
+    im = Image.open(
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped-' + num_image + '.png')
     width, height = im.size  # Get dimensions
     # print(width, height)
 
     new_im = im.resize((500, 500), Image.ANTIALIAS)
     width, height = im.size  # Get dimensions
     # print(width, height)
-    new_im.save('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png', 'PNG',
-                quality=100)
+    # cropped images labeled as cropped_stellarium-#.png
+    new_im.save(
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped-' + num_image + '.png',
+        'PNG',
+        quality=100)
 
 
 def clear_folder(folder_path):
@@ -100,11 +104,16 @@ def time_tracker(hr_duration):
     proc_stellarium.kill()
 
     # crop all of the stellarium screenshots for the image overlay function
-    # labeled as stellarium_cropped-#.png
+    # get all stellarium screenshots from the folder
     files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*')
-    print(files)
+
+    # make sure the list of files is in ascending order by the number of the screenshot
+    files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
     for i in range(0, len(files)):
-        im = Image.open(files[i])
+        print(files[i])
+        image = Image.open(files[i])
+        # pass the image and image number to the crop_image function
+        crop_image(image, str(i))
 
 
 def stellarium_current_time(url_main):
@@ -129,11 +138,11 @@ def change_settings(url_main):
 
     # show azimuthal grid
     azimuth_grid = requests.post(url_main + 'stelaction/do', data={'id': 'actionShow_Azimuthal_Grid'})
-    #print("Azimuth: ", azimuth_grid)
+    # print("Azimuth: ", azimuth_grid)
 
     # remove atmosphere view
     atmosphere = requests.post(url_main + 'stelaction/do', data={'id': 'actionShow_Atmosphere'})
-    #print("Atmosphere: ", atmosphere)
+    # print("Atmosphere: ", atmosphere)
 
     # calculate julian day according to Stellarium reference
     date = pd.to_datetime("today") + pd.Timedelta(hours=6)
@@ -143,29 +152,29 @@ def change_settings(url_main):
     # set the date and time
     set_date_time = {'time': julian, 'timerate': 0, }
     time = requests.post(url_main + "main/time", data=set_date_time)
-    #print("Time: ", time)
+    # print("Time: ", time)
 
     # set location
     set_location = {'latitude': 30.6280, 'longitude': -96.3344, 'altitude': 0}
     location = requests.post(url_main + "location/setlocationfields", data=set_location)
-    #print("Location: ", location)
+    # print("Location: ", location)
 
     # set the sky view direction
     # [south, east, altitude]
     set_view = {'altAz': '[0.00001, 0, 1]'}
     view = requests.post(url_main + "main/view", data=set_view)
-    #print("View: ", view)
+    # print("View: ", view)
 
     # set the sky view zoom level
     set_fov = {'fov': '190'}
     fov = requests.post(url_main + "main/fov", data=set_fov)
-    #print("FOC: ", fov)
+    # print("FOC: ", fov)
 
 
 def take_screenshot(url_main):
     # create a screenshot of the current view
     screenshot = requests.post(url_main + 'stelaction/do', data={'id': 'actionSave_Screenshot_Global'})
-    #print("Screenshot: ", screenshot)
+    # print("Screenshot: ", screenshot)
 
 
 def crop_selection_image():
@@ -199,7 +208,6 @@ def open_close_stellarium():
         print(properties.json())'''
 
     proc_stellarium.kill()
-    #print("program time in seconds", (time.time() - start_time))
+    # print("program time in seconds", (time.time() - start_time))
 
-
-#time_tracker(1)
+# time_tracker(1)

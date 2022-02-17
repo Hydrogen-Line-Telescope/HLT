@@ -32,7 +32,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 
 
-def image_overlay(heatmap_file, skymap_file, heatmap_size, mode):
+def image_overlay(heatmap_file, skymap_file, heatmap_size, num_image):
     # open the heatmap and skymap photos
     heatmap = Image.open(heatmap_file)
     skymap = Image.open(skymap_file)
@@ -79,7 +79,7 @@ def image_overlay(heatmap_file, skymap_file, heatmap_size, mode):
     final_image = Image.fromarray(npImage)
     # final_image.show()
     final_image.resize((500, 500), Image.ANTIALIAS)
-    final_image.save("Overlays\\final_image_overlay_" + mode + ".png")
+    final_image.save("Overlays\\Overlay-" + num_image + ".png")
 
 
 def two_dim_sel_coordinates(gui_coordinates):
@@ -179,7 +179,7 @@ def one_dim_terr_rpa_coordinates(gui_coordinates):
     return heatmap_size
 
 
-two_dim_coordinates = [[-190, -68], [134, 162]]
+'''two_dim_coordinates = [[-190, -68], [134, 162]]
 one_dim_coordinates = [[-83, 2]]
 
 # get adjusted coordinates from this function
@@ -194,5 +194,5 @@ image_overlay("Heatmaps\\2-DTS_0.png", "Screenshots\\cropped_stellarium.png", he
 
 heatmap_two = two_dim_sel_coordinates(two_dim_coordinates)
 # pass file locations for the heatmap and skymap as well as the adjusted coordinates
-image_overlay("Heatmaps\\2-DSel.png", "Screenshots\\cropped_stellarium.png", heatmap_two, '2d_sel')
+image_overlay("Heatmaps\\2-DSel.png", "Screenshots\\cropped_stellarium.png", heatmap_two, '2d_sel')'''
 
