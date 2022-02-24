@@ -29,8 +29,8 @@ def two_dim_sweep_data(num_scans, line_length):
         mag_list = []
         freq_list = []
         for j in range(line_length):
-            mag = random.random()
-            freq = random.uniform(1410, 1430)
+            mag = random.uniform(0.5, 1)
+            freq = random.uniform(1419.4, 1421.4)
             mag_list.append(mag)
             freq_list.append(freq)
 

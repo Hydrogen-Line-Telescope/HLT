@@ -11,7 +11,9 @@ import ctypes
 import imageio
 import os
 import glob
-
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import colors
 
 def crop_image(im, num_image):
     """
@@ -131,7 +133,7 @@ Button(root, text="Click", command=print_width).pack(pady=10)
 root.resizable(False, False)
 root.mainloop()'''
 # [[-117, 23], [-7, -69]]
-lower = [-190, -68]
+'''lower = [-190, -68]
 upper = [134, 162]
 coordinates_list = [lower, upper]
 
@@ -146,3 +148,28 @@ heatmap_size = image_overlay.two_dim_sel_coordinates(coordinates_list)
 
 image_overlay.image_overlay(heatmap_file[0], cropped_file[0], heatmap_size, '0')
 
+'''
+
+cdict = {'red':   [(0.0,  0.0, 0.0),
+                   (0.5,  1.0, 1.0),
+                   (1.0,  1.0, 1.0)],
+
+         'green': [(0.0,  0.0, 0.0),
+                   (0.25, 0.0, 0.0),
+                   (0.75, 1.0, 1.0),
+                   (1.0,  1.0, 1.0)],
+
+         'blue':  [(0.0,  0.0, 0.0),
+                   (0.5,  0.0, 0.0),
+                   (1.0,  1.0, 1.0)]}
+
+
+cim = plt.imread("https://i.stack.imgur.com/4q2Ev.png")
+cim = cim[cim.shape[0]//2, 8:740, :]
+
+cmap = colors.ListedColormap(cim)
+
+data = np.random.rand(10,10)
+plt.imshow(data, cmap=cmap)
+plt.colorbar()
+plt.show()
