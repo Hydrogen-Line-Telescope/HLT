@@ -70,9 +70,9 @@ def unbind_mouse(one_sweep_window, entry_1):
     routedf = pd.DataFrame(route_list)
     routedf = routedf.transpose()
     '''Z:\\'''
-    routedf.to_csv('Route Data\\Scanning_Route.csv', index=False)
-    '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
-        f.write('0')'''
+    routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
+    with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+        f.write('0')
     one_sweep_window.destroy()
 
     image_gui_integration(hr_duration, num_scans)

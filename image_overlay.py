@@ -179,19 +179,19 @@ def one_dim_terr_rpa_coordinates(gui_coordinates):
 
 
 '''two_dim_coordinates = [[-190, -68], [134, 162]]
-one_dim_coordinates = [[-83, 2]]
+one_dim_coordinates = [[-83, 2]]'''
 
 # get adjusted coordinates from this function
-heatmap = one_dim_terr_rpa_coordinates(one_dim_coordinates)
+'''heatmap = one_dim_terr_rpa_coordinates(one_dim_coordinates)
 print(heatmap)
-image_overlay("Heatmaps\\1-DTS_RPA_0.png", "Screenshots\\cropped_stellarium.png", heatmap, '1d_terr')
+image_overlay("Heatmaps\\1-DTS_RPA_0.png", "Screenshots\\cropped_stellarium.png", heatmap, '1d_terr')'''
 
-
+'''
 heatmap = two_dim_terr_coordinates(one_dim_coordinates)
 print(heatmap)
 image_overlay("Heatmaps\\2-DTS_0.png", "Screenshots\\cropped_stellarium.png", heatmap, '2d_terr')
-
-heatmap_two = two_dim_sel_coordinates(two_dim_coordinates)
+'''
+'''heatmap_two = two_dim_sel_coordinates(two_dim_coordinates)
 # pass file locations for the heatmap and skymap as well as the adjusted coordinates
-image_overlay("Heatmaps\\2-DSel.png", "Screenshots\\cropped_stellarium.png", heatmap_two, '2d_sel')'''
+image_overlay("Heatmaps\\heatmap.png", "Screenshots\\cropped_stellarium.png", heatmap_two, '0')'''
 

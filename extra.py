@@ -165,3 +165,35 @@ cropped_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 heatmap_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap*')
 # make sure they are in numerical order
 heatmap_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))'''
+
+
+def display_two_dim_sel():
+    # create the GUI window for this mode
+    #ctypes.windll.shcore.SetProcessDpiAwareness(2)
+
+    root = Tk()
+    root.geometry("900x600")
+    root.configure(bg="#A5A5A5")
+
+    #frame_number = int((duration * 60) / 15) + 1
+    frame_list = []
+
+    canvas = Canvas(
+        root,
+        bg="#A5A5A5",
+        height=900,
+        width=1350,
+        bd=0,
+        highlightthickness=0,
+        relief="ridge"
+    )
+    canvas.place(x=0, y=0)
+
+    path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\Overlay-0.png"
+    img = ImageTk.PhotoImage(file=path, master=root)
+    canvas.create_image(275, 300, image=img)
+
+    # need to add a legend for the user and a description of the results
+
+    root.resizable(False, False)
+    root.mainloop()

@@ -106,10 +106,10 @@ def unbind_mouse(two_sel_window):
         routedf = pd.DataFrame(route_list)
         # Z:\\Route Data\\Scanning_Route.csv
         # print("dataframe", routedf)
-        routedf.to_csv('Route Data\\Scanning_Route.csv', index=False)
+        routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
 
-    '''with open('Z:\\Route Data\\Scanning_Key.txt', 'w') as f:
-        f.write('0')'''
+    with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+        f.write('0')
 
     new_coordinates_list = [lower_left_coord, upper_right_coord]
     print(new_coordinates_list)
