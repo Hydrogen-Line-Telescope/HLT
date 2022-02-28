@@ -4,8 +4,10 @@
 
 
 from pathlib import Path
+
+# from tkinter import *
+# Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from PIL import ImageTk
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -16,14 +18,14 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 
-root = Tk()
+window = Tk()
 
-root.geometry("1100x700")
-root.configure(bg = "#A5A5A5")
+window.geometry("1100x700")
+window.configure(bg = "#A5A5A5")
 
 
 canvas = Canvas(
-    root,
+    window,
     bg = "#A5A5A5",
     height = 700,
     width = 1100,
@@ -71,8 +73,24 @@ canvas.create_text(
     anchor="nw",
     text="Results",
     fill="#000000",
-    font=("Courier New", 20 * -1)
+    font=("CourierPrime Bold", 20 * -1)
 )
+
+canvas.create_rectangle(
+    20.0,
+    84.0,
+    120.0,
+    607.0,
+    fill="#000000",
+    outline="")
+
+canvas.create_rectangle(
+    161.0,
+    92.0,
+    661.0,
+    592.0,
+    fill="#000000",
+    outline="")
 
 canvas.create_text(
     724.0,
@@ -80,7 +98,7 @@ canvas.create_text(
     anchor="nw",
     text="The image to the left shows",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -89,7 +107,7 @@ canvas.create_text(
     anchor="nw",
     text="the results of the selected",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -98,7 +116,7 @@ canvas.create_text(
     anchor="nw",
     text="antenna scan.",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -107,7 +125,7 @@ canvas.create_text(
     anchor="nw",
     text="The blue areas depict the",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -116,7 +134,7 @@ canvas.create_text(
     anchor="nw",
     text="Doppler blueshift in the",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -125,7 +143,7 @@ canvas.create_text(
     anchor="nw",
     text="measured hydrogen emissions.",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -134,7 +152,7 @@ canvas.create_text(
     anchor="nw",
     text="The red areas depict the",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -143,7 +161,7 @@ canvas.create_text(
     anchor="nw",
     text="Doppler redshift in the",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -152,7 +170,7 @@ canvas.create_text(
     anchor="nw",
     text="measured hydrogen emissions.",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -161,7 +179,7 @@ canvas.create_text(
     anchor="nw",
     text="The purple areas depict the",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -170,7 +188,7 @@ canvas.create_text(
     anchor="nw",
     text="measured hydrogen emissions",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -179,7 +197,7 @@ canvas.create_text(
     anchor="nw",
     text="closest to the hydrogen line",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -188,7 +206,7 @@ canvas.create_text(
     anchor="nw",
     text="frequency 1420.40575 MHz.",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -197,7 +215,7 @@ canvas.create_text(
     anchor="nw",
     text="The intensity of each color",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -206,7 +224,7 @@ canvas.create_text(
     anchor="nw",
     text="is determined by the",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
@@ -215,25 +233,16 @@ canvas.create_text(
     anchor="nw",
     text="magnitude of the measured",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
 
 canvas.create_text(
     724.0,
     480.0,
     anchor="nw",
-    text="signal.",
+    text="frequency.",
     fill="#000000",
-    font=("Courier New", 18 * -1)
+    font=("CourierPrime Regular", 18 * -1)
 )
-
-legend_path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\results_display_buttons\\legend_cropped.png"
-legend = ImageTk.PhotoImage(file=legend_path, master=root)
-canvas.create_image(65, 350, image=legend)
-
-path = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\Overlay-0.png"
-img = ImageTk.PhotoImage(file=path, master=root)
-canvas.create_image(400, 350, image=img)
-
-root.resizable(False, False)
-root.mainloop()
+window.resizable(False, False)
+window.mainloop()

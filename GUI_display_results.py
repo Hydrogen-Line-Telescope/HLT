@@ -1,7 +1,6 @@
 # coding=utf-8
 from tkinter import Tk, Canvas, Button, PhotoImage, Label
-
-import scipy
+import webbrowser
 from PIL import ImageTk, Image, ImageDraw
 from pathlib import Path
 import numpy as np
@@ -9,49 +8,8 @@ import imageio
 import os
 import glob
 
-# 332149-191bfc36-c238-4c0c-bb89-70096ed35086
-
-
-def mask_image(file_path):
-    im = Image.open(file_path)
-    width, height = im.size  # Get dimensions
-
-    left = (width - 1250) / 2
-    top = (height - 1250) / 2
-    right = (width + 1250) / 2
-    bottom = (height + 1250) / 2
-
-    # Crop the center of the image
-    im = im.crop((left, top, right, bottom))
-
-    img = im.convert("RGB")
-    npImage = np.array(img)
-    h, w = img.size
-
-    # Create same size alpha layer with circle
-    alpha = Image.new('L', img.size, 0)
-    draw = ImageDraw.Draw(alpha)
-    draw.pieslice([0, 0, h, w], 0, 360, fill=255)
-
-    # Convert alpha Image to numpy array
-    npAlpha = np.array(alpha)
-
-    # Add alpha layer to RGB
-    npImage = np.dstack((npImage, npAlpha))
-
-    # Save with alpha
-    Image.fromarray(npImage).save(
-        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\test.png')
-
-    im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\test.png')
-    width, height = im.size  # Get dimensions
-    # print(width, height)
-
-    new_im = im.resize((500, 500), Image.ANTIALIAS)
-    width, height = im.size  # Get dimensions
-    # print(width, height)
-    new_im.save('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\test.png', 'PNG',
-                quality=100)
+# Figma token: 332149-191bfc36-c238-4c0c-bb89-70096ed35086
+# Format: tkdesigner URL TOKEN
 
 
 def relative_to_assets(path: str) -> Path:
@@ -96,6 +54,9 @@ def gen_frame(path):
 
 
 def create_transparent_gif():
+    """
+    this function creates a transparent gif and saves the result to the Results folder for the user
+    """
     # clear the Results folder
     #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
@@ -126,6 +87,9 @@ def create_transparent_gif():
 
 
 def set_image_background():
+    """
+    this function sets the background of all the overlay images as A5A5A5 gray to blend in with the display window
+    """
     # open all images with a transparent background from the Overlays folder
     overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\*')
 
@@ -136,7 +100,7 @@ def set_image_background():
     # put a gray background on all of the frames
     for file_path in overlay_files:
         file_name = os.path.basename(file_path)
-        print(file_name)
+        #(file_name)
         im = Image.open(file_path).convert("RGBA")
         # im = im.convert("RGBA")
         # background.paste(im)
@@ -149,6 +113,9 @@ def set_image_background():
 
 
 def create_display_gif():
+    """
+    this function creates a gif from the overlay images with gray background for display through the GUI
+    """
     # clear the Results folder
     #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
@@ -171,7 +138,18 @@ def create_display_gif():
     imageio.mimsave('Results\\Results.gif', images, **kargs)
 
 
+def open_results_folder():
+    """
+    this function opens the Results folder for the user
+    """
+    folder_path = 'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results'
+    webbrowser.open(folder_path)
+
+
 def main(frame_number):
+    """
+    this function displays the results for the terrestrial and RPA modes
+    """
     # create the GUI window for this mode
     #ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
@@ -212,7 +190,7 @@ def main(frame_number):
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: open_results_folder(),
         relief="flat"
     )
     button_1.place(
@@ -228,7 +206,7 @@ def main(frame_number):
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: root.destroy(),
         relief="flat"
     )
     button_2.place(
@@ -421,6 +399,9 @@ def main(frame_number):
 
 
 def display_two_dim_sel():
+    """
+    this function displays the results for the 2D selection mode
+    """
     window = Tk()
 
     window.geometry("1100x700")
@@ -443,7 +424,7 @@ def display_two_dim_sel():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: open_results_folder(),
         relief="flat"
     )
     button_1.place(
@@ -459,7 +440,7 @@ def display_two_dim_sel():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: window.destroy(),
         relief="flat"
     )
     button_2.place(
@@ -643,7 +624,7 @@ def display_two_dim_sel():
     window.mainloop()
 
 
-#display_two_dim_sel()
+display_two_dim_sel()
 
 #test()
 #create_display_gif()
