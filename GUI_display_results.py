@@ -624,10 +624,10 @@ def display_two_dim_sel():
     window.mainloop()
 
 
-display_two_dim_sel()
+#display_two_dim_sel()
 
 #test()
 #create_display_gif()
 #create_transparent_gif()
-main(4)
+#main(4)
 #set_image_background()
