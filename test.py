@@ -196,6 +196,14 @@ def gen_frame(path):
     return im
 
 
-im1 = gen_frame('frame1.png')
+'''im1 = gen_frame('frame1.png')
 im2 = gen_frame('frame2.png')
 im1.save('GIF.gif', save_all=True, append_images=[im2], loop=5, duration=200)
+'''
+
+image = Image.open("frame1.png").convert("RGBA")
+print(image)
+new_image = Image.open('a5a5a5.png').convert("RGBA")
+new_image.paste(image, mask=image)
+
+new_image.convert("RGB").save("1_TEST.png")

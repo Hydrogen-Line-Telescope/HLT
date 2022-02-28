@@ -202,10 +202,10 @@ def one_dim_sweep_rpa(freqdf, magdf, num_scans):
         plt.savefig('Heatmaps\\Heatmap-' + str(i) + '.png', bbox_inches='tight', pad_inches=0)
 
 
-foo.two_dim_sweep_data(8, 6)
+'''foo.two_dim_sweep_data(8, 6)
 freqdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
 magdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
-two_dim_sel(freqdf0, magdf0)
+two_dim_sel(freqdf0, magdf0)'''
 
 '''foo.two_dim_sweep_data(6, 9)
 freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')

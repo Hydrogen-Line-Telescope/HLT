@@ -1,5 +1,7 @@
 # coding=utf-8
 from tkinter import Tk, Canvas, Button, PhotoImage, Label
+
+import scipy
 from PIL import ImageTk, Image, ImageDraw
 from pathlib import Path
 import numpy as np
@@ -93,7 +95,7 @@ def gen_frame(path):
     return im
 
 
-def create_gif():
+def create_transparent_gif():
     # clear the Results folder
     #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
@@ -106,27 +108,78 @@ def create_gif():
     background = Image.open('a5a5a5.png')
     background = background.convert("RGBA")
 
-
     images = []
     for file_path in overlay_files:
         im = Image.open(file_path)
-        im = im.convert("RGBA")
-        background.paste(im)
-        #im = gen_frame(file_path)
+        #im = im.convert("RGBA")
+        #background.paste(im)
+        im = gen_frame(file_path)
         #imageio.imread(file_path)
         images.append(im)
-        im.show()
+        # im.show()
     # doesnt really matter since we'll adjust the timing in the tkinter display
     #kargs = {'duration': 2}
-    images[0].save('GIF.gif', save_all=True, append_images=images[1:], loop=0, duration=2000)
+    images[0].save('Results\\Transparent_Results.gif', mode='RGBA', save_all=True, append_images=images[1:], loop=0, duration=2000)
 
     # save the gif in the Results folder
     #imageio.mimsave('Results\\Results.gif', images, **kargs)
 
 
+def set_image_background():
+    # open all images with a transparent background from the Overlays folder
+    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\*')
+
+    # make sure the overlay files are in numerical order
+    overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+    images = []
+    # put a gray background on all of the frames
+    for file_path in overlay_files:
+        file_name = os.path.basename(file_path)
+        print(file_name)
+        im = Image.open(file_path).convert("RGBA")
+        # im = im.convert("RGBA")
+        # background.paste(im)
+        # image = Image.open(file_path).convert("RGBA")
+        background = Image.open('a5a5a5.png').convert('RGBA')
+        background.paste(im, mask=im)
+        # imageio.imread(file_path)
+        background.convert("RGB").save("Display Overlays\\Gray_" + file_name + ".png")
+        images.append(background)
+
+
+def create_display_gif():
+    # clear the Results folder
+    #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+
+    # get overlay image paths from Overlays
+    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays\\*')
+
+    # make sure the overlay files are in numerical order
+    overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+    images = []
+    # put a gray background on all of the frames
+    for file_path in overlay_files:
+        images.append(imageio.imread(file_path))
+        # im.show()
+    # doesnt really matter since we'll adjust the timing in the tkinter display
+    kargs = {'duration': 2}
+    #images[0].save('Results\\Results.gif', mode='RGBA', save_all=True, append_images=images[1:], loop=0, duration=2000)
+
+    # save the gif in the Results folder
+    imageio.mimsave('Results\\Results.gif', images, **kargs)
+
+
 def main(frame_number):
     # create the GUI window for this mode
     #ctypes.windll.shcore.SetProcessDpiAwareness(2)
+
+    # call function to change overlay images background to match the Tk root
+    set_image_background()
+
+    # call the function to create the display gif
+    create_display_gif()
 
     root = Tk()
 
@@ -138,9 +191,8 @@ def main(frame_number):
 
     for i in range(0, frame_number):
         index = 'gif -index {}'.format(i)
-        frame = PhotoImage(file='Results\\Results.gif', format=index)
         im = Image.open('Results\\Results.gif')
-        print(im)
+        frame = PhotoImage(file='Results\\Results.gif', format=index)
         frame_list.append(frame)
 
     canvas = Canvas(
@@ -591,9 +643,10 @@ def display_two_dim_sel():
     window.mainloop()
 
 
-# mask_image('C:\\Users\\jojok\\Desktop\\2022 - Spring\\ECEN 404\\Image Processing and GUI '
-           #'Images\\Results\\final_image_overlay.png')
-#main(3)
 #display_two_dim_sel()
 
-create_gif()
+#test()
+#create_display_gif()
+#create_transparent_gif()
+main(4)
+#set_image_background()
