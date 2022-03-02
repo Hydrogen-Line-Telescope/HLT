@@ -197,3 +197,38 @@ def display_two_dim_sel():
 
     root.resizable(False, False)
     root.mainloop()
+
+
+    '''# get overlay image paths from Overlays
+    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\*')
+
+    # make sure the overlay files are in numerical order
+    overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
+
+    images = []
+    # put a gray background on all of the frames
+    for file_path in overlay_files:
+        images.append(gen_frame(file_path))
+        # im.show()
+    # doesnt really matter since we'll adjust the timing in the tkinter display
+    #kargs = {'duration': 2}
+    images[0].save('Results\\Transparent Results.gif', mode='RGBA', save_all=True, append_images=images[1:], loop=0, duration=2000)
+
+    # save the gif in the Results folder
+    #imageio.mimsave('Results\\Transparent_Results.gif', images, **kargs)'''
+
+    '''images = []
+    for file_path in overlay_files:
+        im = Image.open(file_path)
+        #im = im.convert("RGBA")
+        #background.paste(im)
+        im = gen_frame(file_path)
+        #imageio.imread(file_path)
+        images.append(im)
+        # im.show()
+    # doesnt really matter since we'll adjust the timing in the tkinter display
+    #kargs = {'duration': 2}
+    images[0].save('Results\\Transparent_Results.gif', save_all=True, append_images=images[1:], loop=0, duration=2000)
+    '''
+    # save the gif in the Results folder
+    #imageio.mimsave('Results\\Results.gif', images, **kargs)

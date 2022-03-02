@@ -36,9 +36,9 @@ def get_coordinates(event):
     """
     this function gets the coordinates from mouse clicks within the skymap image
     """
-    if len(coordinates_list) >= 4:
+    '''if len(coordinates_list) >= 4:
         coordinates_list.clear()
-        coord_text.var["text"] = ""
+        coord_text.var["text"] = ""'''
 
     coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
@@ -48,6 +48,8 @@ def get_coordinates(event):
     elif len(coordinates_list) == 2:
         coord_text.var["text"] = ""
         coord_text()
+    elif len(coordinates_list) > 2:
+        coord_text.var["text"] = "Click R"
 
 
 def bind_mouse(two_sel_window):
@@ -171,6 +173,7 @@ def image_gui_integration(coordinates):
     image_overlay.image_overlay(heatmap_file[0], cropped_file[0], heatmap_size, '0')
 
     # display the results
+    GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
     GUI_display_results.display_two_dim_sel()
 
 

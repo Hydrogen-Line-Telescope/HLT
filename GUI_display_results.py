@@ -53,40 +53,30 @@ def gen_frame(path):
     return im
 
 
-def create_transparent_gif():
+def create_transparent_gif(time_list):
     """
-    this function creates a transparent gif and saves the result to the Results folder for the user
+    this function creates a gif with a black background and saves the result to the Results folder for the user
     """
-    # clear the Results folder
-    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+
+    set_image_background('black_square.png', 'Results Overlays', time_list)
 
     # get overlay image paths from Overlays
-    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\*')
+    overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results Overlays\\*')
 
     # make sure the overlay files are in numerical order
     overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
-    background = Image.open('a5a5a5.png')
-    background = background.convert("RGBA")
-
     images = []
     for file_path in overlay_files:
-        im = Image.open(file_path)
-        #im = im.convert("RGBA")
-        #background.paste(im)
-        im = gen_frame(file_path)
-        #imageio.imread(file_path)
-        images.append(im)
+        images.append(imageio.imread(file_path))
         # im.show()
-    # doesnt really matter since we'll adjust the timing in the tkinter display
-    #kargs = {'duration': 2}
-    images[0].save('Results\\Transparent_Results.gif', mode='RGBA', save_all=True, append_images=images[1:], loop=0, duration=2000)
+    kargs = {'duration': 2}
 
     # save the gif in the Results folder
-    #imageio.mimsave('Results\\Results.gif', images, **kargs)
+    imageio.mimsave('Results\\User Results.gif', images, **kargs)
 
 
-def set_image_background():
+def set_image_background(background_file, folder_name, time_list):
     """
     this function sets the background of all the overlay images as A5A5A5 gray to blend in with the display window
     """
@@ -96,29 +86,32 @@ def set_image_background():
     # make sure the overlay files are in numerical order
     overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
-    images = []
+    # images = []
     # put a gray background on all of the frames
     print(overlay_files)
     for file_path in overlay_files:
+        i = overlay_files.index(file_path)
         file_name = os.path.basename(file_path)
         #(file_name)
         im = Image.open(file_path).convert("RGBA")
         # im = im.convert("RGBA")
         # background.paste(im)
         # image = Image.open(file_path).convert("RGBA")
-        background = Image.open('a5a5a5.png').convert('RGBA')
+        background = Image.open(background_file).convert('RGBA')
         background.paste(im, mask=im)
         # imageio.imread(file_path)
-        background.convert("RGB").save("Display Overlays\\Gray_" + file_name + ".png")
-        images.append(background)
+        #images.append(background)
+        # add times to the top left corner
+        add_times = ImageDraw.Draw(background)
+        add_times.text((0, 0), time_list[i], fill=(128, 0, 0))
+        # save the final image
+        background.convert("RGB").save(folder_name + "\\Gray_" + file_name + ".png")
 
 
 def create_display_gif():
     """
     this function creates a gif from the overlay images with gray background for display through the GUI
     """
-    # clear the Results folder
-    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
     # get overlay image paths from Display Overlays
     overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays\\*')
@@ -127,7 +120,6 @@ def create_display_gif():
     overlay_files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
     images = []
-    # put a gray background on all of the frames
     for file_path in overlay_files:
         images.append(imageio.imread(file_path))
         # im.show()
@@ -147,7 +139,7 @@ def open_results_folder():
     webbrowser.open(folder_path)
 
 
-def main(frame_number):
+def main(frame_number, time_list):
     """
     this function displays the results for the terrestrial and RPA modes
     """
@@ -155,7 +147,7 @@ def main(frame_number):
     #ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
     # call function to change overlay images background to match the Tk root
-    set_image_background()
+    set_image_background('a5a5a5.png', 'Display Overlays', time_list)
     print('wrote overlay images')
 
     # call the function to create the display gif
@@ -628,9 +620,9 @@ def display_two_dim_sel():
 
 
 #display_two_dim_sel()
-
+time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
 #test()
 #create_display_gif()
-#create_transparent_gif()
-#main(5)
+#create_transparent_gif(time_list)
+main(5, time_list)
 #set_image_background()

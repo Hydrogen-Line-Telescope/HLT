@@ -6,6 +6,7 @@ import os
 import glob
 from PIL import Image, ImageDraw
 import numpy as np
+from datetime import datetime
 
 # user will:
 # need to download Stellarium and set the default projection mode to 'equal area'
@@ -75,7 +76,7 @@ def time_tracker(hr_duration):
     """
      this function will take a new stellarium screenshot every 15 minutes for the two terrestrial scanning modes
     """
-
+    time_list = []
     # first, clear the Screenshots folder to get rid of the screenshot taken for the GUI display
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
 
@@ -97,11 +98,15 @@ def time_tracker(hr_duration):
     for i in range(0, int(num_screenshots)):
         print("screenshot:", i)
         # time.sleep(840)
-        time.sleep(2)
         stellarium_current_time(url)
         take_screenshot(url)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        time_list.append(str(current_time))
+        time.sleep(2)
 
     proc_stellarium.kill()
+    print(time_list)
 
     # crop all of the stellarium screenshots for the image overlay function
     # get all stellarium screenshots from the folder
@@ -114,6 +119,8 @@ def time_tracker(hr_duration):
         image = Image.open(files[i])
         # pass the image and image number to the crop_image function
         crop_image(image, str(i))
+
+    return time_list
 
 
 def stellarium_current_time(url_main):

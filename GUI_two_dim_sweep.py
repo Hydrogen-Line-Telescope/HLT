@@ -22,9 +22,9 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH_two_sweep / Path(path)
 
 
-def coord_text(x):
+def coord_text():
     coord_text.var = Label(canvas,
-                           text=coordinates_list[x],
+                           text=str(coordinates_list[0]),
                            fg="#000000",
                            bg="#A5A5A5",
                            font=("Courier New", 20 * -1))
@@ -45,21 +45,17 @@ def get_coordinates(event):
 
     print(coordinates_list)
     if len(coordinates_list) == 1:
-        coord_text(0)
-    elif len(coordinates_list) == 2:
-        '''previous_click = coordinates_list[0]
-        '''
-        '''print(coordinates_list[1][0])
-        if coordinates_list[1][0] < 250:
-            print(coordinates_list[1][0])
-            del coordinates_list[0]'''
+        coord_text()
+        '''elif len(coordinates_list) == 2:
         coord_text.var["text"] = ""
-        coord_text(1)
-        print("coordinates check 0", coordinates_list)
+        coord_text(0)
+        print("coordinates check 0", coordinates_list)'''
     elif len(coordinates_list) >= 2:
+        coord_text.var["text"] = "Click R"
+    '''elif len(coordinates_list) > 2:
         coordinates_list.clear()
         coord_text.var["text"] = ""
-        #coord_text()
+        #coord_text()'''
 
 
 def bind_mouse(two_sweep_window):
@@ -105,7 +101,7 @@ def image_gui_integration(hr_duration, num_scans):
 
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
-    stellarium_screenshots.time_tracker(hr_duration)
+    time_list = stellarium_screenshots.time_tracker(hr_duration)
 
     # after the images are taken and cropped
     while True:
@@ -147,8 +143,9 @@ def image_gui_integration(hr_duration, num_scans):
         image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))
 
     # create a gif
+    GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
     GUI_display_results.create_transparent_gif()
-    GUI_display_results.main(num_scans)
+    GUI_display_results.main(num_scans, time_list)
 
 
 def reset_selection(two_sel_window):
