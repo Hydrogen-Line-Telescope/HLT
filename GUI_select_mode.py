@@ -88,8 +88,8 @@ def select_mode_main():
     creates the select mode GUI window
     calls functions for each mode from the GUI buttons
     """
-    '''Y:\\Route Data\\'''
-    with open('Y:\\Route Data\\Scanning_Key.txt') as f:
+    '''Z:\\Route Data\\'''
+    with open('Z:\\Route Data\\Route_Key.txt') as f:
         lines = f.readlines()
         print(lines)
         if lines[0] == '0':

@@ -69,8 +69,8 @@ def unbind_mouse(two_sweep_window, entry_1):
     route_list = Route_Demo.two_terra(250, coordinates_list[0], 10)
     routedf = pd.DataFrame(route_list)
     '''Z:\\'''
-    routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
-    '''with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+    routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
+    '''with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
         f.write('0')'''
     two_sweep_window.destroy()
 

@@ -106,9 +106,9 @@ def unbind_mouse(two_sel_window):
         routedf = pd.DataFrame(route_list)
         # Z:\\Route Data\\Scanning_Route.csv
         # print("dataframe", routedf)
-        routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
+        routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
 
-    with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+    with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
         f.write('0')
 
     new_coordinates_list = [lower_left_coord, upper_right_coord]
@@ -123,6 +123,9 @@ def image_gui_integration(coordinates):
     # use the image taken for selection
 
     # check for signal data - check a value in a file?
+
+
+
     # for now assume it is written and ready for heatmaps in the Signal Data folder
     # read frequency and magnitude data into pandas dataframes
     freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')

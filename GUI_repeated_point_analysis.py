@@ -70,8 +70,8 @@ def unbind_mouse(rpa_window, entry_1):
     routedf = pd.DataFrame(route_list)
     routedf = routedf.transpose()
     '''Z:\\'''
-    routedf.to_csv('Y:\\Route Data\\Scanning_Route.csv', index=False)
-    with open('Y:\\Route Data\\Scanning_Key.txt', 'w') as f:
+    routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
+    with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
         f.write('0')
     rpa_window.destroy()
 
