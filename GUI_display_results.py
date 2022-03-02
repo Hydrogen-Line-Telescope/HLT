@@ -1,7 +1,7 @@
 # coding=utf-8
 from tkinter import Tk, Canvas, Button, PhotoImage, Label
 import webbrowser
-from PIL import ImageTk, Image, ImageDraw
+from PIL import ImageTk, Image, ImageDraw, ImageFont
 from pathlib import Path
 import numpy as np
 import imageio
@@ -58,7 +58,7 @@ def create_transparent_gif(time_list):
     this function creates a gif with a black background and saves the result to the Results folder for the user
     """
 
-    set_image_background('black_square.png', 'Results Overlays', time_list)
+    set_image_background('black_square.png', 'Results Overlays', time_list, 'white')
 
     # get overlay image paths from Overlays
     overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results Overlays\\*')
@@ -76,7 +76,7 @@ def create_transparent_gif(time_list):
     imageio.mimsave('Results\\User Results.gif', images, **kargs)
 
 
-def set_image_background(background_file, folder_name, time_list):
+def set_image_background(background_file, folder_name, time_list, color):
     """
     this function sets the background of all the overlay images as A5A5A5 gray to blend in with the display window
     """
@@ -102,8 +102,9 @@ def set_image_background(background_file, folder_name, time_list):
         # imageio.imread(file_path)
         #images.append(background)
         # add times to the top left corner
+        courier_font = ImageFont.truetype(r'C:\Users\jojok\PycharmProjects\pythonProject\HLT\cour.ttf', 25)
         add_times = ImageDraw.Draw(background)
-        add_times.text((0, 0), time_list[i], fill=(128, 0, 0))
+        add_times.text((0, 0), time_list[i], font=courier_font, fill=color)
         # save the final image
         background.convert("RGB").save(folder_name + "\\Gray_" + file_name + ".png")
 
@@ -147,7 +148,7 @@ def main(frame_number, time_list):
     #ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
     # call function to change overlay images background to match the Tk root
-    set_image_background('a5a5a5.png', 'Display Overlays', time_list)
+    set_image_background('a5a5a5.png', 'Display Overlays', time_list, 'black')
     print('wrote overlay images')
 
     # call the function to create the display gif
@@ -620,9 +621,9 @@ def display_two_dim_sel():
 
 
 #display_two_dim_sel()
-time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
+'''time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
 #test()
 #create_display_gif()
-#create_transparent_gif(time_list)
-main(5, time_list)
+create_transparent_gif(time_list)
+main(5, time_list)'''
 #set_image_background()
