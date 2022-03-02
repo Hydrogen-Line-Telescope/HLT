@@ -58,7 +58,7 @@ def create_transparent_gif():
     this function creates a transparent gif and saves the result to the Results folder for the user
     """
     # clear the Results folder
-    #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
     # get overlay image paths from Overlays
     overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays\\*')
@@ -98,6 +98,7 @@ def set_image_background():
 
     images = []
     # put a gray background on all of the frames
+    print(overlay_files)
     for file_path in overlay_files:
         file_name = os.path.basename(file_path)
         #(file_name)
@@ -117,9 +118,9 @@ def create_display_gif():
     this function creates a gif from the overlay images with gray background for display through the GUI
     """
     # clear the Results folder
-    #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
 
-    # get overlay image paths from Overlays
+    # get overlay image paths from Display Overlays
     overlay_files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays\\*')
 
     # make sure the overlay files are in numerical order
@@ -155,9 +156,11 @@ def main(frame_number):
 
     # call function to change overlay images background to match the Tk root
     set_image_background()
+    print('wrote overlay images')
 
     # call the function to create the display gif
     create_display_gif()
+    print("created display gif")
 
     root = Tk()
 
@@ -629,5 +632,5 @@ def display_two_dim_sel():
 #test()
 #create_display_gif()
 #create_transparent_gif()
-#main(4)
+#main(5)
 #set_image_background()

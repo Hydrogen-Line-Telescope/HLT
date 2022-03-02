@@ -5,6 +5,7 @@ import pandas as pd
 from PIL import ImageTk
 import ctypes
 import glob
+import time
 import Route_Demo
 import stellarium_screenshots
 import image_processing
@@ -21,9 +22,9 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH_two_sweep / Path(path)
 
 
-def coord_text():
+def coord_text(x):
     coord_text.var = Label(canvas,
-                           text=coordinates_list,
+                           text=coordinates_list[x],
                            fg="#000000",
                            bg="#A5A5A5",
                            font=("Courier New", 20 * -1))
@@ -34,14 +35,31 @@ def get_coordinates(event):
     """
     this function gets the coordinates from mouse clicks within the skymap image
     """
-    if len(coordinates_list) >= 2:
-        coordinates_list.clear()
+
+    '''if len(coordinates_list) >= 1:
+        coord_text.var["text"] = ""
+        if len(coordinates_list) >= 2:
+            coordinates_list.clear()'''
 
     coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
     print(coordinates_list)
     if len(coordinates_list) == 1:
-        coord_text()
+        coord_text(0)
+    elif len(coordinates_list) == 2:
+        '''previous_click = coordinates_list[0]
+        '''
+        '''print(coordinates_list[1][0])
+        if coordinates_list[1][0] < 250:
+            print(coordinates_list[1][0])
+            del coordinates_list[0]'''
+        coord_text.var["text"] = ""
+        coord_text(1)
+        print("coordinates check 0", coordinates_list)
+    elif len(coordinates_list) >= 2:
+        coordinates_list.clear()
+        coord_text.var["text"] = ""
+        #coord_text()
 
 
 def bind_mouse(two_sweep_window):
@@ -57,7 +75,8 @@ def unbind_mouse(two_sweep_window, entry_1):
     to the route planning subsystem
     """
     two_sweep_window.unbind('<Button-1>')
-    del coordinates_list[1]
+    #del coordinates_list[1]
+    print("coordinates check 1", coordinates_list)
 
     print("mouse unbound")
     print(coordinates_list)
@@ -66,12 +85,13 @@ def unbind_mouse(two_sweep_window, entry_1):
     min_duration = hr_duration * 60
     num_scans = (min_duration / 15) + 1
 
+    print("scanning coordinate", coordinates_list[0])
     route_list = Route_Demo.two_terra(250, coordinates_list[0], 10)
     routedf = pd.DataFrame(route_list)
-    '''Z:\\'''
+
     routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
-    '''with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
-        f.write('0')'''
+    with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
+        f.write('0')
     two_sweep_window.destroy()
 
     # call integration function for gui and image processing
@@ -88,11 +108,21 @@ def image_gui_integration(hr_duration, num_scans):
     stellarium_screenshots.time_tracker(hr_duration)
 
     # after the images are taken and cropped
-    # check for signal data - check a value in a file?
-    # for now assume it is written and ready for heatmaps in the Signal Data folder
+    while True:
+        with open('Z:\\Signal Data\\Signal_Key.txt') as c:
+            write_check = c.readlines()
+
+        print(write_check)
+        if write_check[0] == '1':
+            break
+        else:
+            print("sleepy_scan")
+            time.sleep(10)
+
+    # continue with image processing
     # read frequency and magnitude data into pandas dataframes
-    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
-    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+    freqdf = pd.read_csv('Z:\\Signal Data\\freq_data.csv')
+    magdf = pd.read_csv('Z:\\Signal Data\\mag_data.csv')
 
     # call the heatmap function with the data
     # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
@@ -117,14 +147,14 @@ def image_gui_integration(hr_duration, num_scans):
         image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))
 
     # create a gif
-    GUI_display_results.create_gif()
+    GUI_display_results.create_transparent_gif()
     GUI_display_results.main(num_scans)
 
 
 def reset_selection(two_sel_window):
-    two_sel_window.unbind('<Button-1>')
     coordinates_list.clear()
     coord_text.var["text"] = ""
+    two_sel_window.unbind('<Button-1>')
 
 
 def main(og_window):

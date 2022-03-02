@@ -5,6 +5,7 @@ import pandas as pd
 from PIL import ImageTk
 import ctypes
 import glob
+import time
 import Route_Demo
 import stellarium_screenshots
 import image_processing
@@ -69,7 +70,7 @@ def unbind_mouse(rpa_window, entry_1):
     route_list = Route_Demo.one_terra(250, coordinates_list[0])
     routedf = pd.DataFrame(route_list)
     routedf = routedf.transpose()
-    '''Z:\\'''
+
     routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
     with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
         f.write('0')
@@ -88,11 +89,22 @@ def image_gui_integration(hr_duration, num_scans):
     stellarium_screenshots.time_tracker(hr_duration)
 
     # after the images are taken and cropped
-    # check for signal data - check a value in a file?
-    # for now assume it is written and ready for heatmaps in the Signal Data folder
+
+    while True:
+        with open('Z:\\Signal Data\\Signal_Key.txt') as c:
+            write_check = c.readlines()
+
+        print(write_check)
+        if write_check[0] == '1':
+            break
+        else:
+            print("sleepy_scan")
+            time.sleep(10)
+
+    # continue with image processing
     # read frequency and magnitude data into pandas dataframes
-    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
-    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+    freqdf = pd.read_csv('Z:\\Signal Data\\freq_data.csv')
+    magdf = pd.read_csv('Z:\\Signal Data\\mag_data.csv')
 
     # call the heatmap function with the data
     # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
@@ -117,7 +129,7 @@ def image_gui_integration(hr_duration, num_scans):
         image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))
 
     # create a gif
-    GUI_display_results.create_gif()
+    GUI_display_results.create_transparent_gif()
     GUI_display_results.main(num_scans)
 
 

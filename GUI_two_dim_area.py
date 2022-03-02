@@ -11,6 +11,7 @@ import stellarium_screenshots
 import image_processing
 import image_overlay
 import GUI_display_results
+import time
 
 
 def relative_to_assets(path: str) -> Path:
@@ -37,6 +38,7 @@ def get_coordinates(event):
     """
     if len(coordinates_list) >= 4:
         coordinates_list.clear()
+        coord_text.var["text"] = ""
 
     coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
@@ -124,12 +126,32 @@ def image_gui_integration(coordinates):
 
     # check for signal data - check a value in a file?
 
+    """
+    Signal Key:
+    0 - signal data is not ready
+    1 - signal data is ready to read
+    """
+    '''with open('Z:\\Signal Data\\Signal_Key.txt') as f:
+            lines = f.readlines()
+            print('Signal Key', lines)
+            if lines[0] == '0':
+                time.sleep(30)'''
 
+    while True:
+        with open('Z:\\Signal Data\\Signal_Key.txt') as c:
+            write_check = c.readlines()
 
-    # for now assume it is written and ready for heatmaps in the Signal Data folder
+        print(write_check)
+        if write_check[0] == '1':
+            break
+        else:
+            print("sleepy_scan")
+            time.sleep(10)
+
+    # continue with image processing
     # read frequency and magnitude data into pandas dataframes
-    freqdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\freq_data.csv')
-    magdf = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\mag_data.csv')
+    freqdf = pd.read_csv('Z:\\Signal Data\\freq_data.csv')
+    magdf = pd.read_csv('Z:\\Signal Data\\mag_data.csv')
 
     # call the heatmap function with the 2D area data
     image_processing.two_dim_sel(freqdf, magdf)

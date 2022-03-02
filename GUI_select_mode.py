@@ -95,8 +95,9 @@ def select_mode_main():
         if lines[0] == '0':
             sys.exit("Route planning in progress, please wait.")
 
+
     # clear the Screenshots folder
-    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
+    #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
 
     # clear the Heatmaps folder
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps')
@@ -104,8 +105,11 @@ def select_mode_main():
     # clear the Overlays folder
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays')
 
+    # clear the Display Overlays folder
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays')
+
     # get a current stellarium screenshot
-    stellarium_screenshots.open_close_stellarium()
+    #stellarium_screenshots.open_close_stellarium()
 
     # crop the stellarium image for the GUI
     crop_image()
