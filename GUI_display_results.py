@@ -7,6 +7,7 @@ import numpy as np
 import imageio
 import os
 import glob
+import shutil
 
 # Figma token: 332149-191bfc36-c238-4c0c-bb89-70096ed35086
 # Format: tkdesigner URL TOKEN
@@ -140,12 +141,27 @@ def open_results_folder():
     webbrowser.open(folder_path)
 
 
+def copy_results_data():
+    """
+    this function copies the frequency and magnitude data to the results folder for the user
+    """
+    # data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data"
+
+    data_dir = "Z:\\Signal Data"
+    results_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
+
+    files = glob.glob('Z:\\Signal Data\\*.csv')
+
+    for name in files:
+        shutil.copy2(os.path.join(data_dir, name), results_dir)
+
+
 def main(frame_number, time_list):
     """
     this function displays the results for the terrestrial and RPA modes
     """
     # create the GUI window for this mode
-    #ctypes.windll.shcore.SetProcessDpiAwareness(2)
+    # ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
     # call function to change overlay images background to match the Tk root
     set_image_background('a5a5a5.png', 'Display Overlays', time_list, 'black')
@@ -154,6 +170,9 @@ def main(frame_number, time_list):
     # call the function to create the display gif
     create_display_gif()
     print("created display gif")
+
+    # move magnitude and frequency data to the Results folder
+    copy_results_data()
 
     root = Tk()
 
@@ -398,6 +417,10 @@ def display_two_dim_sel():
     """
     this function displays the results for the 2D selection mode
     """
+
+    # move magnitude and frequency data to the Results folder
+    copy_results_data()
+
     window = Tk()
 
     window.geometry("1100x700")
@@ -627,3 +650,4 @@ def display_two_dim_sel():
 create_transparent_gif(time_list)
 main(5, time_list)'''
 #set_image_background()
+copy_results_data()
