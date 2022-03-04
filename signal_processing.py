@@ -8,6 +8,7 @@ from numpy.fft import rfft, rfftfreq, irfft
 def filter_signal(signal, threshold=1e8):
     # rfft is the 1D discrete fourier transform for real input
     fourier = rfft(signal)
+    print(fourier)
     # rfftfreq is the discrete fourier transform sample for frequencies
     # d is one over the sample rate
     frequencies = rfftfreq(signal.size, d=1e-5)

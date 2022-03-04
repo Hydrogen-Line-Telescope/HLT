@@ -143,8 +143,8 @@ def image_gui_integration(hr_duration, num_scans):
         image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))
 
     # create a gif
-    GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
-    GUI_display_results.create_transparent_gif()
+    # GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+    # GUI_display_results.create_transparent_gif(time_list)
     GUI_display_results.main(num_scans, time_list)
 
 

@@ -8,6 +8,7 @@ import imageio
 import os
 import glob
 import shutil
+from datetime import datetime
 
 # Figma token: 332149-191bfc36-c238-4c0c-bb89-70096ed35086
 # Format: tkdesigner URL TOKEN
@@ -54,7 +55,7 @@ def gen_frame(path):
     return im
 
 
-def create_transparent_gif(time_list):
+def create_transparent_gif(save_path, time_list):
     """
     this function creates a gif with a black background and saves the result to the Results folder for the user
     """
@@ -74,7 +75,7 @@ def create_transparent_gif(time_list):
     kargs = {'duration': 2}
 
     # save the gif in the Results folder
-    imageio.mimsave('Results\\User Results.gif', images, **kargs)
+    imageio.mimsave(save_path + '\\Results With Background.gif', images, **kargs)
 
 
 def set_image_background(background_file, folder_name, time_list, color):
@@ -110,7 +111,7 @@ def set_image_background(background_file, folder_name, time_list, color):
         background.convert("RGB").save(folder_name + "\\Gray_" + file_name + ".png")
 
 
-def create_display_gif():
+def create_display_gif(save_path):
     """
     this function creates a gif from the overlay images with gray background for display through the GUI
     """
@@ -130,7 +131,7 @@ def create_display_gif():
     #images[0].save('Results\\Results.gif', mode='RGBA', save_all=True, append_images=images[1:], loop=0, duration=2000)
 
     # save the gif in the Results folder
-    imageio.mimsave('Results\\Results.gif', images, **kargs)
+    imageio.mimsave(save_path + '\\Results.gif', images, **kargs)
 
 
 def open_results_folder():
@@ -141,25 +142,75 @@ def open_results_folder():
     webbrowser.open(folder_path)
 
 
-def copy_results_data():
+def copy_results_data(results_dir):
     """
     this function copies the frequency and magnitude data to the results folder for the user
+    also copies over the Overlays folder
     """
-    # data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data"
+    '''data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data"
 
-    data_dir = "Z:\\Signal Data"
-    results_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
+    # data_dir = "Z:\\Signal Data"
+    # results_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
 
-    files = glob.glob('Z:\\Signal Data\\*.csv')
+    # files = glob.glob('Z:\\Signal Data\\*.csv')
+    files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\*csv')
+    files_dest = results_dir + "\\Raw Data"
 
     for name in files:
-        shutil.copy2(os.path.join(data_dir, name), results_dir)
+        shutil.copy2(os.path.join(data_dir, name), files_dest)'''
+
+    # copy over raw data files
+    # data_dir = "Z:\\Signal Data"
+    data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\"
+    data_dest = results_dir + "\\Data Files"
+    shutil.copytree(data_dir, data_dest)
+
+    # copy over Overlay images
+    overlay_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays"
+    overlay_dest = results_dir + "\\Image Overlays"
+    shutil.copytree(overlay_dir, overlay_dest)
+
+    # copy over Overlay images with timestamps
+    display_overlay_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results Overlays"
+    display_overlay_dest = results_dir + "\\Image Overlays With Timestamps"
+    shutil.copytree(display_overlay_dir, display_overlay_dest)
+
+
+def create_results_folder():
+    time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
+
+    now = datetime.now()
+    current_date = now.strftime("%b-%d-%Y %H-%M-%S")
+    print(current_date)
+
+    # create a directory for that set of results
+    directory = "Results " + str(current_date)
+    print(directory)
+    parent_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
+
+    path = os.path.join(parent_dir, directory)
+    print(path)
+    os.mkdir(path)
+
+    create_display_gif(path)
+    create_transparent_gif(path, time_list)
+    copy_results_data(path)
 
 
 def main(frame_number, time_list):
     """
     this function displays the results for the terrestrial and RPA modes
     """
+    # get the current date & time
+    now = datetime.now()
+    current_date = now.strftime("%b-%d-%Y %H-%M-%S")
+
+    # create a directory for that set of results
+    directory = "Results " + str(current_date)
+    parent_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
+    path = os.path.join(parent_dir, directory)
+    os.mkdir(path)
+
     # create the GUI window for this mode
     # ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
@@ -168,11 +219,12 @@ def main(frame_number, time_list):
     print('wrote overlay images')
 
     # call the function to create the display gif
-    create_display_gif()
+    create_transparent_gif(path, time_list)
+    create_display_gif(path)
     print("created display gif")
 
     # move magnitude and frequency data to the Results folder
-    copy_results_data()
+    copy_results_data(path)
 
     root = Tk()
 
@@ -651,3 +703,4 @@ create_transparent_gif(time_list)
 main(5, time_list)'''
 #set_image_background()
 #copy_results_data()
+create_results_folder()

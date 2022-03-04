@@ -173,7 +173,7 @@ def image_gui_integration(coordinates):
     image_overlay.image_overlay(heatmap_file[0], cropped_file[0], heatmap_size, '0')
 
     # display the results
-    GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
+    # GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
     GUI_display_results.display_two_dim_sel()
 
 
