@@ -70,11 +70,11 @@ def get_freq_mag(file_name):
 # -g, gain, currently set to the default number
 # -k, percentage of crop
 # -n, number of spectra to average, default is 1600
-command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_validation.csv",
-                               "-g", "37.5", "-n", "12800"])
+'''command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_validation.csv",
+                               "-g", "37.5", "-n", "12800"])'''
 
 # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
 # hydrogen line frequency, 1.420405751G
-get_freq_mag("signal_validation.csv")
-graph_data("signal_validation.csv")
+#get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+graph_data("TEST_ANTENNA_raw_signal_data.csv")
 
