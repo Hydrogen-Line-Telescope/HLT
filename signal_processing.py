@@ -2,6 +2,19 @@ import subprocess
 import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
+from numpy.fft import rfft, rfftfreq, irfft
+
+
+def filter_signal(signal, threshold=1e8):
+    # rfft is the 1D discrete fourier transform for real input
+    fourier = rfft(signal)
+    # rfftfreq is the discrete fourier transform sample for frequencies
+    # d is one over the sample rate
+    frequencies = rfftfreq(signal.size, d=1e-5)
+    # apply the threshold value
+    fourier[frequencies > threshold] = 0
+    # irfft is the inverse of rfft
+    return irfft(fourier)
 
 
 def graph_data(file_name):
@@ -23,11 +36,19 @@ def graph_data(file_name):
 
     freq = np.arange(f0, f1, df) / 1e9
 
-    plt.plot(freq, linear_sig)
-    #plt.xlim((freq[0], freq[-1]))
-    plt.ylabel('Magnitude')
-    plt.xlabel('Freq (GHz)')
-    plt.show()
+    linear_sig = np.array(linear_sig)
+
+    # trying out different thresholds
+    for threshold in [1e3, 5e3, 1e4, 5e4]:
+        filtered_sig = filter_signal(linear_sig, threshold)
+        plt.plot(freq, linear_sig, label='Raw')
+        plt.plot(freq, filtered_sig, label='Filtered')
+        # plt.xlim((freq[0], freq[-1]))
+        plt.ylabel('Magnitude')
+        plt.xlabel('Freq (GHz)')
+        plt.legend()
+        plt.title(f"FFT Denoising with threshold = {threshold :.0e}", size=15)
+        plt.show()
 
 
 def get_freq_mag(file_name):

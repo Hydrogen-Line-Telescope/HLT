@@ -650,4 +650,4 @@ def display_two_dim_sel():
 create_transparent_gif(time_list)
 main(5, time_list)'''
 #set_image_background()
-copy_results_data()
+#copy_results_data()
