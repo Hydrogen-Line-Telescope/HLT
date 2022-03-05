@@ -94,7 +94,9 @@ def get_freq_mag(file_name):
     print("Peak Frequency (MHz): ", peak_freq)
 
     # append values
-    # 1 Sweep & RPA are 1 columns
+    # 1 sweep & RPA are 1 columns
+    # 2D sel & sweep are multiple columns
+    # 2 sweep - num_scans = # col, route returns # row
 
     freqdf = pd.DataFrame([peak_freq])
     magdf = pd.DataFrame([peak_mag])

@@ -125,6 +125,10 @@ def image_gui_integration(coordinates):
     """
     this function integrates the image processing and GUI subsystems
     """
+
+    # write data files to append data
+
+
     # run signal processing
     while True:
         with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:

@@ -93,8 +93,8 @@ def two_dim(max_r, c_l, c_r, hpbw):
         next_point = next_point.tolist()
 
         points_out[i] = next_point
-    
-    return points_out
+
+    return points_out, num_points_y, num_points_x
 
 
 def two_terra(max_r, c, hpbw):
@@ -116,7 +116,7 @@ def two_terra(max_r, c, hpbw):
         c_in = np.around(c_in, decimals=0)
         c_s_out.append(c_in)
 
-    return c_s_out
+    return c_s_out, len(c_s_out)
 
 
 def one_terra(max_r, c):
