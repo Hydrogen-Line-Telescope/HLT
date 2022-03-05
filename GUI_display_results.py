@@ -160,8 +160,8 @@ def copy_results_data(results_dir):
         shutil.copy2(os.path.join(data_dir, name), files_dest)'''
 
     # copy over raw data files
-    # data_dir = "Z:\\Signal Data"
-    data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\"
+    data_dir = "Z:\\Signal Data"
+    # data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\"
     data_dest = results_dir + "\\Data Files"
     shutil.copytree(data_dir, data_dest)
 
@@ -177,39 +177,35 @@ def copy_results_data(results_dir):
 
 
 def create_results_folder():
-    time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
+    # time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
 
     now = datetime.now()
     current_date = now.strftime("%b-%d-%Y %H-%M-%S")
-    print(current_date)
+    # print(current_date)
 
     # create a directory for that set of results
     directory = "Results " + str(current_date)
-    print(directory)
+    # print(directory)
     parent_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
 
     path = os.path.join(parent_dir, directory)
-    print(path)
+    # print(path)
     os.mkdir(path)
 
-    create_display_gif(path)
-    create_transparent_gif(path, time_list)
-    copy_results_data(path)
+    '''create_display_gif(path)
+        create_transparent_gif(path, time_list)
+        copy_results_data(path)'''
+
+    return path
 
 
 def main(frame_number, time_list):
     """
     this function displays the results for the terrestrial and RPA modes
     """
-    # get the current date & time
-    now = datetime.now()
-    current_date = now.strftime("%b-%d-%Y %H-%M-%S")
 
     # create a directory for that set of results
-    directory = "Results " + str(current_date)
-    parent_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results"
-    path = os.path.join(parent_dir, directory)
-    os.mkdir(path)
+    path = create_results_folder()
 
     # create the GUI window for this mode
     # ctypes.windll.shcore.SetProcessDpiAwareness(2)
@@ -236,8 +232,8 @@ def main(frame_number, time_list):
 
     for i in range(0, frame_number):
         index = 'gif -index {}'.format(i)
-        im = Image.open('Results\\Results.gif')
-        frame = PhotoImage(file='Results\\Results.gif', format=index)
+        im = Image.open(path + '\\Results.gif')
+        frame = PhotoImage(file=path + '\\Results.gif', format=index)
         frame_list.append(frame)
 
     canvas = Canvas(
@@ -470,8 +466,11 @@ def display_two_dim_sel():
     this function displays the results for the 2D selection mode
     """
 
+    # create a directory for that set of results
+    path = create_results_folder()
+
     # move magnitude and frequency data to the Results folder
-    copy_results_data()
+    copy_results_data(path)
 
     window = Tk()
 
@@ -703,4 +702,9 @@ create_transparent_gif(time_list)
 main(5, time_list)'''
 #set_image_background()
 #copy_results_data()
-create_results_folder()
+#create_results_folder()
+
+'''time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
+main(5, time_list)'''
+
+# display_two_dim_sel()
