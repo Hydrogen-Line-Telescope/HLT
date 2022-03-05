@@ -82,6 +82,7 @@ def get_freq_mag(file_name):
     filtered_sig = filtered_sig[5:-5]
     freq = freq[5:-5]
 
+
     # find the peak magnitude and convert to a linear value
     peak_mag = np.amax(filtered_sig)
     max_mag_index = np.where(filtered_sig == np.amax(filtered_sig))
