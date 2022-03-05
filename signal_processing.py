@@ -82,7 +82,6 @@ def get_freq_mag(file_name):
     filtered_sig = filtered_sig[5:-5]
     freq = freq[5:-5]
 
-
     # find the peak magnitude and convert to a linear value
     peak_mag = np.amax(filtered_sig)
     max_mag_index = np.where(filtered_sig == np.amax(filtered_sig))
@@ -95,6 +94,8 @@ def get_freq_mag(file_name):
     print("Peak Frequency (MHz): ", peak_freq)
 
     # append values
+    # 1 Sweep & RPA are 1 columns
+
     freqdf = pd.DataFrame([peak_freq])
     magdf = pd.DataFrame([peak_mag])
     freqdf.to_csv('Peak Frequency.csv', index=False)

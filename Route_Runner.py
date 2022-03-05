@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 import datetime
 import pandas as pd   
 import RPi.GPIO as GPIO
+import sys
 
 #initialze variables to use as registers for accelertometer
 accel_x_out_reg = 0x3B
@@ -13,8 +14,9 @@ accel_y_out_reg = 0x3D
 accel_z_out_reg = 0x3F
 d_address = 0x68
 
-#universal variable
+#universal variables
 margin = 5
+mov_fac = 15
 
 def initialize_accel():
 
@@ -76,8 +78,8 @@ def get_angles():
        theta = (np.arctan(Ay/Ax) + np.pi)
         
     #covnverts from traditional spherical to my coordinate system
-    c_sph_pp_i[0] = (np.arctan((np.sin(phi) * np.cos(theta)) / np.cos(phi))) * (180/np.pi)
-    c_sph_pp_i[1] = (np.arctan((np.sin(phi) * np.sin(theta)) / np.cos(phi))) * (180/np.pi)
+    c_sph_pp_i[1] = -1 * (np.arctan((np.sin(phi) * np.cos(theta)) / np.cos(phi))) * (180/np.pi)
+    c_sph_pp_i[0] = (np.arctan((np.sin(phi) * np.sin(theta)) / np.cos(phi))) * (180/np.pi)
     
     return c_sph_pp_i
 
@@ -155,68 +157,120 @@ def run_route():
         print(get_angles())
         
         while(not(in_pos(x_goal, y_goal))): # checks to make sure both positons are correct if not it continues the loop
+            
             cur_pos = get_angles() #updates position
-        
-            while((cur_pos[0] <= (x_goal - margin)) or (cur_pos[0] >= (x_goal + margin))): #checks x position and moves
+            if((cur_pos[0] <= (x_goal - margin)) or (cur_pos[0] >= (x_goal + margin))): #checks x position and moves
                 if (cur_pos[0] <= (x_goal - margin)): #if we are behind the goal move towards it
                     moveforward_x(1)
-                    print("moving_x: ", (cur_pos[0] - x_goal))
+                    delta_x = (abs(cur_pos[0] - x_goal))/mov_fac
+                    sleep(delta_x)
+                    stop()
                 elif (cur_pos[0] >= (x_goal + margin)): # if we are in front move towards it
                     movebackward_x(1)
-                    print("moving_x: ", (cur_pos[0] - x_goal))
+                    delta_x = (abs(cur_pos[0] - x_goal))/mov_fac
+                    sleep(delta_x)
+                    stop()
                 else: #stops movment when in postion
                     stop()
-            
-                cur_pos = get_angles() #updates postion to check again
-            
+                    
+                sleep(0.25)
+                
             #print((cur_pos[1] <= (y_goal - margin)) or (cur_pos[1] >= (y_goal + margin)))
-            
-            while((cur_pos[1] <= (y_goal - margin)) or (cur_pos[1] >= (y_goal + margin))): #checks y position and moves
+            cur_pos = get_angles() #updates postion to check again
+            if((cur_pos[1] <= (y_goal - margin)) or (cur_pos[1] >= (y_goal + margin))): #checks y position and moves
                 if (cur_pos[1] <= (y_goal - margin)): #if we are behind the goal move towards it
                     moveforward_y(1)
-                    print("moving_y: ", (cur_pos[1] - y_goal))
+                    delta_y = (abs(cur_pos[1] - y_goal))/mov_fac
+                    sleep(delta_y)
+                    stop()
                 elif (cur_pos[1] >= (y_goal + margin)): # if we are in front move towards it
                     movebackward_y(1)
-                    print("moving_y: ", (cur_pos[1] - y_goal))
+                    delta_y = (abs(cur_pos[1] - y_goal))/mov_fac
+                    sleep(delta_y)
+                    stop()
                 else: #stops movment when in postion
                     stop()
-            
+                    
+                sleep(0.75)
                 cur_pos = get_angles() #updates postion to check again
-             
-            stop()
+                
+            print("Phi_x = ", cur_pos[0], "Phi_y = ", cur_pos[1])
             
         stop()
-    
+        sleep(3)
         #still with in all the points but I have gotten to the point where we need to collect data
         #write to file saying collect data
-        with open('//home//pi//HLT_Shared//Route Data//Scan_Now_Key.txt', 'w') as c:
+        with open('//home//pi//HLT_Shared//Route Data//Signal_Processing_Key.txt', 'w') as c:
             c.write('1')
         check_val = 1 #sets check values to 1 so it knows to go
         
         
         #sleep cycle waiting for something saying done collecting data
         while(check_val):
-            with open('//home//pi//HLT_Shared//Route Data//Scan_Now_Key.txt', 'r') as c:
+            with open('//home//pi//HLT_Shared//Route Data//Signal_Processing_Key.txt', 'r') as c:
                 check_val = int(c.readlines()[0]) # checks to see if check_val is 0 yet
             print(check_val)
             print("sleepy_scan")
             sleep(15)
         #contiues to next postion and repeats
-    
+        
+        
     #once we have moved to all the points it updates this file saying it has moved
-    with open('//home//pi//HLT_Shared//Route Data//Scanning_Key.txt', 'w') as c:
+    with open('//home//pi//HLT_Shared//Route Data//Route_Key.txt', 'w') as c:
             c.write('1')   
         
     
+def go_to(x, y):
+    while(not(in_pos(x_goal, y_goal))): # checks to make sure both positons are correct if not it continues the loop
+            
+        cur_pos = get_angles() #updates position
+        if((cur_pos[0] <= (x_goal - margin)) or (cur_pos[0] >= (x_goal + margin))): #checks x position and moves
+            if (cur_pos[0] <= (x_goal - margin)): #if we are behind the goal move towards it
+                moveforward_x(1)
+                delta_x = (abs(cur_pos[0] - x_goal))/mov_fac
+                sleep(delta_x)
+                stop()
+            elif (cur_pos[0] >= (x_goal + margin)): # if we are in front move towards it
+                movebackward_x(1)
+                delta_x = (abs(cur_pos[0] - x_goal))/mov_fac
+                sleep(delta_x)
+                stop()
+            else: #stops movment when in postion
+                stop()
+                    
+        sleep(0.25)
+                
+            #print((cur_pos[1] <= (y_goal - margin)) or (cur_pos[1] >= (y_goal + margin)))
+        cur_pos = get_angles() #updates postion to check again
+        if((cur_pos[1] <= (y_goal - margin)) or (cur_pos[1] >= (y_goal + margin))): #checks y position and moves
+            if (cur_pos[1] <= (y_goal - margin)): #if we are behind the goal move towards it
+                moveforward_y(1)
+                delta_y = (abs(cur_pos[1] - y_goal))/mov_fac
+                sleep(delta_y)
+                stop()
+            elif (cur_pos[1] >= (y_goal + margin)): # if we are in front move towards it
+                movebackward_y(1)
+                delta_y = (abs(cur_pos[1] - y_goal))/mov_fac
+                sleep(delta_y)
+                stop()
+            else: #stops movment when in postion
+                stop()
+                    
+        sleep(0.75)
+        cur_pos = get_angles() #updates postion to check again
+    
+    stop()
+    print("At Home")        
+    stop()
 #initialization for all of the different linear actuators and accelertometer
 status_fx = False
 status_bx = False
 status_fy = False
 status_by = False
 
-forward_channel_x = 27
-backward_channel_x = 22
-forward_channel_y = 24
+forward_channel_x = 24
+backward_channel_x = 27
+forward_channel_y = 22
 backward_channel_y = 23
 
 GPIO.setmode(GPIO.BCM)
@@ -238,30 +292,46 @@ initialize_accel()
 
 
 moveforward_x(True)
-sleep(2)
+sleep(0.25)
 stop()
+sleep(0.25)
 movebackward_x(True)
-sleep(2)
+sleep(0.5)
 stop()
+sleep(0.25)
+moveforward_x(True)
+sleep(0.25)
+stop()
+sleep(0.25)
 moveforward_y(True)
-sleep(2)
+sleep(0.25)
 stop()
+sleep(0.25)
 movebackward_y(True)
-sleep(2)
+sleep(0.5)
+stop()
+sleep(0.25)
+moveforward_y(True)
+sleep(0.25)
 stop()
     
-
-while(True):
-    with open('//home//pi//HLT_Shared//Route Data//Scanning_Key.txt') as c:
-        write_check = c.readlines()
+try:
+    
+    while(True):
+        with open('//home//pi//HLT_Shared//Route Data//Route_Key.txt') as c:
+            write_check = c.readlines()
         
-    print(write_check)
-    if (write_check[0] == '0'):
-        run_route()
+        #print(write_check)
+        if (write_check[0] == '0'):
+            run_route()
     
-    print("sleepy_route")
-    sleep(30)
-    
+        print("sleepy_route")
+        sleep(10)
+        
+except:
+    stop()
+    print("Error")
+    sys.exit()
     
 
     
