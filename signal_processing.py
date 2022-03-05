@@ -41,6 +41,11 @@ def graph_data(file_name):
     # trying out different thresholds
     for threshold in [1e3, 5e3, 1e4, 5e4]:
         filtered_sig = filter_signal(linear_sig, threshold)
+        filtered_sig = filtered_sig[5:-5]
+        freq = freq[5:-5]
+        linear_sig = linear_sig[5:-5]
+        # print(len(filtered_sig))
+        # print(len(freq))
         plt.plot(freq, linear_sig, label='Raw')
         plt.plot(freq, filtered_sig, label='Filtered')
         # plt.xlim((freq[0], freq[-1]))
@@ -62,13 +67,24 @@ def get_freq_mag(file_name):
     sig = np.array(datadf.iloc[:, 6:])
     sig = sig.flatten()
 
+    linear_sig = []
+    for i in sig:
+        new_i = np.exp(i / 20)
+        linear_sig.append(new_i)
+
+    linear_sig = np.array(linear_sig)
+
+    filtered_sig = filter_signal(linear_sig, 5e3)
+
     # all data points in GHz
     freq = np.arange(start_freq, end_freq, freq_interval) / 1e9
 
+    filtered_sig = filtered_sig[5:-5]
+    freq = freq[5:-5]
+
     # find the peak magnitude and convert to a linear value
-    peak_mag = np.amax(sig)
-    peak_mag = np.exp(peak_mag/20)
-    max_mag_index = np.where(sig == np.amax(sig))
+    peak_mag = np.amax(filtered_sig)
+    max_mag_index = np.where(filtered_sig == np.amax(filtered_sig))
     print("Peak Magnitude: ", peak_mag)
 
     # in GHz
@@ -77,25 +93,29 @@ def get_freq_mag(file_name):
     peak_freq = peak_freq * 1000
     print("Peak Frequency (MHz): ", peak_freq)
 
+    # append values
     freqdf = pd.DataFrame([peak_freq])
     magdf = pd.DataFrame([peak_mag])
     freqdf.to_csv('Peak Frequency.csv', index=False)
     magdf.to_csv('Peak Magnitude.csv', index=False)
 
 
-# pull signal data using soapy_power
-# -q, quiet the soapy_power module notifications
-# -d, define driver used
-# -f, define center frequency
-# -O, output file name
-# -g, gain, currently set to the default number
-# -k, percentage of crop
-# -n, number of spectra to average, default is 1600
-'''command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_validation.csv",
-                               "-g", "37.5", "-n", "12800"])'''
+def read_signal():
+    # pull signal data using soapy_power
+    # -q, quiet the soapy_power module notifications
+    # -d, define driver used
+    # -f, define center frequency
+    # -O, output file name
+    # -g, gain, currently set to the default number
+    # -k, percentage of crop
+    # -n, number of spectra to average, default is 1600
+    command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O",
+                                   "signal_validation.csv", "-g", "37.5", "-n", "12800"])
 
-# ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
-# hydrogen line frequency, 1.420405751G
+    # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
+    # hydrogen line frequency, 1.420405751G
+    get_freq_mag('signal_validation.csv')
+
+
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
-graph_data("TEST_ANTENNA_raw_signal_data.csv")
-
+#graph_data("TEST_ANTENNA_raw_signal_data.csv")

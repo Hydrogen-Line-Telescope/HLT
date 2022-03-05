@@ -11,6 +11,7 @@ import stellarium_screenshots
 import image_processing
 import image_overlay
 import GUI_display_results
+import signal_processing
 
 
 def relative_to_assets(path: str) -> Path:
@@ -98,6 +99,21 @@ def image_gui_integration(hr_duration, num_scans):
     """
     this function integrates the image processing and GUI subsystems
     """
+
+    while True:
+        with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:
+            write_check = c.readlines()
+
+        print(write_check)
+        if write_check[0] == '1':
+            signal_processing.read_signal()
+        else:
+            print("sleepy_scan")
+            with open('Z:\\Route Data\\Route_Key.txt') as f:
+                lines = f.readlines()
+                if lines[0] == '1':
+                    break
+            time.sleep(10)
 
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
