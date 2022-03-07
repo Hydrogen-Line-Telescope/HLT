@@ -83,7 +83,7 @@ def unbind_mouse(two_sweep_window, entry_1):
     num_scans = (min_duration / 15) + 1
 
     print("scanning coordinate", coordinates_list[0])
-    route_list = Route_Demo.two_terra(250, coordinates_list[0], 10)
+    route_list, row = Route_Demo.two_terra(250, coordinates_list[0], 10)
     routedf = pd.DataFrame(route_list)
 
     routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
@@ -92,13 +92,18 @@ def unbind_mouse(two_sweep_window, entry_1):
     two_sweep_window.destroy()
 
     # call integration function for gui and image processing
-    image_gui_integration(hr_duration, num_scans)
+    image_gui_integration(hr_duration, num_scans, row)
 
 
-def image_gui_integration(hr_duration, num_scans):
+def image_gui_integration(hr_duration, num_scans, row):
     """
     this function integrates the image processing and GUI subsystems
     """
+
+    # clear csv files from the Signal Data folder
+    GUI_display_results.clear_folder('Z:\\Signal Data\\*csv')
+    # write data files to append data to
+    signal_processing.write_blank_files()
 
     while True:
         with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:
@@ -131,10 +136,13 @@ def image_gui_integration(hr_duration, num_scans):
             print("sleepy_scan")
             time.sleep(10)
 
+    # format data files correctly
+    image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
+
     # continue with image processing
-    # read frequency and magnitude data into pandas dataframes
-    freqdf = pd.read_csv('Z:\\Signal Data\\freq_data.csv')
-    magdf = pd.read_csv('Z:\\Signal Data\\mag_data.csv')
+    # read formatted frequency and magnitude data into pandas dataframes
+    freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
+    magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
 
     # call the heatmap function with the data
     # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan

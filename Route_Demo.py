@@ -99,13 +99,13 @@ def two_dim(max_r, c_l, c_r, hpbw):
 
 def two_terra(max_r, c, hpbw):
     
-    # pass values so global variables dont get changed
+    # pass values so global variables don't get changed
     x_in = c[0]
     x = c[0] * c[0]
 
     # calculates the top and bottom of the circle to further interpolate points
-    y_1 = np.sqrt((max_r ** 2) - (x))
-    y_2 = -1 * np.sqrt((max_r ** 2) - (x))
+    y_1 = np.sqrt((max_r ** 2) - x)
+    y_2 = -1 * np.sqrt((max_r ** 2) - x)
 
     # creates output list
     c_s_out = []

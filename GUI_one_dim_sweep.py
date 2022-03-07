@@ -87,6 +87,12 @@ def image_gui_integration(hr_duration, num_scans):
     this function integrates the image processing and GUI subsystems
     """
 
+    # clear csv files from the Signal Data folder
+    GUI_display_results.clear_folder('Z:\\Signal Data\\*csv')
+    # write data files to append data to
+    signal_processing.write_blank_files()
+
+    # call signal processing function
     while True:
         with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:
             write_check = c.readlines()

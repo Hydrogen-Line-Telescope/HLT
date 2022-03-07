@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import fake_mag_freq_data as foo
+from functools import reduce
 
 
 def hex_to_rgb(value):
@@ -133,6 +134,43 @@ def two_dim_sel(freqdf, magdf):
     plt.savefig('HeatMaps\\Heatmap.png', bbox_inches='tight', pad_inches=0)
 
 
+def format_data_files(freq_file, mag_file, row):
+    freqdf = pd.read_csv(freq_file)
+
+    freqlist = freqdf['0'].tolist()
+
+    # split list based off of row number
+    split_freq = [freqlist[i:i + row] for i in range(0, len(freqlist), row)]
+
+    # reverse every odd row to account for route path take by the motorized mount
+    for i in range(len(split_freq)):
+        if i % 2 != 0:
+            split_freq[i].reverse()
+
+    # put data into a DataFrame and write to a csv
+    output_freq_df = pd.DataFrame(split_freq)
+    output_freq_df_transposed = output_freq_df.transpose()
+    output_freq_df_transposed.to_csv("Z:\\Signal Data\\format_freq_data.csv")
+
+    # do the same for magdf
+    magdf = pd.read_csv(mag_file)
+
+    maglist = magdf['0'].tolist()
+
+    # split list based off of row number
+    split_mag = [maglist[i:i + row] for i in range(0, len(maglist), row)]
+
+    # reverse every odd row to account for route path take by the motorized mount
+    for i in range(len(split_mag)):
+        if i % 2 != 0:
+            split_mag[i].reverse()
+
+    # put data into a DataFrame and write to a csv
+    output_mag_df = pd.DataFrame(split_mag)
+    output_mag_df_transposed = output_mag_df.transpose()
+    output_mag_df_transposed.to_csv("Z:\\Signal Data\\format_mag_data.csv")
+
+
 def two_dim_sweep(freqdf, magdf, num_scans):
     # data is in multiple columns, each scan is one column
     # number of columns is determined by the number of scans
@@ -156,9 +194,13 @@ def two_dim_sweep(freqdf, magdf, num_scans):
     # working from left to right
     for i in range(num_scans):
         freq_col = freqdf.columns.values.tolist()
+        print(freq_col)
         mag_col = magdf.columns.values.tolist()
+        print(mag_col)
         freq_list = freqdf[freq_col[i]].values.tolist()
+        print(freq_list)
         mag_list = magdf[mag_col[i]].values.tolist()
+        print(mag_list)
         magdf_scan = pd.DataFrame(mag_list)
         freqdf_scan = pd.DataFrame(freq_list)
         fig, ax = plt.subplots()
@@ -207,12 +249,14 @@ freqdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\fr
 magdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
 two_dim_sel(freqdf0, magdf0)'''
 
-'''foo.two_dim_sweep_data(6, 9)
-freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
+'''foo.two_dim_sweep_data(6, 9)'''
+'''freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
 magdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
-two_dim_sweep(freqdf1, magdf1, 6)'''
+two_dim_sweep(freqdf1, magdf1, 8)'''
 
 '''foo.two_dim_sweep_data(1, 10)
 freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
 magdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
 one_dim_sweep_rpa(freqdf2, magdf2, 10)'''
+
+# format_data_files('freq_data.csv', 'mag_data.csv', 6)

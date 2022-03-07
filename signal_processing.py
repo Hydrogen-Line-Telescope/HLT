@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
 from numpy.fft import rfft, rfftfreq, irfft
+from csv import writer
 
 
 def filter_signal(signal, threshold):
@@ -93,15 +94,30 @@ def get_freq_mag(file_name):
     peak_freq = peak_freq * 1000
     print("Peak Frequency (MHz): ", peak_freq)
 
-    # append values
+    freqdf = [peak_freq]
+    magdf = [peak_mag]
+    print(freqdf)
+    print(magdf)
+
+    # append values to csv files for frequency and magnitude
     # 1 sweep & RPA are 1 columns
     # 2D sel & sweep are multiple columns
     # 2 sweep - num_scans = # col, route returns # row
+    with open('Z:\\Signal Data\\freq_data.csv', 'a', newline='') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow(freqdf)
+        f_object.close()
 
-    freqdf = pd.DataFrame([peak_freq])
-    magdf = pd.DataFrame([peak_mag])
-    freqdf.to_csv('Peak Frequency.csv', index=False)
-    magdf.to_csv('Peak Magnitude.csv', index=False)
+    with open('Z:\\Signal Data\\mag_data.csv', 'a', newline='') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow(magdf)
+        f_object.close()
+
+
+def write_blank_files():
+    df = pd.DataFrame(list(" "))
+    df.to_csv('freq_data.csv', index=False)
+    df.to_csv('mag_data.csv', index=False)
 
 
 def read_signal():
@@ -114,12 +130,22 @@ def read_signal():
     # -k, percentage of crop
     # -n, number of spectra to average, default is 1600
     command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O",
-                                   "signal_validation.csv", "-g", "37.5", "-n", "12800"])
+                                   "raw_signal_data.csv", "-g", "37.5", "-n", "12800"])
 
     # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
     # hydrogen line frequency, 1.420405751G
-    get_freq_mag('signal_validation.csv')
+    get_freq_mag('raw_signal_data.csv')
 
 
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 #graph_data("TEST_ANTENNA_raw_signal_data.csv")
+write_blank_files()
+get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
+
+print(pd.read_csv('freq_data.csv'))
+print(pd.read_csv('mag_data.csv'))

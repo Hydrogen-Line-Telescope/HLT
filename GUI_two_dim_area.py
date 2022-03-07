@@ -107,29 +107,31 @@ def unbind_mouse(two_sel_window):
         # print("Selected area is too small.")
         error_message_1.selection_size_error()
     else:
-        route_list = Route_Demo.two_dim(250, lower_left_coord, upper_right_coord, 10)
+        route_list, row, col = Route_Demo.two_dim(250, lower_left_coord, upper_right_coord, 10)
         routedf = pd.DataFrame(route_list)
         # Z:\\Route Data\\Scanning_Route.csv
         # print("dataframe", routedf)
         routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
 
-    with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
-        f.write('0')
+        with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
+            f.write('0')
 
-    new_coordinates_list = [lower_left_coord, upper_right_coord]
-    print(new_coordinates_list)
-    image_gui_integration(new_coordinates_list)
+        new_coordinates_list = [lower_left_coord, upper_right_coord]
+        print(new_coordinates_list)
+        image_gui_integration(new_coordinates_list, row)
 
 
-def image_gui_integration(coordinates):
+def image_gui_integration(coordinates, row):
     """
     this function integrates the image processing and GUI subsystems
     """
 
-    # write data files to append data
+    # clear csv files from the Signal Data folder
+    GUI_display_results.clear_folder('Z:\\Signal Data\\*csv')
+    # write data files to append data to
+    signal_processing.write_blank_files()
 
-
-    # run signal processing
+    # run signal processing, check to see if route is complete every 10 seconds
     while True:
         with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:
             write_check = c.readlines()
@@ -169,10 +171,13 @@ def image_gui_integration(coordinates):
             print("sleepy_scan")
             time.sleep(10)
 
+    # format data files correctly
+    image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
+
     # continue with image processing
-    # read frequency and magnitude data into pandas dataframes
-    freqdf = pd.read_csv('Z:\\Signal Data\\freq_data.csv')
-    magdf = pd.read_csv('Z:\\Signal Data\\mag_data.csv')
+    # read formatted frequency and magnitude data into pandas dataframes
+    freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
+    magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
 
     # call the heatmap function with the 2D area data
     image_processing.two_dim_sel(freqdf, magdf)
