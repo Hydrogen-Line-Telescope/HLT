@@ -179,6 +179,10 @@ def image_gui_integration(coordinates, row):
     freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
     magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
 
+    # delete first column - just indexing
+    freqdf = freqdf.iloc[:, 1:]
+    magdf = magdf.iloc[:, 1:]
+
     # call the heatmap function with the 2D area data
     image_processing.two_dim_sel(freqdf, magdf)
 

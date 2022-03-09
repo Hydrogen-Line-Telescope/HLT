@@ -175,6 +175,7 @@ plt.colorbar()
 plt.show()'''
 
 from PIL import Image
+import image_processing
 
 
 def gen_frame(path):
@@ -201,9 +202,25 @@ im2 = gen_frame('frame2.png')
 im1.save('GIF.gif', save_all=True, append_images=[im2], loop=5, duration=200)
 '''
 
-image = Image.open("frame1.png").convert("RGBA")
+'''image = Image.open("frame1.png").convert("RGBA")
 print(image)
 new_image = Image.open('a5a5a5.png').convert("RGBA")
 new_image.paste(image, mask=image)
 
-new_image.convert("RGB").save("1_TEST.png")
+new_image.convert("RGB").save("1_TEST.png")'''
+
+row = 6
+image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
+
+# continue with image processing
+# read formatted frequency and magnitude data into pandas dataframes
+freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
+magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
+
+freqdf = freqdf.iloc[:, 1:]
+magdf = magdf.iloc[:, 1:]
+
+# call the heatmap function with the 2D area data
+image_processing.two_dim_sel(freqdf, magdf)
+
+image_processing.two_dim_sweep(freqdf, magdf, 4)

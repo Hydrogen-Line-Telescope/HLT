@@ -144,6 +144,10 @@ def image_gui_integration(hr_duration, num_scans, row):
     freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
     magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
 
+    # delete first column - just indexing
+    freqdf = freqdf.iloc[:, 1:]
+    magdf = magdf.iloc[:, 1:]
+
     # call the heatmap function with the data
     # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
     image_processing.two_dim_sweep(freqdf, magdf, num_scans)
