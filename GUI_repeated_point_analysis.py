@@ -6,6 +6,7 @@ from PIL import ImageTk
 import ctypes
 import glob
 import time
+import os
 import Route_Demo
 import stellarium_screenshots
 import image_processing
@@ -88,7 +89,12 @@ def image_gui_integration(hr_duration, num_scans):
     """
 
     # clear csv files from the Signal Data folder
-    GUI_display_results.clear_folder('Z:\\Signal Data\\*csv')
+    files_in_directory = os.listdir('Z:\\Signal Data\\')
+    filtered_files = [file for file in files_in_directory if file.endswith(".csv")]
+    for file in filtered_files:
+        path_to_file = os.path.join('Z:\\Signal Data\\', file)
+        os.remove(path_to_file)
+
     # write data files to append data to
     signal_processing.write_blank_files()
 

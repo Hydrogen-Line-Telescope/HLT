@@ -116,8 +116,8 @@ def get_freq_mag(file_name):
 
 def write_blank_files():
     df = pd.DataFrame(list(" "))
-    df.to_csv('freq_data.csv', index=False)
-    df.to_csv('mag_data.csv', index=False)
+    df.to_csv('Z:\\Signal Data\\freq_data.csv', index=False)
+    df.to_csv('Z:\\Signal Data\\mag_data.csv', index=False)
 
 
 def read_signal():
@@ -139,7 +139,7 @@ def read_signal():
 
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 #graph_data("TEST_ANTENNA_raw_signal_data.csv")
-write_blank_files()
+'''write_blank_files()
 get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
@@ -148,4 +148,4 @@ get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 
 print(pd.read_csv('freq_data.csv'))
-print(pd.read_csv('mag_data.csv'))
+print(pd.read_csv('mag_data.csv'))'''

@@ -5,6 +5,7 @@ import pandas as pd
 from PIL import ImageTk
 import ctypes
 import glob
+import os
 import Route_Demo
 import error_message_1
 import stellarium_screenshots
@@ -127,7 +128,12 @@ def image_gui_integration(coordinates, row):
     """
 
     # clear csv files from the Signal Data folder
-    GUI_display_results.clear_folder('Z:\\Signal Data\\*csv')
+    files_in_directory = os.listdir('Z:\\Signal Data\\')
+    filtered_files = [file for file in files_in_directory if file.endswith(".csv")]
+    for file in filtered_files:
+        path_to_file = os.path.join('Z:\\Signal Data\\', file)
+        os.remove(path_to_file)
+
     # write data files to append data to
     signal_processing.write_blank_files()
 

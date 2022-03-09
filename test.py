@@ -176,6 +176,7 @@ plt.show()'''
 
 from PIL import Image
 import image_processing
+import signal_processing
 
 
 def gen_frame(path):
@@ -209,7 +210,22 @@ new_image.paste(image, mask=image)
 
 new_image.convert("RGB").save("1_TEST.png")'''
 
-row = 6
+# clear csv files from the Signal Data folder
+files_in_directory = os.listdir('Z:\\Signal Data\\')
+filtered_files = [file for file in files_in_directory if file.endswith(".csv")]
+for file in filtered_files:
+    path_to_file = os.path.join('Z:\\Signal Data\\', file)
+    os.remove(path_to_file)
+
+
+signal_processing.write_blank_files()
+
+'''row = 6
+# image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
+
+# continue with image processing
+# read formatted frequency and magnitude data into pandas dataframes
+# format data files correctly
 image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
 
 # continue with image processing
@@ -217,10 +233,9 @@ image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal
 freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
 magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
 
+# delete first column - just indexing
 freqdf = freqdf.iloc[:, 1:]
 magdf = magdf.iloc[:, 1:]
 
 # call the heatmap function with the 2D area data
-image_processing.two_dim_sel(freqdf, magdf)
-
-image_processing.two_dim_sweep(freqdf, magdf, 4)
+image_processing.two_dim_sel(freqdf, magdf)'''

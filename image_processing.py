@@ -113,7 +113,7 @@ def two_dim_sel(freqdf, magdf):
     cmap = get_continuous_cmap(hex_list)
     '''cmap = colors.ListedColormap(['red', 'blue'])'''
     bounds = [freq_min, 1420.4075, freq_max]
-    norm = colors.TwoSlopeNorm(vcenter=1420.40575)
+    norm = colors.TwoSlopeNorm(vmin=1419.40575, vcenter=1420.40575, vmax=1421.40575)
 
     # convert dataframe magdf to floats
 
@@ -188,7 +188,7 @@ def two_dim_sweep(freqdf, magdf, num_scans):
 
     hex_list = ['#ff0000', '#800080', '#0000FF']
     cmap = get_continuous_cmap(hex_list)
-    norm = colors.TwoSlopeNorm(vcenter=1420.40575)
+    norm = colors.TwoSlopeNorm(vmin=1419.40575, vcenter=1420.40575, vmax=1421.40575)
 
     # create a heatmap for each column of frequency and magnitude data
     # working from left to right
@@ -229,7 +229,7 @@ def one_dim_sweep_rpa(freqdf, magdf, num_scans):
 
     hex_list = ['#ff0000', '#800080', '#0000FF']
     cmap = get_continuous_cmap(hex_list)
-    norm = colors.TwoSlopeNorm(vcenter=1420.40575)
+    norm = colors.TwoSlopeNorm(vmin=1419.40575, vcenter=1420.40575, vmax=1421.40575)
 
     '''cmap = colors.ListedColormap(['red', 'blue'])
     # bounds = [freq_min, 1420.405751, freq_max]
