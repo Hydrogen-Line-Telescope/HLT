@@ -129,12 +129,14 @@ def read_signal():
     # -g, gain, currently set to the default number
     # -k, percentage of crop
     # -n, number of spectra to average, default is 1600
+    # "-d", "driver=rtlsdr"
     command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O",
                                    "raw_signal_data.csv", "-g", "37.5", "-n", "12800"])
 
     # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
     # hydrogen line frequency, 1.420405751G
-    get_freq_mag('raw_signal_data.csv')
+    # get_freq_mag('raw_signal_data.csv')
+    graph_data('raw_signal_data.csv')
 
 
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
@@ -149,3 +151,6 @@ get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 
 print(pd.read_csv('freq_data.csv'))
 print(pd.read_csv('mag_data.csv'))'''
+
+
+#read_signal()

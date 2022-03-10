@@ -194,13 +194,13 @@ def two_dim_sweep(freqdf, magdf, num_scans):
     # working from left to right
     for i in range(num_scans):
         freq_col = freqdf.columns.values.tolist()
-        print(freq_col)
+        # print(freq_col)
         mag_col = magdf.columns.values.tolist()
-        print(mag_col)
+        # print(mag_col)
         freq_list = freqdf[freq_col[i]].values.tolist()
-        print(freq_list)
+        # print(freq_list)
         mag_list = magdf[mag_col[i]].values.tolist()
-        print(mag_list)
+        # print(mag_list)
         magdf_scan = pd.DataFrame(mag_list)
         freqdf_scan = pd.DataFrame(freq_list)
         fig, ax = plt.subplots()
