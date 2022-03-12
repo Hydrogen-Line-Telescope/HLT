@@ -21,10 +21,11 @@ def crop_image(im, num_image):
 
     width, height = im.size  # Get dimensions
 
-    left = (width - 1250) / 2
-    top = (height - 1250) / 2
-    right = (width + 1250) / 2
-    bottom = (height + 1250) / 2
+    # 950 for a  55 degree circle, 1250 for an 85 degree circle
+    left = (width - 950) / 2
+    top = (height - 950) / 2
+    right = (width + 950) / 2
+    bottom = (height + 950) / 2
 
     # Crop the center of the image
     im = im.crop((left, top, right, bottom))

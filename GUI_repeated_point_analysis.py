@@ -40,12 +40,16 @@ def get_coordinates(event):
     '''if len(coordinates_list) >= 2:
         coordinates_list.clear()'''
 
+    rectangle_pos.append([event.x-16, event.y-16, event.x+16, event.y+16])
     coordinates_list.append([event.x-275, -1 * (event.y-300)])
 
     print(coordinates_list)
     if len(coordinates_list) == 1:
+        canvas.create_rectangle(rectangle_pos, tags='my_rectangle',
+                                outline="#A5A5A5")
         coord_text()
     elif len(coordinates_list) >= 2:
+        canvas.delete('my_rectangle')
         coord_text.var["text"] = "Click R"
 
 
@@ -88,7 +92,7 @@ def image_gui_integration(hr_duration, num_scans):
     this function integrates the image processing and GUI subsystems
     """
 
-    # clear csv files from the Signal Data folder
+    '''# clear csv files from the Signal Data folder
     files_in_directory = os.listdir('Z:\\Signal Data\\')
     filtered_files = [file for file in files_in_directory if file.endswith(".csv")]
     for file in filtered_files:
@@ -111,23 +115,21 @@ def image_gui_integration(hr_duration, num_scans):
                 lines = f.readlines()
                 if lines[0] == '1':
                     break
-            time.sleep(10)
+            time.sleep(10)'''
 
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
     time_list = stellarium_screenshots.time_tracker(hr_duration)
 
-    # after the images are taken and cropped
+    # check for signal data to be ready from the PI
     while True:
         with open('Z:\\Signal Data\\Signal_Key.txt') as c:
             write_check = c.readlines()
-
-        print(write_check)
-        if write_check[0] == '1':
-            break
-        else:
-            print("sleepy_scan")
-            time.sleep(10)
+            if write_check[0] == '1':
+                break
+            else:
+                print("sleepy_scan")
+                time.sleep(10)
 
     # continue with image processing
     # read frequency and magnitude data into pandas dataframes
@@ -165,6 +167,7 @@ def image_gui_integration(hr_duration, num_scans):
 def reset_selection(two_sel_window):
     two_sel_window.unbind('<Button-1>')
     coordinates_list.clear()
+    rectangle_pos.clear()
     coord_text.var["text"] = ""
 
 
@@ -177,8 +180,10 @@ def main(og_window):
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
     global canvas
+    global rectangle_pos
 
     coordinates_list = []
+    rectangle_pos = []
 
     # create the GUI window for this mode
     rpa_window = Tk()

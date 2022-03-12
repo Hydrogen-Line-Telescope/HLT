@@ -40,11 +40,12 @@ def crop_image():
 
     im = Image.open('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\stellarium-000.png')
     width, height = im.size  # Get dimensions
+    # print(width, height)
 
-    left = (width - 1250) / 2
-    top = (height - 1250) / 2
-    right = (width + 1250) / 2
-    bottom = (height + 1250) / 2
+    left = (width - 950) / 2
+    top = (height - 950) / 2
+    right = (width + 950) / 2
+    bottom = (height + 950) / 2
 
     # Crop the center of the image
     im = im.crop((left, top, right, bottom))
@@ -52,6 +53,9 @@ def crop_image():
     img = im.convert("RGB")
     npImage = np.array(img)
     h, w = img.size
+
+    # im.show()
+    # print(h, w)
 
     # Create same size alpha layer with circle
     alpha = Image.new('L', img.size, 0)
@@ -74,7 +78,7 @@ def crop_image():
 
     new_im = im.resize((500, 500), Image.ANTIALIAS)
     width, height = im.size  # Get dimensions
-    # print(width, height)
+    print(width, height)
     new_im.save('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium.png', 'PNG',
                 quality=100)
 

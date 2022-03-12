@@ -42,6 +42,7 @@ def get_coordinates(event):
         coordinates_list.clear()
         coord_text.var["text"] = ""'''
 
+    rectangle_pos.append([event.x, event.y])
     coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
     print(coordinates_list)
@@ -49,8 +50,11 @@ def get_coordinates(event):
         coord_text()
     elif len(coordinates_list) == 2:
         coord_text.var["text"] = ""
+        canvas.create_rectangle(rectangle_pos, tags='my_rectangle',
+                                outline="#A5A5A5")
         coord_text()
     elif len(coordinates_list) > 2:
+        canvas.delete('my_rectangle')
         coord_text.var["text"] = "Click R"
 
 
@@ -127,7 +131,7 @@ def image_gui_integration(coordinates, row):
     this function integrates the image processing and GUI subsystems
     """
 
-    # clear csv files from the Signal Data folder
+    '''# clear csv files from the Signal Data folder
     files_in_directory = os.listdir('Z:\\Signal Data\\')
     filtered_files = [file for file in files_in_directory if file.endswith(".csv")]
     for file in filtered_files:
@@ -135,7 +139,7 @@ def image_gui_integration(coordinates, row):
         os.remove(path_to_file)
 
     # write data files to append data to
-    signal_processing.write_blank_files()
+    signal_processing.write_blank_files()'''
 
     # run signal processing, check to see if route is complete every 10 seconds
     while True:
@@ -160,22 +164,23 @@ def image_gui_integration(coordinates, row):
     0 - signal data is not ready
     1 - signal data is ready to read
     """
-    '''with open('Z:\\Signal Data\\Signal_Key.txt') as f:
+    '''while True:
+        with open('Z:\\Signal Data\\Signal_Key.txt') as f:
             lines = f.readlines()
             print('Signal Key', lines)
-            if lines[0] == '0':
+            if lines[0] == '1':
+                break
+            else:
                 time.sleep(30)'''
-
+    # check for signal data to be ready from the PI
     while True:
         with open('Z:\\Signal Data\\Signal_Key.txt') as c:
             write_check = c.readlines()
-
-        print(write_check)
-        if write_check[0] == '1':
-            break
-        else:
-            print("sleepy_scan")
-            time.sleep(10)
+            if write_check[0] == '1':
+                break
+            else:
+                print("sleepy_scan")
+                time.sleep(30)
 
     # format data files correctly
     image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
@@ -214,6 +219,7 @@ def image_gui_integration(coordinates, row):
 def reset_selection(two_sel_window):
     two_sel_window.unbind('<Button-1>')
     coordinates_list.clear()
+    rectangle_pos.clear()
     coord_text.var["text"] = ""
 
 
@@ -225,9 +231,12 @@ def main(og_window):
     ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
     global canvas
+    global rectangle_pos
 
     coordinates_list = []
     coordinates_list.clear()
+    rectangle_pos = []
+    rectangle_pos.clear()
 
     print("test", coordinates_list)
 

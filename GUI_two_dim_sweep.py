@@ -2,6 +2,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, END, Label
 import pandas as pd
+import numpy as np
 from PIL import ImageTk
 import ctypes
 import glob
@@ -33,6 +34,11 @@ def coord_text():
     coord_text.var.place(x=220, y=570)
 
 
+def get_y_coord(x):
+    y = np.sqrt(250 ** 2 - (x - 275) ** 2) + 300
+    return int(y)
+
+
 def get_coordinates(event):
     """
     this function gets the coordinates from mouse clicks within the skymap image
@@ -43,17 +49,22 @@ def get_coordinates(event):
         if len(coordinates_list) >= 2:
             coordinates_list.clear()'''
 
+    # y = get_y_coord(event.x)
+    polygon_pos.append([event.x-16, event.y-500, event.x+16, event.y+500])
     coordinates_list.append([event.x - 275, -1 * (event.y - 300)])
 
     print(coordinates_list)
     if len(coordinates_list) == 1:
         coord_text()
+        canvas.create_rectangle(polygon_pos, tags='my_polygon',
+                                outline="#A5A5A5")
         '''elif len(coordinates_list) == 2:
         coord_text.var["text"] = ""
         coord_text(0)
         print("coordinates check 0", coordinates_list)'''
     elif len(coordinates_list) >= 2:
         coord_text.var["text"] = "Click R"
+        canvas.delete('my_polygon')
     '''elif len(coordinates_list) > 2:
         coordinates_list.clear()
         coord_text.var["text"] = ""
@@ -73,7 +84,7 @@ def unbind_mouse(two_sweep_window, entry_1):
     to the route planning subsystem
     """
     two_sweep_window.unbind('<Button-1>')
-    #del coordinates_list[1]
+    # del coordinates_list[1]
     print("coordinates check 1", coordinates_list)
 
     print("mouse unbound")
@@ -101,7 +112,7 @@ def image_gui_integration(hr_duration, num_scans, row):
     this function integrates the image processing and GUI subsystems
     """
 
-    # clear csv files from the Signal Data folder
+    '''# clear csv files from the Signal Data folder
     files_in_directory = os.listdir('Z:\\Signal Data\\')
     filtered_files = [file for file in files_in_directory if file.endswith(".csv")]
     for file in filtered_files:
@@ -109,9 +120,9 @@ def image_gui_integration(hr_duration, num_scans, row):
         os.remove(path_to_file)
 
     # write data files to append data to
-    signal_processing.write_blank_files()
+    signal_processing.write_blank_files()'''
 
-    while True:
+    '''while True:
         with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:
             write_check = c.readlines()
 
@@ -124,23 +135,21 @@ def image_gui_integration(hr_duration, num_scans, row):
                 lines = f.readlines()
                 if lines[0] == '1':
                     break
-            time.sleep(10)
+            time.sleep(10)'''
 
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
     time_list = stellarium_screenshots.time_tracker(hr_duration)
 
-    # after the images are taken and cropped
+    # check for signal data to be ready from the PI
     while True:
         with open('Z:\\Signal Data\\Signal_Key.txt') as c:
             write_check = c.readlines()
-
-        print(write_check)
-        if write_check[0] == '1':
-            break
-        else:
-            print("sleepy_scan")
-            time.sleep(10)
+            if write_check[0] == '1':
+                break
+            else:
+                print("sleepy_scan")
+                time.sleep(10)
 
     # format data files correctly
     image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
@@ -184,6 +193,7 @@ def image_gui_integration(hr_duration, num_scans, row):
 
 def reset_selection(two_sel_window):
     coordinates_list.clear()
+    polygon_pos.clear()
     coord_text.var["text"] = ""
     two_sel_window.unbind('<Button-1>')
 
@@ -193,10 +203,12 @@ def main(og_window):
     og_window.destroy()
 
     # set GUI clarity
-    #ctypes.windll.shcore.SetProcessDpiAwareness(3)
+    # ctypes.windll.shcore.SetProcessDpiAwareness(3)
     global coordinates_list
     global canvas
+    global polygon_pos
 
+    polygon_pos = []
     coordinates_list = []
 
     # create the GUI window for this mode
@@ -444,3 +456,7 @@ def main(og_window):
 
     two_sweep_window.resizable(False, False)
     two_sweep_window.mainloop()
+
+
+'''print(get_y_coord(290))
+print(get_y_coord(260))'''
