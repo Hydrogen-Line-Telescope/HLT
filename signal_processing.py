@@ -40,7 +40,8 @@ def graph_data(file_name):
     linear_sig = np.array(linear_sig)
 
     # trying out different thresholds
-    for threshold in [1e3, 5e3, 1e4, 5e4]:
+    # [1e3, 5e3, 1e4, 5e4]
+    for threshold in [1e4]:
         filtered_sig = filter_signal(linear_sig, threshold)
         filtered_sig = filtered_sig[5:-5]
         freq = freq[5:-5]
@@ -130,15 +131,18 @@ def read_signal():
     # -k, percentage of crop
     # -n, number of spectra to average, default is 1600
     # "-d", "driver=rtlsdr"
-    command_line = subprocess.run(["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O",
+    command_line = subprocess.run(["soapy_power", "-q", "-f", "1.42040575GG", "-O",
                                    "raw_signal_data.csv", "-g", "37.5", "-n", "12800"])
 
-    # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.2G", "-O", "signal_demo.csv", "-g", "37.5", "-n", "12800"]
+    # ["soapy_power", "-q", "-d", "driver=rtlsdr", "-f", "1.42040575G", "-O", "signal_demo.csv",
+    # "-g", "37.5", "-n", "12800"]
     # hydrogen line frequency, 1.420405751G
     # get_freq_mag('raw_signal_data.csv')
     graph_data('raw_signal_data.csv')
 
 
+read_signal()
+#graph_data('raw_signal_data.csv')
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 #graph_data("TEST_ANTENNA_raw_signal_data.csv")
 '''write_blank_files()
