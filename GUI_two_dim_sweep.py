@@ -99,6 +99,7 @@ def unbind_mouse(two_sweep_window, entry_1):
     routedf = pd.DataFrame(route_list)
 
     routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
+    print(routedf)
     with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
         f.write('0')
     two_sweep_window.destroy()

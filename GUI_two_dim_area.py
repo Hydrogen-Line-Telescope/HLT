@@ -117,6 +117,7 @@ def unbind_mouse(two_sel_window):
         # Z:\\Route Data\\Scanning_Route.csv
         # print("dataframe", routedf)
         routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
+        print(routedf)
 
         with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
             f.write('0')
@@ -141,7 +142,7 @@ def image_gui_integration(coordinates, row):
     # write data files to append data to
     signal_processing.write_blank_files()'''
 
-    # run signal processing, check to see if route is complete every 10 seconds
+    '''# run signal processing, check to see if route is complete every 10 seconds
     while True:
         with open('Z:\\Signal Data\\Signal_Processing_Key.txt') as c:
             write_check = c.readlines()
@@ -155,7 +156,7 @@ def image_gui_integration(coordinates, row):
                 lines = f.readlines()
                 if lines[0] == '1':
                     break
-            time.sleep(10)
+            time.sleep(10)'''
 
     # check for signal data - check a value in a file?
 

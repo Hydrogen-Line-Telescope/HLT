@@ -12,5 +12,8 @@ mask = mask.resize(im.size, Image.ANTIALIAS)
 im.putalpha(mask)
 im.show()'''
 
-files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*')
-print(files)
+'''files = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\*')
+print(files)'''
+
+for i in range(0, 5):
+    print(i)

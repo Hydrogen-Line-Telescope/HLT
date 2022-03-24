@@ -12,7 +12,7 @@ def normalize(max_r, c):
 
 def inv_projection(max_r, c_cart):
     # the image only includes 70 degrees so it needs to increase the max radius to the max radius of the equal area projection
-    max_r = 1.1539 * max_r
+    max_r = 1.515 * max_r
 
     # initializes values
     c_sph = [0, 0]  # Phi, Theta
@@ -60,6 +60,7 @@ def two_dim(max_r, c_l, c_r, hpbw):
     c_r_w = [x_2, y_2]
 
     # creates output array
+
     points_out = []
 
     # gets the two corner values
@@ -74,6 +75,8 @@ def two_dim(max_r, c_l, c_r, hpbw):
     num_points_x = int(np.ceil(phi_x_delta / hpbw))
     num_points_y = int(np.ceil(phi_y_delta / hpbw))
 
+    points_out_wo = [[0 for i in range(num_points_y+2)] for j in range(num_points_x+2)]
+
     # interpolates the new points to be used in the final image
     for i in range(0, num_points_x + 1):
         for j in range(0, num_points_y + 1):
@@ -83,7 +86,15 @@ def two_dim(max_r, c_l, c_r, hpbw):
             next_point = np.around([inbetween_x, inbetween_y], decimals=0)
             next_point = next_point.tolist()
 
-            points_out.append(next_point)
+            points_out_wo[i][j] = next_point
+
+    for i in range(0, num_points_x + 1):
+        for j in range(0, num_points_y + 1):
+            if (i % 2) == 0:
+                points_out.append(points_out_wo[i][num_points_y - j])
+            else:
+                points_out.append(points_out_wo[i][j])
+
 
     # projection maps them to get the correct list of points
     for i in range(0, len(points_out)):

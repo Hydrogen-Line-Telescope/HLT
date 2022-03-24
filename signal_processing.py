@@ -141,7 +141,7 @@ def read_signal():
     graph_data('raw_signal_data.csv')
 
 
-read_signal()
+# read_signal()
 #graph_data('raw_signal_data.csv')
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 #graph_data("TEST_ANTENNA_raw_signal_data.csv")
