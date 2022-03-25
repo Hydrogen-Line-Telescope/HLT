@@ -156,7 +156,7 @@ def image_gui_integration(hr_duration, num_scans):
     # send files in order to the overlay function
     # save to the Overlays folder
     for i in range(0, num_scans):
-        image_overlay.image_overlay(heatmap_files[i], cropped_files[i], heatmap_size, str(i))
+        image_overlay.image_overlay(heatmap_files[i], cropped_files[0], heatmap_size, str(i))
 
     # create a gif
     # GUI_display_results.clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results')
