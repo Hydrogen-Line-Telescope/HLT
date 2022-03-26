@@ -92,6 +92,7 @@ def select_mode_main():
     creates the select mode GUI window
     calls functions for each mode from the GUI buttons
     """
+
     '''Z:\\Route Data\\'''
     # uncomment this for actual running, commented for highschool fair
     with open('Z:\\Route Data\\Route_Key.txt') as f:
