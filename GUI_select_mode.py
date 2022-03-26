@@ -93,15 +93,15 @@ def select_mode_main():
     calls functions for each mode from the GUI buttons
     """
     '''Z:\\Route Data\\'''
+    # uncomment this for actual running, commented for highschool fair
     with open('Z:\\Route Data\\Route_Key.txt') as f:
         lines = f.readlines()
         print(lines)
         if lines[0] == '0':
             sys.exit("Route planning in progress, please wait.")
 
-
     # clear the Screenshots folder
-    #clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
+    clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
 
     # clear the Heatmaps folder
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps')
@@ -113,7 +113,7 @@ def select_mode_main():
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays')
 
     # get a current stellarium screenshot
-    #stellarium_screenshots.open_close_stellarium()
+    stellarium_screenshots.open_close_stellarium()
 
     # crop the stellarium image for the GUI
     crop_image()
