@@ -104,6 +104,12 @@ def select_mode_main():
     with open('Z:\\Route Data\\Duration_Key.txt', 'w') as d:
         d.write('0')
 
+    with open('Z:\\Route Data\\RPA_Key.txt', 'w') as d:
+        d.write('0')
+
+    with open('Z:\\Signal Data\\Signal_Key.txt', 'w') as d:
+        d.write('0')
+
     # clear the Screenshots folder
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
 
