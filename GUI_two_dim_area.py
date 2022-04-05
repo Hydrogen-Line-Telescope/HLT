@@ -117,7 +117,7 @@ def unbind_mouse(two_sel_window):
         # Z:\\Route Data\\Scanning_Route.csv
         # print("dataframe", routedf)
         routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
-        print(routedf)
+        print("Route Path", routedf)
 
         with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
             f.write('0')
@@ -177,11 +177,11 @@ def image_gui_integration(coordinates, row):
     while True:
         with open('Z:\\Signal Data\\Signal_Key.txt') as c:
             write_check = c.readlines()
-            if write_check[0] == '1':
-                break
-            else:
-                print("sleepy_scan")
-                time.sleep(30)
+        if write_check[0] == '1':
+            break
+        else:
+            print("sleepy_scan")
+            time.sleep(15)
 
     # format data files correctly
     image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)

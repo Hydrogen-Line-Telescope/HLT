@@ -116,7 +116,12 @@ def two_terra(max_r, c, hpbw):
 
     # calculates the top and bottom of the circle to further interpolate points
     y_1 = np.sqrt((max_r ** 2) - x)
-    y_2 = -1 * np.sqrt((max_r ** 2) - x)
+    y_2 = -1 * y_1
+
+    if y_1 > 138:
+        y_1 = 138
+    if y_2 < -138:
+        y_2 = -138
 
     # creates output list
     c_s_out = []

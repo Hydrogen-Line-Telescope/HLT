@@ -82,6 +82,9 @@ def unbind_mouse(rpa_window, entry_1):
     routedf.to_csv('Z:\\Route Data\\Scanning_Route.csv', index=False)
     with open('Z:\\Route Data\\Route_Key.txt', 'w') as f:
         f.write('0')
+    # tell route runner that the mode is RPA and earth's rotation function is not needed
+    with open('Z:\\Route Data\\RPA_Key.txt', 'w') as d:
+        d.write('1')
     rpa_window.destroy()
 
     image_gui_integration(hr_duration, num_scans)
@@ -117,6 +120,9 @@ def image_gui_integration(hr_duration, num_scans):
                     break
             time.sleep(10)'''
 
+    with open('Z:\\Route Data\\Duration_Key.txt', 'w') as d:
+        d.write(str(hr_duration))
+
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
     time_list = stellarium_screenshots.time_tracker(hr_duration)
@@ -125,11 +131,11 @@ def image_gui_integration(hr_duration, num_scans):
     while True:
         with open('Z:\\Signal Data\\Signal_Key.txt') as c:
             write_check = c.readlines()
-            if write_check[0] == '1':
-                break
-            else:
-                print("sleepy_scan")
-                time.sleep(10)
+        if write_check[0] == '1':
+            break
+        else:
+            print("sleepy_scan")
+            time.sleep(15)
 
     # continue with image processing
     # read frequency and magnitude data into pandas dataframes

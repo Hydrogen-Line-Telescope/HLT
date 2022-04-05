@@ -90,6 +90,7 @@ def time_tracker(hr_duration):
     proc_stellarium = subprocess.Popen(path)
     time.sleep(10)
     change_settings(url)
+    time.sleep(5)
 
     # 15 min = 840 seconds
     # - 10 seconds of sleep for stellarium to open
@@ -104,7 +105,7 @@ def time_tracker(hr_duration):
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
         time_list.append(str(current_time))
-        time.sleep(2)
+        time.sleep(5)
 
     proc_stellarium.kill()
     print(time_list)

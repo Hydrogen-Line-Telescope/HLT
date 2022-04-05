@@ -1,6 +1,7 @@
 import glob
 from PIL import Image, ImageDraw
 import numpy as np
+import time
 import image_processing as im_proc
 import pandas as pd
 import image_overlay
@@ -220,7 +221,7 @@ for file in filtered_files:
 
 signal_processing.write_blank_files()'''
 
-row = 8
+'''row = 8
 # image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
 
 # continue with image processing
@@ -238,4 +239,20 @@ freqdf = freqdf.iloc[:, 1:]
 magdf = magdf.iloc[:, 1:]
 
 # call the heatmap function with the 2D area data
-image_processing.two_dim_sweep(freqdf, magdf, 6)
+image_processing.two_dim_sweep(freqdf, magdf, 6)'''
+
+'''with open('Z:\\Route Data\\Route_Key.txt', 'w') as c:
+    c.write("hello_9")
+    #print(write_check)'''
+
+while True:
+    with open('Z:\\Route Data\\Route_Key.txt') as c:
+        write_check = c.readlines()
+        print(write_check)
+        c.close()
+
+    if write_check[0] == '1':
+        break
+    else:
+        print("sleepy_scan")
+        time.sleep(15)

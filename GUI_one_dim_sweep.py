@@ -120,6 +120,9 @@ def image_gui_integration(hr_duration, num_scans):
                     break
             time.sleep(10)'''
 
+    with open('Z:\\Route Data\\Duration_Key.txt', 'w') as d:
+        d.write(str(hr_duration))
+
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
     time_list = stellarium_screenshots.time_tracker(hr_duration)
@@ -128,11 +131,13 @@ def image_gui_integration(hr_duration, num_scans):
     while True:
         with open('Z:\\Signal Data\\Signal_Key.txt') as c:
             write_check = c.readlines()
-            if write_check[0] == '1':
-                break
-            else:
-                print("sleepy_scan")
-                time.sleep(10)
+            print(write_check)
+
+        if write_check[0] == '1':
+            break
+        else:
+            print("sleepy_scan")
+            time.sleep(15)
 
     # continue with image processing
     # read frequency and magnitude data into pandas dataframes
