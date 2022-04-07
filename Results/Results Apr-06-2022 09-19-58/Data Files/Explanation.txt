@@ -1,0 +1,9 @@
+Route Key:
+0 - hasn't been read by the PI - gui don't write over file, process running
+1 - has been read by the PI - gui can write over file if new request
+
+Signal Key:
+0 - signal data is not ready
+1 - signal data is ready to read
+
+write key to a .txt file

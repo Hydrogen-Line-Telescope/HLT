@@ -118,10 +118,10 @@ def two_terra(max_r, c, hpbw):
     y_1 = np.sqrt((max_r ** 2) - x)
     y_2 = -1 * y_1
 
-    if y_1 > 138:
-        y_1 = 138
-    if y_2 < -138:
-        y_2 = -138
+    if y_1 > 69:
+        y_1 = 69
+    if y_2 < -69:
+        y_2 = -69
 
     # creates output list
     c_s_out = []
