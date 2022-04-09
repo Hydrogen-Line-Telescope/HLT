@@ -245,7 +245,7 @@ image_processing.two_dim_sweep(freqdf, magdf, 6)'''
     c.write("hello_9")
     #print(write_check)'''
 
-while True:
+'''while True:
     with open('Z:\\Route Data\\Route_Key.txt') as c:
         write_check = c.readlines()
         print(write_check)
@@ -255,4 +255,25 @@ while True:
         break
     else:
         print("sleepy_scan")
-        time.sleep(15)
+        time.sleep(15)'''
+
+freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
+magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
+
+# delete first column - just indexing
+freqdf = freqdf.iloc[:, 1:]
+magdf = magdf.iloc[:, 1:]
+
+print(magdf)
+
+# normalize magnitude data
+min_mag = 0
+max_mag = 0.0014
+
+normalized_df = (magdf - min_mag) / (max_mag - min_mag)
+
+print(normalized_df)
+
+
+image_processing.two_dim_sel(freqdf, normalized_df)
+

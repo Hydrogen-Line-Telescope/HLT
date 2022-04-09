@@ -105,7 +105,7 @@ def two_dim(max_r, c_l, c_r, hpbw):
 
         points_out[i] = next_point
 
-    return points_out, num_points_y, num_points_x
+    return points_out, (num_points_y + 1), (num_points_x + 1)
 
 
 def two_terra(max_r, c, hpbw):

@@ -142,9 +142,15 @@ def image_gui_integration(hr_duration, num_scans):
     freqdf = pd.read_csv('Z:\\Signal Data\\freq_data.csv')
     magdf = pd.read_csv('Z:\\Signal Data\\mag_data.csv')
 
+    # normalize the magnitude data
+    min_mag = 0
+    max_mag = 0.0014
+
+    normalized_df = (magdf - min_mag) / (max_mag - min_mag)
+
     # call the heatmap function with the data
     # assuming that the heatmap data is in columns from left - the first scan - to right - the last scan
-    image_processing.one_dim_sweep_rpa(freqdf, magdf, num_scans)
+    image_processing.one_dim_sweep_rpa(freqdf, normalized_df, num_scans)
 
     # get the size of the heatmap for image overlay
     heatmap_size = image_overlay.one_dim_terr_rpa_coordinates(coordinates_list)

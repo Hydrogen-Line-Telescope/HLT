@@ -195,8 +195,15 @@ def image_gui_integration(coordinates, row):
     freqdf = freqdf.iloc[:, 1:]
     magdf = magdf.iloc[:, 1:]
 
+
+    # normalize magnitude data
+    min_mag = 0
+    max_mag = 0.0014
+
+    normalized_df = (magdf - min_mag)/(max_mag - min_mag)
+
     # call the heatmap function with the 2D area data
-    image_processing.two_dim_sel(freqdf, magdf)
+    image_processing.two_dim_sel(freqdf, normalized_df)
 
     # get the size of the heatmap for image overlay
     heatmap_size = image_overlay.two_dim_sel_coordinates(coordinates)
