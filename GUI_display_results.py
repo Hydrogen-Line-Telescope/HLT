@@ -175,6 +175,16 @@ def copy_results_data(results_dir):
     display_overlay_dest = results_dir + "\\Image Overlays With Timestamps"
     shutil.copytree(display_overlay_dir, display_overlay_dest)
 
+    # copy over heatmap images
+    heatmap_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps"
+    heatmap_dest = results_dir + "\\Heatmaps"
+    shutil.copytree(heatmap_dir, heatmap_dest)
+
+    # copy over screenshot images
+    screenshot_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots"
+    screenshot_dest = results_dir + "\\Screenshots"
+    shutil.copytree(screenshot_dir, screenshot_dest)
+
 
 def create_results_folder():
     # time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
