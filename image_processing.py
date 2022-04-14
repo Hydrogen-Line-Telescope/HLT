@@ -249,10 +249,10 @@ freqdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\fr
 magdf0 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
 two_dim_sel(freqdf0, magdf0)'''
 
-'''foo.two_dim_sweep_data(6, 9)'''
-'''freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
+'''foo.two_dim_sweep_data(6, 9)
+freqdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')
 magdf1 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\mag_data_two_sweep.csv')
-two_dim_sweep(freqdf1, magdf1, 8)'''
+two_dim_sweep(freqdf1, magdf1, 6)'''
 
 '''foo.two_dim_sweep_data(1, 10)
 freqdf2 = pd.read_csv('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\freq_data_two_sweep.csv')

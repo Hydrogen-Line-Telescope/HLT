@@ -185,6 +185,11 @@ def copy_results_data(results_dir):
     screenshot_dest = results_dir + "\\Screenshots"
     shutil.copytree(screenshot_dir, screenshot_dest)
 
+    # copy over gifs
+    gif_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays"
+    gif_dest = results_dir + "\\Display Overlays"
+    shutil.copytree(gif_dir, gif_dest)
+
 
 def create_results_folder():
     # time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']

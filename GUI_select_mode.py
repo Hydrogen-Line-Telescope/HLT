@@ -94,6 +94,7 @@ def select_mode_main():
     """
 
     '''Z:\\Route Data\\'''
+
     # uncomment this for actual running, commented for highschool fair
     with open('Z:\\Route Data\\Route_Key.txt') as f:
         lines = f.readlines()
@@ -129,7 +130,7 @@ def select_mode_main():
     crop_image()
 
     # set the GUI clarity
-    #ctypes.windll.shcore.SetProcessDpiAwareness(3)
+    # ctypes.windll.shcore.SetProcessDpiAwareness(3)
 
     # create the select mode window, link the functions for each mode
     window = Tk()
