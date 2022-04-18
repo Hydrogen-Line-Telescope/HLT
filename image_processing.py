@@ -171,6 +171,44 @@ def format_data_files(freq_file, mag_file, row):
     output_mag_df_transposed.to_csv("Z:\\Signal Data\\format_mag_data.csv")
 
 
+def format_2dim_sweep_data_files(freq_file, mag_file, row):
+    freqdf = pd.read_csv(freq_file)
+
+    freqlist = freqdf['0'].tolist()
+
+    # split list based off of row number
+    split_freq = [freqlist[i:i + row] for i in range(0, len(freqlist), row)]
+
+    '''# reverse every odd row to account for route path take by the motorized mount
+    for i in range(len(split_freq)):
+        if i % 2 != 0:
+            split_freq[i].reverse()'''
+
+    # put data into a DataFrame and write to a csv
+    output_freq_df = pd.DataFrame(split_freq)
+    output_freq_df_transposed = output_freq_df.transpose()
+    '''Z:\\'''
+    output_freq_df_transposed.to_csv("Z:\\Signal Data\\format_freq_data.csv")
+
+    # do the same for magdf
+    magdf = pd.read_csv(mag_file)
+
+    maglist = magdf['0'].tolist()
+
+    # split list based off of row number
+    split_mag = [maglist[i:i + row] for i in range(0, len(maglist), row)]
+
+    '''# reverse every odd row to account for route path take by the motorized mount
+    for i in range(len(split_mag)):
+        if i % 2 != 0:
+            split_mag[i].reverse()'''
+
+    # put data into a DataFrame and write to a csv
+    output_mag_df = pd.DataFrame(split_mag)
+    output_mag_df_transposed = output_mag_df.transpose()
+    output_mag_df_transposed.to_csv("Z:\\Signal Data\\format_mag_data.csv")
+
+
 def two_dim_sweep(freqdf, magdf, num_scans):
     # data is in multiple columns, each scan is one column
     # number of columns is determined by the number of scans

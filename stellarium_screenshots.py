@@ -13,7 +13,7 @@ from datetime import datetime
 # need to set the screenshot location in Stellarium to "Screenshots" folder within the HLT project
 
 
-def crop_image(im, num_image):
+def crop_image(im, num_image, mode):
     """
     this function takes the screenshot output by stellarium and crops the image to fit
     within the GUI as a lower quality circle
@@ -21,11 +21,18 @@ def crop_image(im, num_image):
 
     width, height = im.size  # Get dimensions
 
-    # 950 for a  55 degree circle, 1250 for an 85 degree circle
-    left = (width - 950) / 2
-    top = (height - 950) / 2
-    right = (width + 950) / 2
-    bottom = (height + 950) / 2
+    if mode == "2D":
+        # 30-35 ish degree circle for 2D terrestrial
+        left = (width - 600) / 2
+        top = (height - 600) / 2
+        right = (width + 600) / 2
+        bottom = (height + 600) / 2
+    else:
+        # 950 for a  55 degree circle, 1250 for an 85 degree circle
+        left = (width - 950) / 2
+        top = (height - 950) / 2
+        right = (width + 950) / 2
+        bottom = (height + 950) / 2
 
     # Crop the center of the image
     im = im.crop((left, top, right, bottom))
@@ -73,7 +80,7 @@ def clear_folder(folder_path):
         os.remove(f)
 
 
-def time_tracker(hr_duration):
+def time_tracker(hr_duration, mode):
     """
      this function will take a new stellarium screenshot every 15 minutes for the two terrestrial scanning modes
     """
@@ -81,6 +88,7 @@ def time_tracker(hr_duration):
     # first, clear the Screenshots folder to get rid of the screenshot taken for the GUI display
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots')
 
+    # take a screenshot every 15 min - every 3.75 degrees of earth rotation
     min_duration = hr_duration * 60
     num_screenshots = (min_duration / 15) + 1
     print(num_screenshots)
@@ -120,7 +128,7 @@ def time_tracker(hr_duration):
         print(files[i])
         image = Image.open(files[i])
         # pass the image and image number to the crop_image function
-        crop_image(image, str(i))
+        crop_image(image, str(i), mode)
 
     return time_list
 

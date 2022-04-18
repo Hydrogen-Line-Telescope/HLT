@@ -143,7 +143,7 @@ def image_gui_integration(hr_duration, num_scans, row):
 
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
-    time_list = stellarium_screenshots.time_tracker(hr_duration)
+    time_list = stellarium_screenshots.time_tracker(hr_duration, "2D")
 
     # check for signal data to be ready from the PI
     while True:
@@ -156,7 +156,8 @@ def image_gui_integration(hr_duration, num_scans, row):
             time.sleep(15)
 
     # format data files correctly
-    image_processing.format_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv', row)
+    image_processing.format_2dim_sweep_data_files('Z:\\Signal Data\\freq_data.csv', 'Z:\\Signal Data\\mag_data.csv',
+                                                  row)
 
     # continue with image processing
     # read formatted frequency and magnitude data into pandas dataframes

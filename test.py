@@ -257,7 +257,7 @@ image_processing.two_dim_sweep(freqdf, magdf, 6)'''
         print("sleepy_scan")
         time.sleep(15)'''
 
-freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
+'''freqdf = pd.read_csv('Z:\\Signal Data\\format_freq_data.csv')
 magdf = pd.read_csv('Z:\\Signal Data\\format_mag_data.csv')
 
 # delete first column - just indexing
@@ -276,4 +276,67 @@ print(normalized_df)
 
 
 image_processing.two_dim_sel(freqdf, normalized_df)
+'''
 
+
+def crop_image(im, num_image, mode):
+    """
+    this function takes the screenshot output by stellarium and crops the image to fit
+    within the GUI as a lower quality circle
+    """
+
+    width, height = im.size  # Get dimensions
+
+    if mode == "2D":
+        # 30 degree circle for 2D terrestrial
+        left = (width - 600) / 2
+        top = (height - 600) / 2
+        right = (width + 600) / 2
+        bottom = (height + 600) / 2
+    else:
+        # 950 for a  55 degree circle, 1250 for an 85 degree circle
+        left = (width - 950) / 2
+        top = (height - 950) / 2
+        right = (width + 950) / 2
+        bottom = (height + 950) / 2
+
+    # Crop the center of the image
+    im = im.crop((left, top, right, bottom))
+
+    img = im.convert("RGB")
+    npImage = np.array(img)
+    h, w = img.size
+
+    # Create same size alpha layer with circle
+    alpha = Image.new('L', img.size, 0)
+    draw = ImageDraw.Draw(alpha)
+    draw.pieslice([0, 0, h, w], 0, 360, fill=255)
+
+    # Convert alpha Image to numpy array
+    npAlpha = np.array(alpha)
+
+    # Add alpha layer to RGB
+    npImage = np.dstack((npImage, npAlpha))
+
+    # Save with alpha
+    Image.fromarray(npImage).save(
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped-' + num_image + '.png')
+
+    im = Image.open(
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped-' + num_image + '.png')
+    width, height = im.size  # Get dimensions
+    # print(width, height)
+
+    new_im = im.resize((500, 500), Image.ANTIALIAS)
+    width, height = im.size  # Get dimensions
+    # print(width, height)
+    # cropped images labeled as cropped_stellarium-#.png
+    new_im.save(
+        'C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\Cropped-' + num_image + '.png',
+        'PNG',
+        quality=100)
+
+
+image = Image.open("C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\stellarium-001.png")
+# image_processing.format_2dim_sweep_data_files("freq_data_two_sweep.csv", "mag_data_two_sweep.csv", 3)
+crop_image(image, "17", "2D")

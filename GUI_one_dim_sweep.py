@@ -125,7 +125,7 @@ def image_gui_integration(hr_duration, num_scans):
 
     num_scans = int(num_scans)
     # call the time tracker function to start taking Stellarium screenshots
-    time_list = stellarium_screenshots.time_tracker(hr_duration)
+    time_list = stellarium_screenshots.time_tracker(hr_duration, "none")
 
     # check for signal data to be ready from the PI
     while True:
