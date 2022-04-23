@@ -337,6 +337,24 @@ def crop_image(im, num_image, mode):
         quality=100)
 
 
-image = Image.open("C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\stellarium-001.png")
+'''image = Image.open("C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\stellarium-001.png")
 # image_processing.format_2dim_sweep_data_files("freq_data_two_sweep.csv", "mag_data_two_sweep.csv", 3)
-crop_image(image, "17", "2D")
+crop_image(image, "17", "2D")'''
+
+
+coordinates = [[-68, -101], [106, 0]]
+
+heatmap_size = image_overlay.two_dim_sel_coordinates(coordinates)
+
+print(heatmap_size)
+# get cropped stellarium image path
+cropped_file = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Screenshots\\cropped_stellarium'
+                         '.png')
+
+# get heatmap image paths
+heatmap_file = glob.glob('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Heatmaps\\Heatmap.png')
+
+# send files to the overlay function
+# save to the Overlays folder
+image_overlay.image_overlay(heatmap_file[0], cropped_file[0], heatmap_size, '0')
+

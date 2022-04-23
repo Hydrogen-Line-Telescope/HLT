@@ -106,7 +106,8 @@ def two_dim_sel_coordinates(gui_coordinates):
     # change the order of the coordinates for PIL functions, left, bottom, right top
     # [x1, y1, x2, y2]
     # [left, top, right, bottom]
-    heatmap_size = [placement_coordinates[0], placement_coordinates[3], placement_coordinates[2], placement_coordinates[1]]
+    heatmap_size = [placement_coordinates[0]-16, placement_coordinates[3]-16, placement_coordinates[2]+16,
+                    placement_coordinates[1]+16]
 
     '''print("placement_coordinates", placement_coordinates)
     print("heatmap_size", heatmap_size)'''
