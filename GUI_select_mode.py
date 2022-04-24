@@ -129,6 +129,7 @@ def select_mode_main():
     # get a current stellarium screenshot
     stellarium_screenshots.open_close_stellarium()
 
+    
     # crop the stellarium image for the GUI
     crop_image()
 

@@ -715,7 +715,7 @@ def display_two_dim_sel():
     window.mainloop()
 
 
-#display_two_dim_sel()
+# display_two_dim_sel()
 '''time_list = ['12:30:14', '12:30:24', '12:30:34', '12:30:44', '12:30:54']
 #test()
 #create_display_gif()
