@@ -41,7 +41,7 @@ def graph_data(file_name):
 
     # trying out different thresholds
     # [1e3, 5e3, 1e4, 5e4]
-    for threshold in [1e4]:
+    for threshold in [1e3]:
         filtered_sig = filter_signal(linear_sig, threshold)
         filtered_sig = filtered_sig[5:-5]
         freq = freq[5:-5]
@@ -142,7 +142,11 @@ def read_signal():
 
 
 # read_signal()
-#graph_data('raw_signal_data.csv')
+'''graph_data('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Results\\Results Apr-24-2022 14-17-41\\Data '
+           'Files\\raw_signal_data.csv')
+
+graph_data('RTL_LNA_Reference.csv')'''
+
 #get_freq_mag("TEST_ANTENNA_raw_signal_data.csv")
 #graph_data("TEST_ANTENNA_raw_signal_data.csv")
 '''write_blank_files()

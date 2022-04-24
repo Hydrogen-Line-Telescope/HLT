@@ -123,6 +123,9 @@ def select_mode_main():
     # clear the Display Overlays folder
     clear_folder('C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Display Overlays')
 
+    # clear old data graphs
+    clear_folder("Z:\\Scan Graphs")
+
     # get a current stellarium screenshot
     stellarium_screenshots.open_close_stellarium()
 

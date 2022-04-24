@@ -165,6 +165,12 @@ def copy_results_data(results_dir):
     data_dest = results_dir + "\\Data Files"
     shutil.copytree(data_dir, data_dest)
 
+    # copy over data graphs
+    graph_dir = "Z:\\Scan Graphs"
+    # data_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Signal Data\\"
+    graph_dest = results_dir + "\\Data Graphs"
+    shutil.copytree(graph_dir, graph_dest)
+
     # copy over Overlay images
     overlay_dir = "C:\\Users\\jojok\\PycharmProjects\\pythonProject\\HLT\\Overlays"
     overlay_dest = results_dir + "\\Image Overlays"

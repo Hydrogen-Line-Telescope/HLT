@@ -12,7 +12,6 @@ import stellarium_screenshots
 import image_processing
 import image_overlay
 import GUI_display_results
-import signal_processing
 
 
 def relative_to_assets(path: str) -> Path:
